@@ -1,5 +1,5 @@
 # ruapu
-detect cpu isa features with single-file for C/C++
+detect cpu isa features with single-file
 
 <table>
 <tr><td>CPU arch</td><td> &#9989; x86, x86-64<br/>&#9989; arm, aarch64</td></tr>
