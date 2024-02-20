@@ -11,10 +11,10 @@ detect cpu isa features with single-file
 int main()
 {
     // initialize ruapu once
-    ruapu_cpu_init();
+    ruapu_init();
 
     // now, tell me if this cpu has avx2
-    int has_avx2 = ruapu_cpu_supports("avx2");
+    int has_avx2 = ruapu_supports("avx2");
 
     return 0;
 }
