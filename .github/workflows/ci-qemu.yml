@@ -27,9 +27,14 @@ jobs:
     - name: cross-toolchain
       run: |
         sudo apt-get update
-        sudo apt-get install qemu-user-static gcc-mipsel-linux-gnu
+        sudo apt-get install qemu-user-static gcc-aarch64-linux-gnu gcc-mipsel-linux-gnu
 
-    - name: build-test
+    - name: build-test-aarch64
+      run: |
+        aarch64-linux-gnu-gcc -march=armv8-a main.c -o ruapu-aarch64
+        qemu-aarch64-static -L /usr/aarch64-linux-gnu ./ruapu-aarch64
+
+    - name: build-test-mipsel
       run: |
         mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mips32
-        qemu-mipsel -L /usr/mipsel-linux-gnu ./ruapu-mips32
+        qemu-mipsel-static -L /usr/mipsel-linux-gnu ./ruapu-mips32
