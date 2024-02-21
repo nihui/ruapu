@@ -27,6 +27,10 @@ jobs:
       run: |
         gcc main.c -o ruapu
         ./ruapu
+    - name: build-test-clang
+      run: |
+        clang main.c -o ruapu-clang
+        ./ruapu-clang
 
   macos:
     runs-on: macos-latest
@@ -55,3 +59,8 @@ jobs:
       run: |
         cl.exe /Fe: ruapu.exe main.c
         .\ruapu.exe
+    - name: build-test-mingw
+      shell: bash
+      run: |
+        gcc main.c -o ruapu-mingw.exe
+        ./ruapu-mingw.exe
