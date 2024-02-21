@@ -29,6 +29,15 @@ jobs:
         clang main.c -o ruapu
         ./ruapu
 
+  macos-arm64:
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        clang main.c -o ruapu
+        ./ruapu
+
   windows:
     runs-on: windows-latest
     steps:
