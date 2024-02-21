@@ -71,6 +71,133 @@ xop = 0
 </td></tr>
 </table>
 
+<details>
+<summary>Github-hosted runner result (Linux)</summary>
+
+```
+mmx = 1
+sse = 1
+sse2 = 1
+sse3 = 1
+ssse3 = 1
+sse41 = 1
+sse42 = 1
+sse4a = 1
+xop = 0
+avx = 1
+f16c = 1
+fma = 1
+avx2 = 1
+avx512f = 0
+avx512bw = 0
+avx512cd = 0
+avx512dq = 0
+avx512vl = 0
+avx512vnni = 0
+avx512bf16 = 0
+avx512ifma = 0
+avx512vbmi = 0
+avx512vbmi2 = 0
+avx512fp16 = 0
+avxvnni = 0
+avxvnniint8 = 0
+avxifma = 0
+```
+
+</details>
+
+<details>
+<summary>Github-hosted runner result (macOS)</summary>
+
+```
+mmx = 1
+sse = 1
+sse2 = 1
+sse3 = 1
+ssse3 = 1
+sse41 = 1
+sse42 = 1
+sse4a = 0
+xop = 0
+avx = 1
+f16c = 1
+fma = 1
+avx2 = 1
+avx512f = 0
+avx512bw = 0
+avx512cd = 0
+avx512dq = 0
+avx512vl = 0
+avx512vnni = 0
+avx512bf16 = 0
+avx512ifma = 0
+avx512vbmi = 0
+avx512vbmi2 = 0
+avx512fp16 = 0
+avxvnni = 0
+avxvnniint8 = 0
+avxifma = 0
+```
+
+</details>
+
+<details>
+<summary>Github-hosted runner result (macOS M1)</summary>
+
+```
+neon = 1
+vfpv4 = 1
+cpuid = 0
+asimdhp = 1
+asimddp = 1
+asimdfhm = 1
+bf16 = 0
+i8mm = 0
+sve = 0
+sve2 = 0
+svebf16 = 0
+svei8mm = 0
+svef32mm = 0
+```
+
+</details>
+
+<details>
+<summary>Github-hosted runner result (Windows)</summary>
+
+```
+mmx = 1
+sse = 1
+sse2 = 1
+sse3 = 1
+ssse3 = 1
+sse41 = 1
+sse42 = 1
+sse4a = 1
+xop = 0
+avx = 1
+f16c = 1
+fma = 1
+avx2 = 1
+avx512f = 0
+avx512bw = 0
+avx512cd = 0
+avx512dq = 0
+avx512vl = 0
+avx512vnni = 0
+avx512bf16 = 0
+avx512ifma = 0
+avx512vbmi = 0
+avx512vbmi2 = 0
+avx512fp16 = 0
+avxvnni = 0
+avxvnniint8 = 0
+avxifma = 0
+```
+
+</details>
+
+
 ## Features
 
 * Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
