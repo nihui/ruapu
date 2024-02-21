@@ -37,4 +37,4 @@ jobs:
     - name: build-test
       run: |
         cl.exe /Fe: ruapu.exe main.c
-        ruapu.exe
+        .\ruapu.exe
