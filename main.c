@@ -11,7 +11,7 @@
 
 int main()
 {
-    raupu_init();
+    ruapu_init();
 
 #define PRINT_ISA_SUPPORT(isa) fprintf(stderr, "%s = %d\n", #isa, ruapu_supports(#isa));
 
