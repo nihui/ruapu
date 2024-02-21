@@ -3,7 +3,7 @@
 ![GitHub License](https://img.shields.io/github/license/nihui/ruapu?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nihui/ruapu/ci.yml?style=for-the-badge)
 
-Detect cpu ISA features with single-file
+Detect CPU ISA features with single-file
 
 <table>
 <tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64</td><td rowspan=3>
