@@ -36,6 +36,11 @@ jobs:
             gcc-powerpc64le-linux-gnu \
             gcc-riscv64-linux-gnu
 
+    - name: build-test-arm-thumb
+      run: |
+        arm-linux-gnueabi-gcc -march=armv7-a -mthumb main.c -o ruapu-arm-thumb
+        qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm-thumb
+
     - name: build-test-arm
       run: |
         arm-linux-gnueabi-gcc -march=armv7-a -marm main.c -o ruapu-arm
