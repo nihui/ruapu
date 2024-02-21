@@ -2,8 +2,16 @@ name: ci
 on:
   push:
     branches: [master]
+    paths:
+      - '.github/workflows/ci.yml'
+      - '*.h'
+      - '*.c'
   pull_request:
     branches: [master]
+    paths:
+      - '.github/workflows/ci.yml'
+      - '*.h'
+      - '*.c'
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
