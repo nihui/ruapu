@@ -28,7 +28,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install qemu-user-static \
-            arm-linux-gnueabi-gcc \
+            gcc-arm-linux-gnueabi \
             gcc-aarch64-linux-gnu \
             gcc-mipsel-linux-gnu \
             gcc-mips64el-linux-gnuabi64 \
