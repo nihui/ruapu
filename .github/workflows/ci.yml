@@ -33,7 +33,8 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: ilammy/msvc-dev-cmd@v1
     - name: build-test
       run: |
         cl.exe /Fe: ruapu.exe main.c
-        .\ruapu.exe
+        ruapu.exe
