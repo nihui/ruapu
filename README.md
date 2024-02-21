@@ -1,4 +1,7 @@
 # ruapu
+
+![GitHub License](https://img.shields.io/github/license/nihui/ruapu?style=for-the-badge)
+
 Detect cpu ISA features with single-file
 
 <table>
@@ -99,3 +102,5 @@ ruapu is implemented in C language to ensure the widest possible portability.
 
 ruapu determines whether the CPU supports certain instruction sets by trying to execute instructions and detecting whether an `Illegal Instruction` exception occurs. ruapu does not rely on the cpuid instructions and registers related to the CPU architecture, nor does it rely on the `MISA` information and system calls of the operating system. This can help us get more detailed CPU ISA information.
 
+## License
+MIT License
