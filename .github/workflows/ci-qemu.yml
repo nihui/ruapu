@@ -27,7 +27,19 @@ jobs:
     - name: cross-toolchain
       run: |
         sudo apt-get update
-        sudo apt-get install qemu-user-static gcc-aarch64-linux-gnu gcc-mipsel-linux-gnu
+        sudo apt-get install qemu-user-static \
+            arm-linux-gnueabi-gcc \
+            gcc-aarch64-linux-gnu \
+            gcc-mipsel-linux-gnu \
+            gcc-mips64el-linux-gnuabi64 \
+            gcc-powerpc-linux-gnu \
+            gcc-powerpc64le-linux-gnu \
+            gcc-riscv64-linux-gnu
+
+    - name: build-test-arm
+      run: |
+        arm-linux-gnueabi-gcc -march=armv7-a main.c -o ruapu-arm
+        qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm
 
     - name: build-test-aarch64
       run: |
@@ -36,5 +48,25 @@ jobs:
 
     - name: build-test-mipsel
       run: |
-        mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mips32
-        qemu-mipsel-static -L /usr/mipsel-linux-gnu ./ruapu-mips32
+        mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mipsel
+        qemu-mipsel-static -L /usr/mipsel-linux-gnu ./ruapu-mipsel
+
+    - name: build-test-mips64el
+      run: |
+        mips64el-linux-gnuabi64-gcc -march=mips64 main.c -o ruapu-mips64el
+        qemu-mips64el-static -L /usr/mips64el-linux-gnuabi64 ./ruapu-mips64el
+
+    - name: build-test-powerpc
+      run: |
+        powerpc-linux-gnu-gcc -mcpu=powerpc main.c -o ruapu-powerpc
+        qemu-ppc-static -L /usr/powerpc-linux-gnu ./ruapu-powerpc
+
+    - name: build-test-powerpc64le
+      run: |
+        powerpc64le-linux-gnu-gcc -mcpu=powerpc64le main.c -o ruapu-powerpc64le
+        qemu-ppc64le-static -L /usr/powerpc64le-linux-gnu ./ruapu-powerpc64le
+
+    - name: build-test-riscv64
+      run: |
+        riscv64-linux-gnu-gcc -march=rv64gc main.c -o ruapu-riscv64
+        qemu-riscv64-static -L /usr/riscv64-linux-gnu ./ruapu-riscv64
