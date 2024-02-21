@@ -70,7 +70,7 @@ xop = 0
 ## Features
 
 * Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
-_`x86-sse2`, `x86-avx`, `x86-avx512f`, `arm-neon`, etc._
+_`sse2`, `avx`, `avx512f`, `neon`, etc._
 * Detect **vendor extended ISA**&emsp;&emsp;&emsp;&emsp;
 _apple `amx`, risc-v vendor ISA, etc._
 * Detect **richer ISA on Windows ARM**&emsp;&emsp;
@@ -80,7 +80,7 @@ _macOS hides it in `cpuid`_
 * Detect **new CPU's ISA on old systems**&emsp;
 _they are usually not exposed in `auxv` or `MISA`_
 * Detect **CPU hidden ISA**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-_`x86-fma4` on zen1, ISA in hypervisor, etc._
+_`fma4` on zen1, ISA in hypervisor, etc._
 
 ## Supported ISA _&emsp;(more is comming ... :)_
 
