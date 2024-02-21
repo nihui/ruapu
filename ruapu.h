@@ -7,7 +7,7 @@
 #ifndef RUAPU_H
 #define RUAPU_H
 
-void raupu_init();
+void ruapu_init();
 
 int ruapu_supports(const char* isa);
 
@@ -242,7 +242,7 @@ RUAPU_ISAENTRY(vfpv4)
 
 #undef RUAPU_ISAENTRY
 
-void raupu_init()
+void ruapu_init()
 {
     for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
     {
