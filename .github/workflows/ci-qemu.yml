@@ -38,8 +38,8 @@ jobs:
 
     - name: build-test-arm
       run: |
-        arm-linux-gnueabi-gcc -march=armv7-a main.c -o ruapu-arm
-        # qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm
+        arm-linux-gnueabi-gcc -march=armv7-a -marm main.c -o ruapu-arm
+        qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm
 
     - name: build-test-aarch64
       run: |
