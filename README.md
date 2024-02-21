@@ -1,5 +1,5 @@
 # ruapu
-Detect cpu isa features with single-file
+Detect cpu ISA features with single-file
 
 <table>
 <tr><td>CPU</td><td> &#9989; x86, x86-64<br/>&#9989; arm, aarch64</td><td rowspan=3>
@@ -25,7 +25,7 @@ int main()
 <tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW</td></tr>
 </table>
 
-# Let's ruapu
+## Let's ruapu
 
 <table>
 
@@ -66,3 +66,15 @@ xop = 0
 
 </td></tr>
 </table>
+
+## Techniques inside ruapu
+ruapu is implemented in C language to ensure the widest possible portability.
+
+ruapu determines whether the CPU supports certain instruction sets by trying to execute instructions and detecting whether an `Illegal Instruction` exception occurs. ruapu does not rely on the cpuid instructions and registers related to the CPU architecture, nor does it rely on the `MISA` information and system calls of the operating system. This can help us get more detailed CPU ISA information.
+
+- Detect vendor extended ISA, apple `amx`, risc-v vendor ISA, etc.
+- Checking for richer isa on Windows ARM, `IsProcessorFeaturePresent()` can only get little ISA information
+- Correctly detect `x86-avx512` for macOS, macOS hides it in `cpuid`
+- Detect new cpu's ISA on older systems, they are usually not exposed in `auxv` or `MISA`
+- Detect CPU hidden ISA, `x86-fma4` on zen1, ISA in hypervisor, etc.
+
