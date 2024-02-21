@@ -1,0 +1,35 @@
+name: ci-qemu
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/ci.yml'
+      - '*.h'
+      - '*.c'
+  pull_request:
+    branches: [master]
+    paths:
+      - '.github/workflows/ci.yml'
+      - '*.h'
+      - '*.c'
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: cross-toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install qemu-user-static gcc-mipsel-linux-gnu
+
+    - name: build-test
+      run: |
+        mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mips32
+        qemu-mipsel -L /usr/mipsel-linux-gnu ./ruapu-mips32
