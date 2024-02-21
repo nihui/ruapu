@@ -44,7 +44,7 @@ int main()
     PRINT_ISA_SUPPORT(avxvnniint8)
     PRINT_ISA_SUPPORT(avxifma)
 
-#elif __aarch64__
+#elif __aarch64__ || defined(_M_ARM64)
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)
     PRINT_ISA_SUPPORT(cpuid)
@@ -59,7 +59,7 @@ int main()
     PRINT_ISA_SUPPORT(svei8mm)
     PRINT_ISA_SUPPORT(svef32mm)
 
-#elif __arm__
+#elif __arm__ || defined(_M_ARM)
     PRINT_ISA_SUPPORT(edsp)
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)

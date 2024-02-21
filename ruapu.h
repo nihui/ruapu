@@ -59,14 +59,14 @@ static int ruapu_detect_isa(const void* some_inst)
 #define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned char ruapu_some_##isa[] = { __VA_ARGS__, 0xc3 };
 #endif
 
-#elif __aarch64__
+#elif __aarch64__ || defined(_M_ARM64)
 #ifdef _MSC_VER
 #define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
 #else
 #define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
 #endif
 
-#elif __arm__
+#elif __arm__ || defined(_M_ARM)
 #ifdef _MSC_VER
 #define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
 #else
@@ -160,7 +160,7 @@ RUAPU_INSTCODE(avxvnni, 0x62, 0xf2, 0x7d, 0x28, 0x52, 0xc0) // vpdpwssd ymm0,ymm
 RUAPU_INSTCODE(avxvnniint8, 0xc4, 0xe2, 0x7f, 0x50, 0xc0) // vpdpbssd ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxifma, 0x62, 0xf2, 0xfd, 0x28, 0xb4, 0xc0) // vpmadd52luq %ymm0,%ymm0,%ymm0
 
-#elif __aarch64__
+#elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(vfpv4, 0x0e216800) // fcvtn v0.4h,v0.4s
 RUAPU_INSTCODE(cpuid, 0xd5380000) // mrs x0,midr_el1
@@ -175,7 +175,7 @@ RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
 
-#elif __arm__
+#elif __arm__ || defined(_M_ARM)
 RUAPU_INSTCODE(edsp, 0x0000fb20) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0x0d40ef00) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0x0600ffb6) // vcvt.f16.f32 d0,q0
@@ -217,7 +217,7 @@ RUAPU_ISAENTRY(avxvnni)
 RUAPU_ISAENTRY(avxvnniint8)
 RUAPU_ISAENTRY(avxifma)
 
-#elif __aarch64__
+#elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
 RUAPU_ISAENTRY(cpuid)
@@ -232,7 +232,7 @@ RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
 
-#elif __arm__
+#elif __arm__ || defined(_M_ARM)
 RUAPU_ISAENTRY(edsp)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
