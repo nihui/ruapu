@@ -1,6 +1,7 @@
 # ruapu
 
 ![GitHub License](https://img.shields.io/github/license/nihui/ruapu?style=for-the-badge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nihui/ruapu/ci.yml?style=for-the-badge)
 
 Detect cpu ISA features with single-file
 
