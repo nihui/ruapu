@@ -70,7 +70,7 @@ xop = 0
 ## Features
 
 * Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
-_x86-sse, x86-avx, x86-avx512f, x86-avxvnni, arm-neon, etc._
+_`x86-sse2`, `x86-avx`, `x86-avx512f`, `arm-neon`, etc._
 * Detect **vendor extended ISA**&emsp;&emsp;&emsp;&emsp;
 _apple `amx`, risc-v vendor ISA, etc._
 * Detect **richer ISA on Windows ARM**&emsp;&emsp;
