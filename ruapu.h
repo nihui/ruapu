@@ -176,10 +176,13 @@ RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
 
 #elif __arm__ || defined(_M_ARM)
-RUAPU_INSTCODE(edsp, 0x0000fb20) // smlad r0,r0,r0,r0
-RUAPU_INSTCODE(neon, 0x0d40ef00) // vadd.f32 q0,q0,q0
-RUAPU_INSTCODE(vfpv4, 0x0600ffb6) // vcvt.f16.f32 d0,q0
+// RUAPU_INSTCODE(edsp, 0x0000fb20) // smlad r0,r0,r0,r0
+// RUAPU_INSTCODE(neon, 0x0d40ef00) // vadd.f32 q0,q0,q0
+// RUAPU_INSTCODE(vfpv4, 0x0600ffb6) // vcvt.f16.f32 d0,q0
 
+RUAPU_INSTCODE(edsp, 0xe7000010) // smlad r0,r0,r0,r0
+RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
+RUAPU_INSTCODE(vfpv4, 0xf3b60600) // vcvt.f16.f32 d0,q0
 #endif
 
 #undef RUAPU_INSTCODE
