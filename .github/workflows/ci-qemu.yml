@@ -3,17 +3,17 @@ on:
   push:
     branches: [master]
     paths:
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/ci-qemu.yml'
       - '*.h'
       - '*.c'
   pull_request:
     branches: [master]
     paths:
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/ci-qemu.yml'
       - '*.h'
       - '*.c'
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-qemu-${{ github.ref }}
   cancel-in-progress: true
 permissions:
   contents: read
