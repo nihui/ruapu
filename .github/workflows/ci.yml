@@ -1,0 +1,39 @@
+name: ci
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        gcc main.c -o ruapu
+        ./ruapu
+
+  macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        clang main.c -o ruapu
+        ./ruapu
+
+  windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        cl.exe /Fe: ruapu.exe main.c
+        .\ruapu.exe
