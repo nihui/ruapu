@@ -82,6 +82,18 @@ _they are usually not exposed in `auxv` or `MISA`_
 * Detect **CPU hidden ISA**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 _`x86-fma4` on zen1, ISA in hypervisor, etc._
 
+## Supported ISA _&emsp;(more is comming ... :)_
+
+|CPU|ISA|
+|:---:|---|
+|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avxvnni` `avxvnniint8` `avxifma`|
+|arm|`edsp` `neon` `vfpv4`|
+|aarch64|`neon` `vfpv4` `cpuid` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `sve` `sve2` `svebf16` `svei8mm` `svef32mm`|
+|mips||
+|powerpc||
+|loongarch||
+|risc-v||
+
 ## Techniques inside ruapu
 ruapu is implemented in C language to ensure the widest possible portability.
 
