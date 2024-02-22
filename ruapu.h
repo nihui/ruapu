@@ -132,7 +132,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #if defined(__i386__) || defined(__x86_64__)
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __aarch64__ || __arm__ || __riscv
+#elif __aarch64__ || __arm__ || __mips__ || __riscv
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #endif
 
@@ -211,6 +211,9 @@ RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xf3b60600) // vcvt.f16.f32 d0,q0
 #endif
 
+#elif __mips__
+RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
+
 #elif __riscv
 RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
 RUAPU_INSTCODE(m, 0x02a50533) // mul a0,a0,a0
@@ -276,6 +279,9 @@ RUAPU_ISAENTRY(svef32mm)
 RUAPU_ISAENTRY(edsp)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
+
+#elif __mips__
+RUAPU_ISAENTRY(msa)
 
 #elif __riscv
 RUAPU_ISAENTRY(i)
