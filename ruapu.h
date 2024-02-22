@@ -136,8 +136,10 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #if defined(__i386__) || defined(__x86_64__)
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __aarch64__ || __arm__ || __mips__ || __powerpc__ || __riscv
+#elif __aarch64__ || __arm__ || __mips__ || __riscv
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
+#elif __powerpc__
+#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
 #endif
 
 #else // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__
@@ -219,7 +221,7 @@ RUAPU_INSTCODE(vfpv4, 0xf3b60600) // vcvt.f16.f32 d0,q0
 RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
 
 #elif __powerpc__
-RUAPU_INSTCODE(vsx, 0xc0104210) // vaddudm v2,v2,v2
+RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 
 #elif __riscv
 RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
