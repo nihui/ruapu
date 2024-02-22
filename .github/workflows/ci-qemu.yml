@@ -32,7 +32,7 @@ jobs:
     - name: build-test-arm64
       run: |
         docker run --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/arm64 debian:unstable-slim \
-          apt install build-essential && gcc main.c -o ruapu && ./ruapu
+          apt update && apt install build-essential && gcc main.c -o ruapu && ./ruapu
 
   ubuntu:
     runs-on: ubuntu-latest
