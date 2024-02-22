@@ -22,71 +22,19 @@ jobs:
   qemu:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [ arm, arm64, mips64le, ppc64le, riscv64, s390x ]
+
     steps:
     - uses: actions/checkout@v4
     - name: setup-qemu
       uses: docker/setup-qemu-action@v3
       with:
-        platforms: linux/arm64
+        platforms: linux/${{ matrix.arch }}
 
     - name: build-test-arm64
       run: |
-        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/arm64 debian:unstable-slim \
+        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
           /bin/bash -c "apt update && apt install -y build-essential && gcc main.c -o ruapu && ./ruapu"
-
-  ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: cross-toolchain
-      run: |
-        sudo apt-get update
-        sudo apt-get install qemu-user-static \
-            gcc-arm-linux-gnueabi \
-            gcc-aarch64-linux-gnu \
-            gcc-mipsel-linux-gnu \
-            gcc-mips64el-linux-gnuabi64 \
-            gcc-powerpc-linux-gnu \
-            gcc-powerpc64le-linux-gnu \
-            gcc-riscv64-linux-gnu
-
-    - name: build-test-arm-thumb
-      run: |
-        arm-linux-gnueabi-gcc -march=armv7-a -mthumb main.c -o ruapu-arm-thumb
-        qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm-thumb
-
-    - name: build-test-arm
-      run: |
-        arm-linux-gnueabi-gcc -march=armv7-a -marm main.c -o ruapu-arm
-        qemu-arm-static -L /usr/arm-linux-gnueabi ./ruapu-arm
-
-    - name: build-test-aarch64
-      run: |
-        aarch64-linux-gnu-gcc -march=armv8-a main.c -o ruapu-aarch64
-        qemu-aarch64-static -L /usr/aarch64-linux-gnu ./ruapu-aarch64
-
-    - name: build-test-mipsel
-      run: |
-        mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mipsel
-        qemu-mipsel-static -L /usr/mipsel-linux-gnu ./ruapu-mipsel
-
-    - name: build-test-mips64el
-      run: |
-        mips64el-linux-gnuabi64-gcc -march=mips64 main.c -o ruapu-mips64el
-        qemu-mips64el-static -L /usr/mips64el-linux-gnuabi64 ./ruapu-mips64el
-
-    - name: build-test-powerpc
-      run: |
-        powerpc-linux-gnu-gcc -mcpu=powerpc main.c -o ruapu-powerpc
-        qemu-ppc-static -L /usr/powerpc-linux-gnu ./ruapu-powerpc
-
-    - name: build-test-powerpc64le
-      run: |
-        powerpc64le-linux-gnu-gcc -mcpu=powerpc64le main.c -o ruapu-powerpc64le
-        qemu-ppc64le-static -L /usr/powerpc64le-linux-gnu ./ruapu-powerpc64le
-
-    - name: build-test-riscv64
-      run: |
-        riscv64-linux-gnu-gcc -march=rv64gc main.c -o ruapu-riscv64
-        qemu-riscv64-static -L /usr/riscv64-linux-gnu ./ruapu-riscv64
