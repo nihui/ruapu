@@ -205,6 +205,11 @@ RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
 RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
+RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b, v0.16b, v0.16b, v0.16b
+RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
+RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
+RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s, v0.4s
+
 
 #elif __arm__ || defined(_M_ARM)
 #if __thumb__
@@ -283,6 +288,10 @@ RUAPU_ISAENTRY(sve2)
 RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
+RUAPU_ISAENTRY(sha3)
+RUAPU_ISAENTRY(sha512)
+RUAPU_ISAENTRY(sm3)
+RUAPU_ISAENTRY(sm4)
 
 #elif __arm__ || defined(_M_ARM)
 RUAPU_ISAENTRY(edsp)
