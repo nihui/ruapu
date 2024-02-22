@@ -216,7 +216,7 @@ RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
 RUAPU_INSTCODE(m, 0x02a50533) // mul a0,a0,a0
 RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
-RUAPU_INSTCODE(c, 0x952a) // add a0,a0,a0
+RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
 
 #endif
 
