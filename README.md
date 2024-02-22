@@ -231,7 +231,7 @@ ruapu is implemented in C language to ensure the widest possible portability.
 ruapu determines whether the CPU supports certain instruction sets by trying to execute instructions and detecting whether an `Illegal Instruction` exception occurs. ruapu does not rely on the cpuid instructions and registers related to the CPU architecture, nor does it rely on the `MISA` information and system calls of the operating system. This can help us get more detailed CPU ISA information.
 
 ## Repos that use ruapu
-* [ncnn](https://github.com/Tencent/ncnn) &emsp;_High-performance neural network inference framework optimized for the mobile platform_
+* [ncnn](https://github.com/Tencent/ncnn) &emsp;_High-performance neural network inference framework_
 * [libllm](https://github.com/ling0322/libllm) &emsp;_Efficient inference of large language models_
 
 ## Credits
