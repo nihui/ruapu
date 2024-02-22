@@ -68,6 +68,9 @@ int main()
 #elif __mips__
     PRINT_ISA_SUPPORT(msa)
 
+#elif __powerpc__
+    PRINT_ISA_SUPPORT(vsx)
+
 #elif __riscv
     PRINT_ISA_SUPPORT(i)
     PRINT_ISA_SUPPORT(m)
