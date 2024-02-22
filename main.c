@@ -68,6 +68,7 @@ int main()
 #elif __riscv
     PRINT_ISA_SUPPORT(i)
     PRINT_ISA_SUPPORT(m)
+    PRINT_ISA_SUPPORT(a)
     PRINT_ISA_SUPPORT(f)
     PRINT_ISA_SUPPORT(d)
     PRINT_ISA_SUPPORT(c)
