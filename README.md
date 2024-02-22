@@ -6,7 +6,7 @@
 Detect CPU ISA features with single-file
 
 <table>
-<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64</td><td rowspan=3>
+<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; risc-v</td><td rowspan=3>
   
 ```c
 #define RUAPU_IMPLEMENTATION
@@ -223,7 +223,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |mips||
 |powerpc||
 |loongarch||
-|risc-v||
+|risc-v|`i` `m` `a` `f` `d` `c`|
 
 ## Techniques inside ruapu
 ruapu is implemented in C language to ensure the widest possible portability.

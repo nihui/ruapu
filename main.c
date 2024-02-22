@@ -65,6 +65,14 @@ int main()
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)
 
+#elif __riscv
+    PRINT_ISA_SUPPORT(i)
+    PRINT_ISA_SUPPORT(m)
+    PRINT_ISA_SUPPORT(a)
+    PRINT_ISA_SUPPORT(f)
+    PRINT_ISA_SUPPORT(d)
+    PRINT_ISA_SUPPORT(c)
+
 #endif
 
     return 0;
