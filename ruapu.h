@@ -7,6 +7,10 @@
 #ifndef RUAPU_H
 #define RUAPU_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void ruapu_init();
 
 int ruapu_supports(const char* isa);
@@ -318,5 +322,9 @@ int ruapu_supports(const char* isa)
 }
 
 #endif // RUAPU_IMPLEMENTATION
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // RUAPU_H
