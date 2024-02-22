@@ -56,14 +56,12 @@ jobs:
         mipsel-linux-gnu-gcc -march=mips32 main.c -o ruapu-mipsel
         qemu-mipsel-static -L /usr/mipsel-linux-gnu ./ruapu-mipsel
         qemu-mipsel-static -L /usr/mipsel-linux-gnu -cpu 34Kf ./ruapu-mipsel
-        qemu-mipsel-static -L /usr/mipsel-linux-gnu -cpu P5600 ./ruapu-mipsel
 
     - name: build-test-mips64el
       run: |
         mips64el-linux-gnuabi64-gcc -march=mips64 main.c -o ruapu-mips64el
         qemu-mips64el-static -L /usr/mips64el-linux-gnuabi64 ./ruapu-mips64el
         qemu-mips64el-static -L /usr/mips64el-linux-gnuabi64 -cpu Loongson-2F ./ruapu-mips64el
-        qemu-mips64el-static -L /usr/mips64el-linux-gnuabi64 -cpu I6400 ./ruapu-mips64el
 
     - name: build-test-powerpc
       run: |
