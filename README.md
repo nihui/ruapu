@@ -6,7 +6,7 @@
 Detect CPU ISA features with single-file
 
 <table>
-<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; mips<br/>&#9989; powerpc<br/>&#9989; s390x<br/>&#9989; risc-v<br/>&#9989; loongarch</td><td rowspan=3>
+<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; mips<br/>&#9989; powerpc<br/>&#9989; s390x<br/>&#9989; loongarch<br/>&#9989; risc-v</td><td rowspan=3>
   
 ```c
 #define RUAPU_IMPLEMENTATION
@@ -239,6 +239,11 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [@nihui](https://github.com/nihui) &emsp;_Write the initial POC code and ruapu maintainer_
 * [@kernelbin](https://github.com/kernelbin) &emsp;_Implement exception handling for Windows_
 * [@zchrissirhcz](https://github.com/zchrissirhcz) &emsp;_Detect x86 FMA4_
+* [@MollySophia](https://github.com/MollySophia) &emsp;_Fix C++ export symbol_
+* [@strongtz](https://github.com/strongtz) &emsp;_Detect more aarch64 ISA_
+* [@monkeyking](https://github.com/monkeyking) &emsp;_Detect apple arm64 AMX_
+* [@junchao-loongson](https://github.com/junchao-loongson) &emsp;_Add loongarch support_
+* [@ziyao233](https://github.com/ziyao233) &emsp;_Detect more risc-v ISA_
 
 ## License
 MIT License
