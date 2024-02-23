@@ -75,6 +75,9 @@ int main()
 #elif __powerpc__
     PRINT_ISA_SUPPORT(vsx)
 
+#elif __s390x__
+    PRINT_ISA_SUPPORT(zvector)
+
 #elif __riscv
     PRINT_ISA_SUPPORT(i)
     PRINT_ISA_SUPPORT(m)

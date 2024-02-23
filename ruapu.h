@@ -134,7 +134,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
-#if defined(__i386__) || defined(__x86_64__)
+#if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
@@ -228,6 +228,9 @@ RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
 #elif __powerpc__
 RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 
+#elif __s390x__
+RUAPU_INSTCODE(zvector, 0xe7, 0x00, 0x02, 0x00, 0x00, 0x8f) // vfmasb v0,v0,v0,v0
+
 #elif __riscv
 RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
 RUAPU_INSTCODE(m, 0x02a50533) // mul a0,a0,a0
@@ -303,6 +306,9 @@ RUAPU_ISAENTRY(msa)
 
 #elif __powerpc__
 RUAPU_ISAENTRY(vsx)
+
+#elif __s390x__
+RUAPU_ISAENTRY(zvector)
 
 #elif __riscv
 RUAPU_ISAENTRY(i)
