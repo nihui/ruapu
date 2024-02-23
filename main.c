@@ -87,6 +87,10 @@ int main()
     PRINT_ISA_SUPPORT(d)
     PRINT_ISA_SUPPORT(c)
 
+#elif __loongarch__
+    PRINT_ISA_SUPPORT(lsx)
+    PRINT_ISA_SUPPORT(lasx)
+
 #endif
 
     return 0;
