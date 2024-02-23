@@ -47,6 +47,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: build-test
       run: |
+        sysctl -a
         clang --version
         clang main.c -o ruapu
         ./ruapu
