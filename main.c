@@ -69,6 +69,7 @@ int main()
     PRINT_ISA_SUPPORT(edsp)
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)
+    PRINT_ISA_SUPPORT(idiv)
 
 #elif __mips__
     PRINT_ISA_SUPPORT(msa)
