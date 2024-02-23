@@ -25,9 +25,14 @@ int ruapu_supports(const char* isa);
 #include <windows.h>
 
 #if WINAPI_FAMILY == WINAPI_FAMILY_APP
+// uwp does not support veh  :(
+#if defined (_MSC_VER)
+#pragma message("warning: ruapu does not support UWP yet.")
+#else
+#warning ruapu does not support UWP yet.
+#endif
 static int ruapu_detect_isa(const void* some_inst)
 {
-    // uwp does not support seh  :(
     (void)some_inst;
     return 0;
 }
