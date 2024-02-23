@@ -98,7 +98,11 @@ int main()
     PRINT_ISA_SUPPORT(zifencei)
 
 #elif __openrisc__
-    PRINT_ISA_SUPPORT(addi)
+    PRINT_ISA_SUPPORT(orbis32)
+    PRINT_ISA_SUPPORT(orbis64)
+    PRINT_ISA_SUPPORT(orfpx32)
+    PRINT_ISA_SUPPORT(orfpx64)
+    PRINT_ISA_SUPPORT(orvdx64)
 
 #endif
 
