@@ -232,6 +232,10 @@ RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 #elif __s390x__
 RUAPU_INSTCODE(zvector, 0xe7, 0x00, 0x02, 0x00, 0x00, 0x8f) // vfmasb v0,v0,v0,v0
 
+#elif __loongarch__
+RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
+RUAPU_INSTCODE(lasx, 0x740b0000) //xvadd.w xr0, xr0, xr0
+
 #elif __riscv
 RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
 RUAPU_INSTCODE(m, 0x02a50533) // mul a0,a0,a0
@@ -244,10 +248,6 @@ RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
 RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
-
-#elif __loongarch__
-RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
-RUAPU_INSTCODE(lasx, 0x740b0000) //xvadd.w xr0, xr0, xr0
 
 #endif
 
@@ -321,6 +321,10 @@ RUAPU_ISAENTRY(vsx)
 #elif __s390x__
 RUAPU_ISAENTRY(zvector)
 
+#elif __loongarch__
+RUAPU_ISAENTRY(lsx)
+RUAPU_ISAENTRY(lasx)
+
 #elif __riscv
 RUAPU_ISAENTRY(i)
 RUAPU_ISAENTRY(m)
@@ -333,10 +337,6 @@ RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
-
-#elif __loongarch__
-RUAPU_ISAENTRY(lsx)
-RUAPU_ISAENTRY(lasx)
 
 #endif
 };
