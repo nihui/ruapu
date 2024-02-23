@@ -223,7 +223,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |mips|`msa`|
 |powerpc|`vsx`|
 |s390x|`zvector`|
-|loongarch||
+|loongarch|`lsx` `lasx`|
 |risc-v|`i` `m` `a` `f` `d` `c`|
 
 ## Techniques inside ruapu
