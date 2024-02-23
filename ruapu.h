@@ -210,7 +210,7 @@ RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
 RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
 RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s, v0.4s
 // RUAPU_INSTCODE(amx, 0x00201220) // amx setup
-static void ruapu_some_amx() { asm volatile("nop\nnop\nnop\n.word " "0x00201220" : : : ); }
+static void ruapu_some_amx() { asm volatile("nop\nnop\nnop\n.word " "0x00201220" : : : ); asm volatile("nop\nnop\nnop\n.word " "0x00201221" : : : ); }
 
 
 #elif __arm__ || defined(_M_ARM)
