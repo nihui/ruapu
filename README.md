@@ -6,7 +6,7 @@
 Detect CPU ISA features with single-file
 
 <table>
-<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; mips<br/>&#9989; powerpc<br/>&#9989; risc-v</td><td rowspan=3>
+<tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; mips<br/>&#9989; powerpc<br/>&#9989; s390x<br/>&#9989; risc-v</td><td rowspan=3>
   
 ```c
 #define RUAPU_IMPLEMENTATION
@@ -222,6 +222,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |aarch64|`neon` `vfpv4` `cpuid` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `sha3` `sha512` `sm3` `sm4`|
 |mips|`msa`|
 |powerpc|`vsx`|
+|s390x|`zvector`|
 |loongarch||
 |risc-v|`i` `m` `a` `f` `d` `c`|
 
