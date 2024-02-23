@@ -63,6 +63,7 @@ int main()
     PRINT_ISA_SUPPORT(sha512)
     PRINT_ISA_SUPPORT(sm3)
     PRINT_ISA_SUPPORT(sm4)
+    PRINT_ISA_SUPPORT(amx)
 
 #elif __arm__ || defined(_M_ARM)
     PRINT_ISA_SUPPORT(edsp)
