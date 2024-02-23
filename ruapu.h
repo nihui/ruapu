@@ -200,6 +200,7 @@ RUAPU_INSTCODE(avxifma, 0xc4, 0xe2, 0xfd, 0xb4, 0xc0) // vpmadd52luq ymm0,ymm0,y
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(vfpv4, 0x1f000000) // fmadd s0,s0,s0,s0
 RUAPU_INSTCODE(cpuid, 0xd5380000) // mrs x0,midr_el1
+RUAPU_INSTCODE(asimdrdm, 0x6e808400) // sqrdmlah v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(asimdhp, 0x0e401400) // fadd v0.4h,v0.4h,v0.4h
 RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4h,v0.16b,v0.16b
 RUAPU_INSTCODE(asimdfhm, 0x4e20ec00) // fmlal v0.4s,v0.4h,v0.4h
@@ -299,6 +300,7 @@ RUAPU_ISAENTRY(avxifma)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
 RUAPU_ISAENTRY(cpuid)
+RUAPU_ISAENTRY(asimdrdm)
 RUAPU_ISAENTRY(asimdhp)
 RUAPU_ISAENTRY(asimddp)
 RUAPU_ISAENTRY(asimdfhm)
