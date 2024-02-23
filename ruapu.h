@@ -136,7 +136,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __aarch64__ || __arm__ || __mips__ || __riscv
+#elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #elif __powerpc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
@@ -240,6 +240,10 @@ RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
 RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
 
+#elif __loongarch__
+RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
+RUAPU_INSTCODE(lasx, 0x740b0000) //xvadd.w xr0, xr0, xr0
+
 #endif
 
 #undef RUAPU_INSTCODE
@@ -319,6 +323,10 @@ RUAPU_ISAENTRY(a)
 RUAPU_ISAENTRY(f)
 RUAPU_ISAENTRY(d)
 RUAPU_ISAENTRY(c)
+
+#elif __loongarch__
+RUAPU_ISAENTRY(lsx)
+RUAPU_ISAENTRY(lasx)
 
 #endif
 };
