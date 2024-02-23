@@ -79,6 +79,10 @@ int main()
 #elif __s390x__
     PRINT_ISA_SUPPORT(zvector)
 
+#elif __loongarch__
+    PRINT_ISA_SUPPORT(lsx)
+    PRINT_ISA_SUPPORT(lasx)
+
 #elif __riscv
     PRINT_ISA_SUPPORT(i)
     PRINT_ISA_SUPPORT(m)
@@ -91,10 +95,6 @@ int main()
     PRINT_ISA_SUPPORT(zfhmin)
     PRINT_ISA_SUPPORT(zicsr)
     PRINT_ISA_SUPPORT(zifencei)
-
-#elif __loongarch__
-    PRINT_ISA_SUPPORT(lsx)
-    PRINT_ISA_SUPPORT(lasx)
 
 #endif
 
