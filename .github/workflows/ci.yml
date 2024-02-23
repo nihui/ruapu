@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: cat-cpuinfo
+      run: cat /proc/cpuinfo
     - name: build-test
       run: |
         gcc main.c -o ruapu
@@ -77,6 +79,10 @@ jobs:
       uses: docker/setup-qemu-action@v3
       with:
         platforms: linux/${{ matrix.arch }}
+    - name: cat-cpuinfo
+      run: |
+        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
+          /bin/bash -c "cat /proc/cpuinfo"
     - name: build-test
       run: |
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
