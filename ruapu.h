@@ -200,6 +200,7 @@ RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4h,v0.16b,v0.16b
 RUAPU_INSTCODE(asimdfhm, 0x4e20ec00) // fmlal v0.4s,v0.4h,v0.4h
 RUAPU_INSTCODE(bf16, 0x6e40ec00) // bfmmla v0.4h,v0.8h,v0.8h
 RUAPU_INSTCODE(i8mm, 0x4e80a400) // smmla v0.4h,v0.16b,v0.16b
+RUAPU_INSTCODE(mte, 0xd96003e0) // ldg x0,[sp]
 RUAPU_INSTCODE(sve, 0x65608000) // fmad z0.h,p0/m,z0.h,z0.h
 RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
 RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
@@ -298,6 +299,7 @@ RUAPU_ISAENTRY(asimddp)
 RUAPU_ISAENTRY(asimdfhm)
 RUAPU_ISAENTRY(bf16)
 RUAPU_ISAENTRY(i8mm)
+RUAPU_ISAENTRY(mte)
 RUAPU_ISAENTRY(sve)
 RUAPU_ISAENTRY(sve2)
 RUAPU_ISAENTRY(svebf16)
