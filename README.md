@@ -225,7 +225,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |s390x|`zvector`|
 |loongarch|`lsx` `lasx`|
 |risc-v|`i` `m` `a` `f` `d` `c` `zfa` `zfh` `zfhmin` `zicsr` `zifencei` |
-|openrisc| `addi` |
+|openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
 
 ## Techniques inside ruapu
 ruapu is implemented in C language to ensure the widest possible portability.
