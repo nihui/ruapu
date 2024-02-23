@@ -193,7 +193,7 @@ RUAPU_INSTCODE(avxifma, 0xc4, 0xe2, 0xfd, 0xb4, 0xc0) // vpmadd52luq ymm0,ymm0,y
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
-RUAPU_INSTCODE(vfpv4, 0x0e216800) // fcvtn v0.4h,v0.4s
+RUAPU_INSTCODE(vfpv4, 0x1f000000) // fmadd s0,s0,s0,s0
 RUAPU_INSTCODE(cpuid, 0xd5380000) // mrs x0,midr_el1
 RUAPU_INSTCODE(asimdhp, 0x0e401400) // fadd v0.4h,v0.4h,v0.4h
 RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4h,v0.16b,v0.16b
@@ -216,12 +216,12 @@ RUAPU_INSTCODE(amx, 0x00201220) // amx setup
 #if __thumb__
 RUAPU_INSTCODE(edsp, 0xfb20, 0x0000) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xef00, 0x0d40) // vadd.f32 q0,q0,q0
-RUAPU_INSTCODE(vfpv4, 0xffb6, 0x0600) // vcvt.f16.f32 d0,q0
+RUAPU_INSTCODE(vfpv4, 0xeea0, 0x0a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0x2003, 0xfb90, 0xf0f0) // movs r0,#3 + sdiv r0,r0,r0
 #else
 RUAPU_INSTCODE(edsp, 0xe7000010) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
-RUAPU_INSTCODE(vfpv4, 0xf3b60600) // vcvt.f16.f32 d0,q0
+RUAPU_INSTCODE(vfpv4, 0xeea00a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0xe3a00003, 0xe710f010) // movs r0,#3 + sdiv r0,r0,r0
 #endif
 
