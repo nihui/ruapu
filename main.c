@@ -86,6 +86,11 @@ int main()
     PRINT_ISA_SUPPORT(f)
     PRINT_ISA_SUPPORT(d)
     PRINT_ISA_SUPPORT(c)
+    PRINT_ISA_SUPPORT(zfa)
+    PRINT_ISA_SUPPORT(zfh)
+    PRINT_ISA_SUPPORT(zfhmin)
+    PRINT_ISA_SUPPORT(zicsr)
+    PRINT_ISA_SUPPORT(zifencei)
 
 #elif __loongarch__
     PRINT_ISA_SUPPORT(lsx)
