@@ -97,6 +97,9 @@ int main()
     PRINT_ISA_SUPPORT(zicsr)
     PRINT_ISA_SUPPORT(zifencei)
 
+#elif __openrisc__
+    PRINT_ISA_SUPPORT(addi)
+
 #endif
 
     return 0;

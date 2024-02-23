@@ -136,7 +136,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
+#elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__ || __openrisc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #elif __powerpc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
@@ -251,6 +251,9 @@ RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 
+#elif __openrisc__
+RUAPU_INSTCODE(addi, 0x9c410000) // l.addi r2,r1,0x0
+
 #endif
 
 #undef RUAPU_INSTCODE
@@ -340,6 +343,9 @@ RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
+
+#elif __openrisc__
+RUAPU_ISAENTRY(addi)
 
 #endif
 };
