@@ -209,6 +209,7 @@ RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b, v0.16b, v0.16b, v0.16b
 RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
 RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
 RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s, v0.4s
+RUAPU_INSTCODE(amx, 0x00201220) // amx setup
 
 
 #elif __arm__ || defined(_M_ARM)
@@ -295,6 +296,7 @@ RUAPU_ISAENTRY(sha3)
 RUAPU_ISAENTRY(sha512)
 RUAPU_ISAENTRY(sm3)
 RUAPU_ISAENTRY(sm4)
+RUAPU_ISAENTRY(amx)
 
 #elif __arm__ || defined(_M_ARM)
 RUAPU_ISAENTRY(edsp)
