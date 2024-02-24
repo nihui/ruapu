@@ -350,6 +350,7 @@ RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
+RUAPU_ISAENTRY(zmmul)
 
 #endif
 };
