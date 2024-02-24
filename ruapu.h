@@ -70,37 +70,6 @@ static int ruapu_detect_isa(const void* some_inst)
 }
 #endif // WINAPI_FAMILY == WINAPI_FAMILY_APP
 
-#if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
-#ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned char ruapu_some_##isa[] = { __VA_ARGS__, 0xc3 };
-#else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned char ruapu_some_##isa[] = { __VA_ARGS__, 0xc3 };
-#endif
-
-#elif __aarch64__ || defined(_M_ARM64)
-#ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
-#else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
-#endif
-
-#elif __arm__ || defined(_M_ARM)
-#if __thumb__
-#ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
-#else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
-#endif
-#else
-#ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xe12fff1e };
-#else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xe12fff1e };
-#endif
-#endif
-
-#endif
-
 #elif defined __ANDROID__ || defined __linux__ || defined __APPLE__
 #include <signal.h>
 
@@ -139,6 +108,43 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
+#endif // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__
+
+#if defined _WIN32
+
+#if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
+#ifdef _MSC_VER
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned char ruapu_some_##isa[] = { __VA_ARGS__, 0xc3 };
+#else
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned char ruapu_some_##isa[] = { __VA_ARGS__, 0xc3 };
+#endif
+
+#elif __aarch64__ || defined(_M_ARM64)
+#ifdef _MSC_VER
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
+#else
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xd65f03c0 };
+#endif
+
+#elif __arm__ || defined(_M_ARM)
+#if __thumb__
+#ifdef _MSC_VER
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#else
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#endif
+#else
+#ifdef _MSC_VER
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xe12fff1e };
+#else
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0xe12fff1e };
+#endif
+#endif
+
+#endif
+
+#else // defined _WIN32
+
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
@@ -147,24 +153,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
 #endif
 
-#else // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__
-typedef const void* ruapu_some_inst;
-static int ruapu_detect_isa(const void* some_inst)
-{
-    // unknown platform, bare metal os ?
-    (void)some_inst;
-    return 0;
-}
-
-#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { }
-#endif // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__
-
-struct ruapu_isa_entry
-{
-    const char* isa;
-    ruapu_some_inst inst;
-    int capable;
-};
+#endif // defined _WIN32
 
 #if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
 RUAPU_INSTCODE(mmx, 0x0f, 0xdb, 0xc0) // pand mm0,mm0
@@ -263,6 +252,13 @@ RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
 
 #undef RUAPU_INSTCODE
 
+struct ruapu_isa_entry
+{
+    const char* isa;
+    ruapu_some_inst inst;
+    int capable;
+};
+
 #define RUAPU_ISAENTRY(isa) { #isa, (ruapu_some_inst)ruapu_some_##isa, 0 },
 
 struct ruapu_isa_entry g_ruapu_isa_map[] = {
@@ -359,10 +355,17 @@ RUAPU_ISAENTRY(zmmul)
 
 void ruapu_init()
 {
+#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__
     for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
     {
         g_ruapu_isa_map[i].capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
     }
+#else
+    // initialize g_ruapu_isa_map for baremetal here, default all zero
+    // there is still ruapu_some_XYZ() functions available
+    // but you have to work out your own signal handling
+#warning ruapu does not support your baremetal os yet
+#endif
 }
 
 int ruapu_supports(const char* isa)
