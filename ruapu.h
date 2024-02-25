@@ -371,7 +371,7 @@ RUAPU_ISAENTRY(orvdx64)
 #undef RUAPU_ISAENTRY
 
 #if defined __openrisc__
-static void ruapu_openrisc_detect_isa()
+static void ruapu_detect_openrisc_isa()
 {
     uint32_t value;
     uint16_t addr = U(0x0000);
@@ -391,7 +391,7 @@ void ruapu_init()
         g_ruapu_isa_map[i].capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
     }
 #elif defined __openrisc__
-    ruapu_openrisc_detect_isa();
+    ruapu_detect_openrisc_isa();
 #else 
     // initialize g_ruapu_isa_map for baremetal here, default all zero
     // there is still ruapu_some_XYZ() functions available
