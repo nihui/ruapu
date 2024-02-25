@@ -267,6 +267,30 @@ ruapu is implemented in C language to ensure the widest possible portability.
 
 ruapu determines whether the CPU supports certain instruction sets by trying to execute instructions and detecting whether an `Illegal Instruction` exception occurs. ruapu does not rely on the cpuid instructions and registers related to the CPU architecture, nor does it rely on the `MISA` information and system calls of the operating system. This can help us get more detailed CPU ISA information.
 
+## FAQ
+#### Why is the project named ruapu
+
+&emsp;ruapu is the abbreviation of rua-cpu, which means using various extended instructions to harass and amuse the CPU (rua!). Based on whether the CPU reacts violently (throws an illegal instruction exception), it is inferred whether the CPU supports a certain extended instruction set.
+
+#### Why is ruapu API designed like this
+
+&emsp;We consider gcc builtin functions to be good practice, saying `__builtin_cpu_init()` and `__builtin_cpu_supports()`. ruapu refers to this design, which can be a 1:1 replacement for gcc functions, and supports more operating systems and compilers, giving it better portability.
+
+#### Why does SIGILL occur when executing in debugger or simulator, such as `gdb`, `lldb`, `qemu-user`, `sde` etc.
+
+&emsp;Because debuggers and simulators capture the signal and stop the ruapu signal handler function by default, we can continue execution at this time, or configure it specifically, such as `handle SIGILL nostop` in gdb. ruapu technically cannot prevent programs from stopping in debuggers and emulators
+
+#### How to add detection capabilities for new instructions to ruapu
+
+&emsp;_Assume that the new extended instruction set is named `rua`_
+
+1. Add `RUAPU_INSTCODE(rua, rua-inst-hex) // rua r0,r0` and `RUAPU_ISAENTRY(rua)` in `ruapu.h`
+2. Add `PRINT_ISA_SUPPORT(rua)` in `main.c` to print the detection result
+3. Add entries about `rua` in README.md
+4. Create a pull request!
+
+&emsp;_https://godbolt.org/ is a good helper to view the compiled binary code of instructions._
+
 ## Repos that use ruapu
 * [ncnn](https://github.com/Tencent/ncnn) &emsp;_High-performance neural network inference framework_
 * [libllm](https://github.com/ling0322/libllm) &emsp;_Efficient inference of large language models_
