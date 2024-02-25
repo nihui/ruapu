@@ -390,8 +390,7 @@ void ruapu_init()
     {
         g_ruapu_isa_map[i].capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
     }
-#else
-#if defined __openrisc__
+#elif defined __openrisc__
     ruapu_openrisc_detect_isa();
 #else 
     // initialize g_ruapu_isa_map for baremetal here, default all zero
