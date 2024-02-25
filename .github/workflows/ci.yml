@@ -110,3 +110,31 @@ jobs:
           run: |
             clang main.c -o ruapu
             ./ruapu
+
+  netbsd:
+    runs-on: ubuntu-latest
+    name: x86_64-unknown-netbsd9.3
+    steps:
+      - uses: actions/checkout@v4
+      - name: build-test
+        uses: vmactions/netbsd-vm@v1
+        with:
+          release: "9.3"
+          usesh: true
+          run: |
+            gcc main.c -o ruapu
+            ./ruapu
+
+  openbsd:
+    runs-on: ubuntu-latest
+    name: x86_64-unknown-openbsd7.2
+    steps:
+      - uses: actions/checkout@v4
+      - name: build-test
+        uses: vmactions/openbsd-vm@v1
+        with:
+          release: "7.2"
+          usesh: true
+          run: |
+            clang main.c -o ruapu
+            ./ruapu
