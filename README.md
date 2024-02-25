@@ -197,6 +197,42 @@ avxifma = 0
 
 </details>
 
+<details>
+<summary>FreeBSD VM result (x86_64)</summary>
+
+```
+mmx = 1
+sse = 1
+sse2 = 1
+sse3 = 1
+ssse3 = 1
+sse41 = 1
+sse42 = 1
+sse4a = 1
+xop = 0
+avx = 1
+f16c = 1
+fma = 1
+fma4 = 0
+avx2 = 1
+avx512f = 0
+avx512bw = 0
+avx512cd = 0
+avx512dq = 0
+avx512vl = 0
+avx512vnni = 0
+avx512bf16 = 0
+avx512ifma = 0
+avx512vbmi = 0
+avx512vbmi2 = 0
+avx512fp16 = 0
+avxvnni = 0
+avxvnniint8 = 0
+avxifma = 0
+```
+
+</details>
+
 
 ## Features
 

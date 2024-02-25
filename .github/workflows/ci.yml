@@ -81,3 +81,32 @@ jobs:
       run: |
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
           /bin/bash -c "apt update && apt install -y build-essential && gcc main.c -o ruapu && ./ruapu"
+
+  freebsd:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - pair:
+              fullversion: "13.2"
+              major: "13"
+          - pair:
+              fullversion: "14.0"
+              major: "14"
+      fail-fast: false
+
+    name: x86_64-unknown-freebsd${{ matrix.pair.fullversion }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: build-test
+        uses: vmactions/freebsd-vm@v1
+        with:
+          release: ${{ matrix.pair.fullversion }}
+          usesh: true
+          prepare: |
+            pkg install -y clang
+
+          run: |
+            clang main.c -o ruapu
+            ./ruapu
