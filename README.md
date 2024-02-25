@@ -25,7 +25,7 @@ int main()
 ```
 
 </td></tr>
-<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS</td></tr>
+<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD</td></tr>
 <tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW</td></tr>
 </table>
 
@@ -198,7 +198,7 @@ avxifma = 0
 </details>
 
 <details>
-<summary>FreeBSD VM result (x86_64)</summary>
+<summary>FreeBSD/NetBSD/OpenBSD VM result (x86_64)</summary>
 
 ```
 mmx = 1
