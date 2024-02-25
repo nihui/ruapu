@@ -201,6 +201,11 @@ RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
 RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
+RUAPU_INSTCODE(pmull, 0x0e20e000) // pmull v0.8h,v0.8b,v0.8b
+RUAPU_INSTCODE(crc32, 0x1ac04000) // crc32b w0,w0,w0
+RUAPU_INSTCODE(aes, 0x4e285800) // aesd v0.16b,v0.16b
+RUAPU_INSTCODE(sha1, 0x5e280800) // sha1h s0,s0
+RUAPU_INSTCODE(sha2, 0x5e004000) // sha256h q0,q0,v0.4s
 RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b, v0.16b, v0.16b, v0.16b
 RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
 RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
@@ -309,6 +314,11 @@ RUAPU_ISAENTRY(sve2)
 RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
+RUAPU_ISAENTRY(pmull)
+RUAPU_ISAENTRY(crc32)
+RUAPU_ISAENTRY(aes)
+RUAPU_ISAENTRY(sha1)
+RUAPU_ISAENTRY(sha2)
 RUAPU_ISAENTRY(sha3)
 RUAPU_ISAENTRY(sha512)
 RUAPU_ISAENTRY(sm3)
