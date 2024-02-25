@@ -358,6 +358,13 @@ RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zmmul)
 
+#elif __openrisc__
+RUAPU_ISAENTRY(orbis32)
+RUAPU_ISAENTRY(orbis64)
+RUAPU_ISAENTRY(orfpx32)
+RUAPU_ISAENTRY(orfpx64)
+RUAPU_ISAENTRY(orvdx64)
+
 #endif
 };
 
@@ -371,6 +378,15 @@ void ruapu_init()
         g_ruapu_isa_map[i].capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
     }
 #else
+#if defined __openrisc__
+	uint32_t value;
+    uint16_t addr = U(0x0000);
+	asm volatile ("l.mfspr %0, r0, %1" : "=r" (value) : "K" (addr));
+    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+    {
+        g_ruapu_isa_map[0].capable = ((value) >> (5 + i)) & 0x1;
+    }
+#else 
     // initialize g_ruapu_isa_map for baremetal here, default all zero
     // there is still ruapu_some_XYZ() functions available
     // but you have to work out your own signal handling
