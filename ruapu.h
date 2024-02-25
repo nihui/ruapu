@@ -370,6 +370,19 @@ RUAPU_ISAENTRY(orvdx64)
 
 #undef RUAPU_ISAENTRY
 
+#if defined __openrisc__
+static void ruapu_openrisc_detect_isa()
+{
+    uint32_t value;
+    uint16_t addr = U(0x0000);
+    asm volatile ("l.mfspr %0, r0, %1" : "=r" (value) : "K" (addr));
+    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+    {
+        g_ruapu_isa_map[0].capable = ((value) >> (5 + i)) & 0x1;
+    }
+}
+#endif
+
 void ruapu_init()
 {
 #if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
@@ -379,13 +392,7 @@ void ruapu_init()
     }
 #else
 #if defined __openrisc__
-	uint32_t value;
-    uint16_t addr = U(0x0000);
-	asm volatile ("l.mfspr %0, r0, %1" : "=r" (value) : "K" (addr));
-    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
-    {
-        g_ruapu_isa_map[0].capable = ((value) >> (5 + i)) & 0x1;
-    }
+    ruapu_openrisc_detect_isa();
 #else 
     // initialize g_ruapu_isa_map for baremetal here, default all zero
     // there is still ruapu_some_XYZ() functions available
