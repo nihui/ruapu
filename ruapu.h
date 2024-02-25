@@ -147,7 +147,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
+#elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__ || __openrisc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #elif __powerpc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
@@ -253,6 +253,21 @@ RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
 
+#elif __openrisc__
+// l.mfspr r17,r0,0x0 + l.sw -12(r2),r17 + l.lwz r17,-12(r2) + l.andi r17,r17, <MASK>
+// + l.movhi r19,0x0 + l.sfne r17,r19 + l.bf +3 + l.nop 0x0 + l.trap 0x1 + l.nop 0x0
+// MASK: orbis32: 0x20, orbis64: 0x40, orfpx32: 0x80, orfpx64: 0x100, orvdx64: 0x200
+RUAPU_INSTCODE(orbis32, 0xb6200000, 0xd7e28ff4, 0x8622fff4, 0xa6310020, 0x1a600000,
+    0xe4319800, 0x10000003, 0x15000000, 0x21000001, 0x15000000) 
+RUAPU_INSTCODE(orbis64, 0xb6200000, 0xd7e28ff4, 0x8622fff4, 0xa6310040, 0x1a600000,
+    0xe4319800, 0x10000003, 0x15000000, 0x21000001, 0x15000000) 
+RUAPU_INSTCODE(orfpx32, 0xb6200000, 0xd7e28ff4, 0x8622fff4, 0xa6310080, 0x1a600000,
+    0xe4319800, 0x10000003, 0x15000000, 0x21000001, 0x15000000) 
+RUAPU_INSTCODE(orfpx64, 0xb6200000, 0xd7e28ff4, 0x8622fff4, 0xa6310100, 0x1a600000,
+    0xe4319800, 0x10000003, 0x15000000, 0x21000001, 0x15000000) 
+RUAPU_INSTCODE(orvdx64, 0xb6200000, 0xd7e28ff4, 0x8622fff4, 0xa6310200, 0x1a600000,
+    0xe4319800, 0x10000003, 0x15000000, 0x21000001, 0x15000000) 
+
 #endif
 
 #undef RUAPU_INSTCODE
@@ -357,6 +372,13 @@ RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zmmul)
+
+#elif __openrisc__
+RUAPU_ISAENTRY(orbis32)
+RUAPU_ISAENTRY(orbis64)
+RUAPU_ISAENTRY(orfpx32)
+RUAPU_ISAENTRY(orfpx64)
+RUAPU_ISAENTRY(orvdx64)
 
 #endif
 };
