@@ -37,6 +37,8 @@ int main()
 
 ## Let's ruapu
 
+### ruapu with C
+
 <table>
 
 <tr><td>
@@ -76,6 +78,27 @@ xop = 0
 
 </td></tr>
 </table>
+
+### ruapu with Python
+
+Compile and install ruapu library
+
+```shell
+pip3 install .
+```
+
+Use ruapu in python
+
+```shell
+$ python3
+>>> import ruapu
+>>> ruapu.init()
+>>> ruapu.supports("avx2")
+True
+>>> ruapu.supports(isa="avx2")
+True
+...
+```
 
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
