@@ -31,6 +31,10 @@ jobs:
       run: |
         clang main.c -o ruapu-clang
         ./ruapu-clang
+    - name: build-test-python
+      run: |
+        pip3 install .
+        python3 -c 'import ruapu; ruapu.init(); print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
   macos:
     runs-on: macos-latest
@@ -40,6 +44,10 @@ jobs:
       run: |
         clang main.c -o ruapu
         ./ruapu
+    - name: build-test-python
+      run: |
+        pip3 install .
+        python3 -c 'import ruapu; ruapu.init(); print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
   macos-arm64:
     runs-on: macos-14
@@ -49,6 +57,10 @@ jobs:
       run: |
         clang main.c -o ruapu
         ./ruapu
+    - name: build-test-python
+      run: |
+        pip3 install .
+        python3 -c 'import ruapu; ruapu.init(); print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
   windows:
     runs-on: windows-latest
@@ -64,6 +76,10 @@ jobs:
       run: |
         gcc main.c -o ruapu-mingw.exe
         ./ruapu-mingw.exe
+    - name: build-test-python
+      run: |
+        pip3 install .
+        python3 -c 'import ruapu; ruapu.init(); print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
   qemu:
     runs-on: ubuntu-latest
