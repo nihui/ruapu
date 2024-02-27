@@ -1,9 +1,9 @@
 name: pypi
-on: [push, pull_request]
-#on:
-#  push:
-#    tags:
-#      - '*'
+#on: [push, pull_request]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build_wheels:
@@ -53,6 +53,5 @@ jobs:
 
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        repository-url: https://test.pypi.org/legacy/
         user: __token__
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        password: ${{ secrets.PYPI_API_TOKEN }}
