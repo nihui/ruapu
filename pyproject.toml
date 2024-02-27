@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "cython"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruapu"
+authors = [
+    {name = "nihui", email = "shuizhuyuanluo@126.com"},
+    {name = "cocoa-xu", email = "i@uwucocoa.moe"},
+]
+description = "The Python binding of ruapu."
+readme = "README.md"
+requires-python = ">=3.5"
+keywords = ["ruapu", "cpu", "isa", "detect"]
+license = {"text" = "MIT"}
+version = "0.1.0"
+
+[project.urls]
+"Homepage" = "https://github.com/nihui/ruapu"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
