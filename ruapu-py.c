@@ -7,8 +7,10 @@
 static PyObject *ruapu_init_py(PyObject *self, PyObject *args)
 {
     static int initialized = 0;
-    if (!initialized)
+    if (!initialized) {
         ruapu_init();
+        initialized = 1;
+    }
     Py_RETURN_NONE;
 }
 
