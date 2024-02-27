@@ -88,6 +88,11 @@ xop = 0
 Compile and install ruapu library
 
 ```shell
+# from pypi
+pip3 install ruapu
+```
+
+```shell
 # from source code
 pip3 install .
 ```
