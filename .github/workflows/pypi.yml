@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
 
       - name: setup-qemu
         if: matrix.os == 'ubuntu-latest'
@@ -29,14 +28,14 @@ jobs:
           CIBW_ARCHS_LINUX: "x86_64 i686 aarch64 ppc64le s390x"
           CIBW_ARCHS_MACOS: "x86_64 arm64 universal2"
           CIBW_ARCHS_WINDOWS: "AMD64 x86 ARM64"
-          CIBW_BUILD: "cp36* cp38-macosx* cp39-win_arm64*"
+          CIBW_BUILD: "cp311*"
           CIBW_BUILD_VERBOSITY: 1
         with:
           output-dir: wheelhouse
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: wheels-${{ matrix.os }}
           path: ./wheelhouse/*.whl
 
   upload_all:
@@ -47,8 +46,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/setup-python@v5
-
     - uses: actions/download-artifact@v4
       with:
         path: dist
