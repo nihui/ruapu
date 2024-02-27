@@ -37,7 +37,7 @@ jobs:
           CIBW_ARCHS_LINUX: "x86_64 i686 aarch64 ppc64le s390x"
           CIBW_ARCHS_MACOS: "x86_64 arm64 universal2"
           CIBW_ARCHS_WINDOWS: "AMD64 x86 ARM64"
-          CIBW_BUILD: cp36*
+          CIBW_BUILD: "cp36* cp38-macosx* cp39-win_arm64*"
           CIBW_BUILD_VERBOSITY: 1
         with:
           output-dir: wheelhouse
