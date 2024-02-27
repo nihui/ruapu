@@ -1,4 +1,4 @@
-name: release-python
+name: pypi
 on: [push, pull_request]
 #on:
 #  push:
@@ -26,6 +26,7 @@ jobs:
       - uses: actions/setup-python@v5
 
       - name: setup-qemu
+        if: matrix.os == 'ubuntu-latest'
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
