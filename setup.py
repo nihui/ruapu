@@ -12,7 +12,7 @@ ext = Extension(
 
 setup_args = dict(
     name            = 'ruapu',
-    version         = time.strftime("%Y%m%d", time.localtime())
+    version         = time.strftime("%Y%m%d", time.localtime()),
     packages        = find_packages(where="."),
     package_dir     = {"": "."},
     ext_modules     = [ext],
