@@ -33,6 +33,8 @@ jobs:
         ./ruapu-clang
     - name: build-test-python
       run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
@@ -46,6 +48,8 @@ jobs:
         ./ruapu
     - name: build-test-python
       run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
@@ -59,6 +63,8 @@ jobs:
         ./ruapu
     - name: build-test-python
       run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
@@ -78,6 +84,8 @@ jobs:
         ./ruapu-mingw.exe
     - name: build-test-python
       run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
 
