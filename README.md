@@ -342,6 +342,9 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [@monkeyking](https://github.com/monkeyking) &emsp;_Detect apple arm64 AMX_
 * [@junchao-loongson](https://github.com/junchao-loongson) &emsp;_Add loongarch support_
 * [@ziyao233](https://github.com/ziyao233) &emsp;_Detect more risc-v ISA_
+* [@dreamcmi](https://github.com/dreamcmi) &emsp;_Detect more risc-v ISA_
+* [@cocoa-xu](https://github.com/cocoa-xu) &emsp;_Add FreeBSD support, python support_
+* [@YuzukiTsuru](https://github.com/YuzukiTsuru) &emsp;_Add OpenRISC support_
 
 ## License
 MIT License
