@@ -4,16 +4,6 @@
 #define RUAPU_IMPLEMENTATION
 #include "ruapu.h"
 
-static PyObject *ruapu_init_py(PyObject *self, PyObject *args)
-{
-    static int initialized = 0;
-    if (!initialized) {
-        ruapu_init();
-        initialized = 1;
-    }
-    Py_RETURN_NONE;
-}
-
 static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     static char *kwlist[] = {"isa", NULL};
@@ -25,8 +15,8 @@ static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwa
     Py_RETURN_FALSE;
 }
 
-static PyMethodDef ruapu_methods[] = {
-    {"init", ruapu_init_py, METH_VARARGS, "Initialize ruapu library"},
+static PyMethodDef ruapu_methods[] =
+{
     {"supports", ruapu_supports_py, METH_VARARGS | METH_KEYWORDS, "Check if the CPU supports an instruction set"},
     {NULL, NULL, 0, NULL}
 };
@@ -42,5 +32,6 @@ static struct PyModuleDef ruapu_module =
 
 PyMODINIT_FUNC PyInit_ruapu(void)
 {
+    ruapu_init();
     return PyModule_Create(&ruapu_module);
 }

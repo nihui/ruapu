@@ -99,7 +99,6 @@ Use ruapu in python
 ```shell
 $ python3
 >>> import ruapu
->>> ruapu.init()
 >>> ruapu.supports("avx2")
 True
 >>> ruapu.supports(isa="avx2")
