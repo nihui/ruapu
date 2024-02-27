@@ -96,14 +96,14 @@ pip3 install .
 
 Use ruapu in python
 
-```shell
-$ python3
->>> import ruapu
->>> ruapu.supports("avx2")
-True
->>> ruapu.supports(isa="avx2")
-True
-...
+```python
+import ruapu
+
+ruapu.supports("avx2")
+# True
+
+ruapu.supports(isa="avx2")
+# True
 ```
 </td></tr>
 </table>
