@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import time
 from setuptools import setup, find_packages, Extension
 
 ext = Extension(
@@ -10,6 +11,8 @@ ext = Extension(
 )
 
 setup_args = dict(
+    name            = 'ruapu',
+    version         = time.strftime("%Y%m%d", time.localtime())
     packages        = find_packages(where="."),
     package_dir     = {"": "."},
     ext_modules     = [ext],
