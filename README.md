@@ -81,11 +81,18 @@ xop = 0
 
 ### ruapu with Python
 
+<table>
+
+<tr><td>
+
 Compile and install ruapu library
 
 ```shell
+# from source code
 pip3 install .
 ```
+</td>
+<td>
 
 Use ruapu in python
 
@@ -99,6 +106,8 @@ True
 True
 ...
 ```
+</td></tr>
+</table>
 
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
