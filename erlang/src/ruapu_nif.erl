@@ -4,7 +4,7 @@
 -on_load(init/0).
 
 -define(APPNAME, ruapu).
--define(LIBNAME, ruapu).
+-define(LIBNAME, ruapu_nif).
 
 init() ->
     SoName = case code:priv_dir(?APPNAME) of

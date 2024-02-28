@@ -1,0 +1,16 @@
+!IFNDEF MIX_APP_PATH
+MIX_APP_PATH=$(MAKEDIR)
+!ENDIF
+
+PRIV_DIR = $(MIX_APP_PATH)\priv
+RUAPU_SO = $(PRIV_DIR)\ruapu_nif.dll
+
+build: $(RUAPU_SO)
+
+$(RUAPU_SO):
+	@ if not exist "$(PRIV_DIR)" mkdir "$(PRIV_DIR)"
+	@ cmake -G "NMake Makefiles" -B"$(PRIV_DIR)\cmake_ruapu"
+    @ cmake --build "$(PRIV_DIR)\cmake_ruapu" --config Release
+    @ cmake --install "$(PRIV_DIR)\cmake_ruapu" --config Release
+
+.PHONY: build
