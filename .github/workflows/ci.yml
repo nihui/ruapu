@@ -45,6 +45,15 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
 
   macos:
     runs-on: macos-latest
@@ -120,6 +129,15 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
 
   qemu:
     runs-on: ubuntu-latest

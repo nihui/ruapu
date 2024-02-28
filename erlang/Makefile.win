@@ -4,13 +4,17 @@ MIX_APP_PATH=$(MAKEDIR)
 
 PRIV_DIR = $(MIX_APP_PATH)\priv
 RUAPU_SO = $(PRIV_DIR)\ruapu_nif.dll
+C_SRC = $(MAKEDIR)\c_src
 
 build: $(RUAPU_SO)
 
 $(RUAPU_SO):
 	@ if not exist "$(PRIV_DIR)" mkdir "$(PRIV_DIR)"
-	@ cmake -G "NMake Makefiles" -B"$(PRIV_DIR)\cmake_ruapu"
-    @ cmake --build "$(PRIV_DIR)\cmake_ruapu" --config Release
-    @ cmake --install "$(PRIV_DIR)\cmake_ruapu" --config Release
+	@ cmake -G "NMake Makefiles" -B"$(PRIV_DIR)\cmake_ruapu" \
+		-DC_SRC=$(C_SRC) \
+		-DMIX_APP_PATH=$(MIX_APP_PATH) \
+		-DCMAKE_INSTALL_PREFIX=$(PRIV_DIR)
+	@ cmake --build "$(PRIV_DIR)\cmake_ruapu" --config Release
+	@ cmake --install "$(PRIV_DIR)\cmake_ruapu" --config Release
 
 .PHONY: build
