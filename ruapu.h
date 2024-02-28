@@ -419,7 +419,7 @@ void ruapu_init()
 
 int ruapu_supports(const char* isa)
 {
-    const char** isa_supported = g_ruapu_isa_supported;
+    const char* const* isa_supported = g_ruapu_isa_supported;
     while (*isa_supported)
     {
         if (strcmp(*isa_supported, isa) == 0)
