@@ -20,6 +20,14 @@ int main()
     // now, tell me if this cpu has avx2
     int has_avx2 = ruapu_supports("avx2");
 
+    // loop all supported features
+    const char* const* supported = ruapu_rua();
+    while (*supported)
+    {
+        fprintf(stderr, "%s\n", *supported);
+        supported++;
+    }
+
     return 0;
 }
 ```
