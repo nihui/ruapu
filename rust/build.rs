@@ -1,7 +1,6 @@
 fn main() {
     cc::Build::new()
-        .file("ruapu-binding.c")
-        .define("RUST_BINDING", "1")
+        .file("src/ruapu-binding.c")
         .compile("ruapu-rs");
     println!("cargo:rerun-if-changed=ruapu-binding.c");
 }

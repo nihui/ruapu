@@ -35,12 +35,14 @@ jobs:
       run: |
         python3 -m pip install pip -U
         python3 -m pip install setuptools -U
+        cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
     - name: build-test-rust
       run: |
         rustup update stable
         rustup default stable
+        cd rust
         cargo build --verbose
         cargo test --verbose
 
@@ -56,12 +58,14 @@ jobs:
       run: |
         python3 -m pip install pip -U
         python3 -m pip install setuptools -U
+        cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
     - name: build-test-rust
       run: |
         rustup update stable
         rustup default stable
+        cd rust
         cargo build --verbose
         cargo test --verbose
 
@@ -77,12 +81,14 @@ jobs:
       run: |
         python3 -m pip install pip -U
         python3 -m pip install setuptools -U
+        cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
     - name: build-test-rust
       run: |
         rustup update stable
         rustup default stable
+        cd rust
         cargo build --verbose
         cargo test --verbose
 
@@ -104,12 +110,14 @@ jobs:
       run: |
         python3 -m pip install pip -U
         python3 -m pip install setuptools -U
+        cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
     - name: build-test-rust
       run: |
         rustup update stable
         rustup default stable
+        cd rust
         cargo build --verbose
         cargo test --verbose
 

@@ -17,7 +17,6 @@ class bdist_wheel_abi3(bdist_wheel):
 ext = Extension(
     name                = 'ruapu',
     sources             = ['ruapu-binding.c'],
-    define_macros       = [('PYTHON_BINDING', '1')],
     py_limited_api      = True
 )
 

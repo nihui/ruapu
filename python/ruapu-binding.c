@@ -1,9 +1,6 @@
-#if defined(PYTHON_BINDING) || defined(RUST_BINDING)
 #define RUAPU_IMPLEMENTATION
-#include "ruapu.h"
-#endif
+#include "../ruapu.h"
 
-#ifdef PYTHON_BINDING
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
@@ -38,5 +35,3 @@ PyMODINIT_FUNC PyInit_ruapu(void)
     ruapu_init();
     return PyModule_Create(&ruapu_module);
 }
-
-#endif
