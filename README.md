@@ -94,7 +94,7 @@ pip3 install ruapu
 
 ```shell
 # from source code
-pip3 install .
+pip3 install ./python
 ```
 </td>
 <td>
@@ -123,6 +123,7 @@ Compile ruapu library
 
 ```shell
 # from source code
+cd rust
 cargo build --release
 ```
 </td>
