@@ -1,8 +1,8 @@
+#define RUAPU_IMPLEMENTATION
+#include "../ruapu.h"
+
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-
-#define RUAPU_IMPLEMENTATION
-#include "ruapu.h"
 
 static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwargs)
 {
