@@ -113,6 +113,34 @@ ruapu.supports(isa="avx2")
 </td></tr>
 </table>
 
+### ruapu with Rust
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+cargo build --release
+```
+</td>
+<td>
+
+Use ruapu in Rust
+
+```rust
+extern crate ruapu;
+
+fn main() {
+    println!("supports neon: {}", ruapu::supports("neon").unwrap());
+    println!("supports avx2: {}", ruapu::supports("avx2").unwrap());
+}
+```
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 

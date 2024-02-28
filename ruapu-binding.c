@@ -1,8 +1,11 @@
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-
+#if defined(PYTHON_BINDING) || defined(RUST_BINDING)
 #define RUAPU_IMPLEMENTATION
 #include "ruapu.h"
+#endif
+
+#ifdef PYTHON_BINDING
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
 
 static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwargs)
 {
@@ -35,3 +38,5 @@ PyMODINIT_FUNC PyInit_ruapu(void)
     ruapu_init();
     return PyModule_Create(&ruapu_module);
 }
+
+#endif

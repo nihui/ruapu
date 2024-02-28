@@ -1,0 +1,13 @@
+[package]
+name = "ruapu"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+cc = "1.0"
+
+[dev-dependencies]
+claim = "0"
+
+[dependencies]
+lazy_static = "1"
