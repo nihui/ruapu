@@ -113,5 +113,12 @@ int main()
 
 #endif
 
+    const char* const* supported = ruapu_rua();
+    while (*supported)
+    {
+        fprintf(stderr, "%s\n", *supported);
+        supported++;
+    }
+
     return 0;
 }
