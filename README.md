@@ -20,6 +20,14 @@ int main()
     // now, tell me if this cpu has avx2
     int has_avx2 = ruapu_supports("avx2");
 
+    // loop all supported features
+    const char* const* supported = ruapu_rua();
+    while (*supported)
+    {
+        fprintf(stderr, "%s\n", *supported);
+        supported++;
+    }
+
     return 0;
 }
 ```
@@ -94,7 +102,7 @@ pip3 install ruapu
 
 ```shell
 # from source code
-pip3 install .
+pip3 install ./python
 ```
 </td>
 <td>
@@ -109,6 +117,36 @@ ruapu.supports("avx2")
 
 ruapu.supports(isa="avx2")
 # True
+```
+</td></tr>
+</table>
+
+### ruapu with Rust
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+cd rust
+cargo build --release
+```
+</td>
+<td>
+
+Use ruapu in Rust
+
+```rust
+extern crate ruapu;
+
+fn main() {
+    println!("supports neon: {}", ruapu::supports("neon").unwrap());
+    println!("supports avx2: {}", ruapu::supports("avx2").unwrap());
+    println!("rua: {:?}", ruapu::rua());
+}
 ```
 </td></tr>
 </table>
