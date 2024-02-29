@@ -11,12 +11,9 @@
 
 int main()
 {
-    fprintf(stderr, "test stderr output\n");
-    fprintf(stdout, "test stdout output\n");
-
     ruapu_init();
 
-#define PRINT_ISA_SUPPORT(isa) fprintf(stderr, "%s = %d\n", #isa, ruapu_supports(#isa));
+#define PRINT_ISA_SUPPORT(isa) printf("%s = %d\n", #isa, ruapu_supports(#isa));
 
 #if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
     PRINT_ISA_SUPPORT(mmx)
@@ -119,7 +116,7 @@ int main()
     const char* const* supported = ruapu_rua();
     while (*supported)
     {
-        fprintf(stderr, "%s\n", *supported);
+        printf("%s\n", *supported);
         supported++;
     }
 
