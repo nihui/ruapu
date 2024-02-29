@@ -19,8 +19,12 @@ const char* const* ruapu_rua();
 
 #ifdef RUAPU_IMPLEMENTATION
 
+#ifndef RUAPU_BAREMETAL
+
 #include <setjmp.h>
 #include <string.h>
+
+#endif // RUAPU_BAREMETAL
 
 #if defined _WIN32
 
@@ -110,7 +114,32 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
-#endif // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#elif defined __SYTERKIT__ // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+
+typedef void (*ruapu_some_inst)();
+#include <mmu.h>
+
+static int g_ruapu_sigill_caught = 0;
+
+void arm32_do_undefined_instruction(struct arm_regs_t *regs)
+{
+    g_ruapu_sigill_caught = 1;
+    regs->pc += 4;
+}
+
+static int ruapu_detect_isa(ruapu_some_inst some_inst)
+{
+    some_inst();
+    if(g_ruapu_sigill_caught)
+    {
+        g_ruapu_sigill_caught = 0;
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+#endif // __SYTERKIT__
 
 #if defined _WIN32
 
@@ -395,7 +424,7 @@ static void ruapu_detect_openrisc_isa()
 
 void ruapu_init()
 {
-#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __SYTERKIT__
     size_t j = 0;
     for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
     {
