@@ -1,6 +1,7 @@
 language: cpp
 
 os: linux
+dist: jammy
 arch: [amd64, arm64, ppc64le, s390x]
 
 script: gcc main.c -o ruapu && ./ruapu
