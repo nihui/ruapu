@@ -222,6 +222,48 @@ false
 </td></tr>
 </table>
 
+### ruapu with Fortran
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+cd fortran
+cmake -B build
+cmake --build build
+```
+</td>
+<td>
+
+Use ruapu in Fortran
+
+```fortran
+program main
+    use ruapu, only: ruapu_init, ruapu_supports, ruapu_rua
+    implicit none
+
+    character(len=:), allocatable :: isa_supported(:)
+    integer :: i
+
+    call ruapu_init()
+
+    print *, "supports sse: ", ruapu_supports("sse")
+    print *, "supports neon: ", ruapu_supports("neon")
+
+    isa_supported = ruapu_rua()
+    do i = 1, size(isa_supported)
+        print *, trim(isa_supported(i))
+    end do
+end program main
+
+```
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
