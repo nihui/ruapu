@@ -15,9 +15,33 @@ static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwa
     Py_RETURN_FALSE;
 }
 
+static PyObject *get_isa_items_py(PyObject *self, PyObject *args, PyObject *kwargs)
+{
+    const char* const* isa_supported = ruapu_rua();
+    int total = 0;
+    while(*isa_supported)
+    {
+        total++;
+        isa_supported++;
+    }
+    
+    isa_supported = ruapu_rua();
+    PyObject* supported_isa_py = PyTuple_New(total);
+    
+    int tuple_idx = 0;
+    while(*isa_supported)
+    {
+        PyTuple_SetItem(supported_isa_py, tuple_idx++, PyUnicode_FromString(*isa_supported));
+        isa_supported++;
+    }
+
+    return supported_isa_py;
+}
+
 static PyMethodDef ruapu_methods[] =
 {
     {"supports", ruapu_supports_py, METH_VARARGS | METH_KEYWORDS, "Check if the CPU supports an instruction set"},
+    {"rua", get_isa_items_py, METH_VARARGS | METH_KEYWORDS, "Get the instruction sets supported by the current CPU"},
     {NULL, NULL, 0, NULL}
 };
 
