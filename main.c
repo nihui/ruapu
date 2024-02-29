@@ -11,6 +11,9 @@
 
 int main()
 {
+    fprintf(stderr, "test stderr output\n");
+    fprintf(stdout, "test stdout output\n");
+
     ruapu_init();
 
 #define PRINT_ISA_SUPPORT(isa) fprintf(stderr, "%s = %d\n", #isa, ruapu_supports(#isa));
