@@ -117,6 +117,9 @@ ruapu.supports("avx2")
 
 ruapu.supports(isa="avx2")
 # True
+
+ruapu.rua()
+#(mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse41', 'sse42', 'avx', 'f16c', 'fma', 'avx2')
 ```
 </td></tr>
 </table>
@@ -147,6 +150,35 @@ fn main() {
     println!("supports avx2: {}", ruapu::supports("avx2").unwrap());
     println!("rua: {:?}", ruapu::rua());
 }
+```
+</td></tr>
+</table>
+
+### ruapu with Lua
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+cd lua
+# lua binding has been tested on Lua 5.2~5.4
+luarocks make
+```
+</td>
+<td>
+
+Use ruapu in Lua
+
+```Lua
+ruapu = require "ruapu";
+print(ruapu.supports("mmx"));
+for _, ext in ipairs(ruapu.rua()) do
+    print(ext);
+end
 ```
 </td></tr>
 </table>
