@@ -17,27 +17,25 @@ static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwa
 
 static PyObject *get_isa_items_py(PyObject *self, PyObject *args, PyObject *kwargs)
 {
+    const char* const* isa_supported = ruapu_rua();
     int total = 0;
-    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+    while(*isa_supported)
     {
-        if (g_ruapu_isa_map[i].capable)
-        {
-            total ++;
-        }
+        total++;
+        isa_supported++;
     }
-
-    PyObject* supported_isa = PyTuple_New(total);
-
+    
+    isa_supported = ruapu_rua();
+    PyObject* supported_isa_py = PyTuple_New(total);
+    
     int tuple_idx = 0;
-    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+    while(*isa_supported)
     {
-        if (g_ruapu_isa_map[i].capable)
-        {
-            PyTuple_SetItem(supported_isa, tuple_idx++, PyUnicode_FromString(g_ruapu_isa_map[i].isa));
-        }
+        PyTuple_SetItem(supported_isa_py, tuple_idx++, PyUnicode_FromString(*isa_supported));
+        isa_supported++;
     }
 
-    return supported_isa;
+    return supported_isa_py;
 }
 
 static PyMethodDef ruapu_methods[] =

@@ -117,6 +117,9 @@ ruapu.supports("avx2")
 
 ruapu.supports(isa="avx2")
 # True
+
+ruapu.rua()
+#(mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse41', 'sse42', 'avx', 'f16c', 'fma', 'avx2')
 ```
 </td></tr>
 </table>
