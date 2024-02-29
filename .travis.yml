@@ -1,7 +1,5 @@
-sudo: false
 language: cpp
 
-name: "linux"
 os: linux
 arch: [amd64, arm64, ppc64le, s390x]
 
