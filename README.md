@@ -117,6 +117,9 @@ ruapu.supports("avx2")
 
 ruapu.supports(isa="avx2")
 # True
+
+ruapu.rua()
+#(mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse41', 'sse42', 'avx', 'f16c', 'fma', 'avx2')
 ```
 </td></tr>
 </table>
@@ -148,6 +151,74 @@ fn main() {
     println!("rua: {:?}", ruapu::rua());
 }
 ```
+</td></tr>
+</table>
+
+### ruapu with Lua
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+cd lua
+# lua binding has been tested on Lua 5.2~5.4
+luarocks make
+```
+</td>
+<td>
+
+Use ruapu in Lua
+
+```Lua
+ruapu = require "ruapu";
+print(ruapu.supports("mmx"));
+for _, ext in ipairs(ruapu.rua()) do
+    print(ext);
+end
+```
+</td></tr>
+</table>
+
+### ruapu with Erlang
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+# from source code
+rebar3 compile
+```
+</td>
+<td>
+
+Use ruapu in Erlang `rebar3 shell`
+
+```erlang
+ruapu:rua().
+{ok,["neon","vfpv4","asimdrdm","asimdhp","asimddp",
+     "asimdfhm","bf16","i8mm","pmull","crc32","aes","sha1",
+     "sha2","sha3","sha512","amx"]}
+> ruapu:supports("neon").
+true
+> ruapu:supports(neon).
+true
+> ruapu:supports(<<"neon">>).
+true
+> ruapu:supports("avx2").
+false
+> ruapu:supports(avx2).
+false
+> ruapu:supports(<<"avx2">>).
+false
+```
+
 </td></tr>
 </table>
 

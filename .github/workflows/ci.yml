@@ -38,6 +38,7 @@ jobs:
         cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
     - name: build-test-rust
       run: |
         rustup update stable
@@ -45,6 +46,15 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
 
   macos:
     runs-on: macos-latest
@@ -61,6 +71,7 @@ jobs:
         cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
     - name: build-test-rust
       run: |
         rustup update stable
@@ -84,6 +95,7 @@ jobs:
         cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
     - name: build-test-rust
       run: |
         rustup update stable
@@ -113,6 +125,7 @@ jobs:
         cd python
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
     - name: build-test-rust
       run: |
         rustup update stable
@@ -120,6 +133,15 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
 
   qemu:
     runs-on: ubuntu-latest
