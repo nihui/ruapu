@@ -182,4 +182,4 @@ jobs:
     - name: build-test
       run: |
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
-          /bin/bash -c "apt update && apt install -y build-essential && gcc main.c -o ruapu && ./ruapu"
+          /bin/bash -c "apt update && apt install -y gcc && gcc main.c -o ruapu && ./ruapu"
