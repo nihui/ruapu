@@ -304,6 +304,35 @@ func main() {
 </td></tr>
 </table>
 
+### ruapu with Haskell
+
+<table>
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd haskell
+cabal install --lib
+```
+
+</td>
+<td>
+
+Use ruapu in Haskell
+
+```haskell
+import Ruapu
+-- Ruapu.rua :: IO [String]
+-- Ruapu.supports :: String -> IO Bool
+main = do
+    Ruapu.init
+    Ruapu.supports "mmx" >>= putStrLn . show
+    Ruapu.rua >>= foldl (\m x -> m >> putStrLn x) (return ())
+```
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
