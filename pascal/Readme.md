@@ -1,0 +1,1 @@
+Please compile dynamic library of ruapu like C# warp.
