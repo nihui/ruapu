@@ -19,16 +19,11 @@ const char* const* ruapu_rua();
 
 #ifdef RUAPU_IMPLEMENTATION
 
-#ifndef RUAPU_BAREMETAL
-
-#include <setjmp.h>
-#include <string.h>
-
-#endif // RUAPU_BAREMETAL
-
 #if defined _WIN32
 
 #include <windows.h>
+#include <setjmp.h>
+#include <string.h>
 
 #if WINAPI_FAMILY == WINAPI_FAMILY_APP
 // uwp does not support veh  :(
@@ -78,6 +73,8 @@ static int ruapu_detect_isa(const void* some_inst)
 
 #elif defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
 #include <signal.h>
+#include <setjmp.h>
+#include <string.h>
 
 static int g_ruapu_sigill_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
@@ -114,7 +111,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
-#elif defined __SYTERKIT__ // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#elif defined __SYTERKIT__ 
 
 typedef void (*ruapu_some_inst)();
 #include <mmu.h>
@@ -129,6 +126,7 @@ void arm32_do_undefined_instruction(struct arm_regs_t *regs)
 
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
+    g_ruapu_sigill_caught = 0;
     some_inst();
     if(g_ruapu_sigill_caught)
     {
@@ -139,7 +137,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     }
 }
 
-#endif // __SYTERKIT__
+#endif // // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ __SYTERKIT__
 
 #if defined _WIN32
 
