@@ -147,10 +147,8 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #else // defined _WIN32
 
-#if defined(__i386__) || defined(__x86_64__)
+#if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
-#elif __s390x__
-#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".align 16\n\t.byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #elif __powerpc__
@@ -237,7 +235,7 @@ RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
 RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 
 #elif __s390x__
-RUAPU_INSTCODE(zvector, 0xe7, 0x00, 0x02, 0x00, 0x00, 0x8f) // vfmasb v0,v0,v0,v0
+RUAPU_INSTCODE(zvector, 0xe7, 0x11, 0x12, 0x00, 0x10, 0x8f) // vfmasb v1,v1,v1,v1
 
 #elif __loongarch__
 RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
