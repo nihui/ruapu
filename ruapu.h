@@ -183,7 +183,7 @@ RUAPU_INSTCODE(avx512ifma, 0x62, 0xf2, 0xfd, 0x48, 0xb4, 0xc0) // vpmadd52luq zm
 RUAPU_INSTCODE(avx512vbmi, 0x62, 0xf2, 0x7d, 0x48, 0x75, 0xc0) // vpermi2b zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512vbmi2, 0x62, 0xf2, 0x7d, 0x48, 0x71, 0xc0) // vpshldvd zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512fp16, 0x62, 0xf6, 0x7d, 0x48, 0x98, 0xc0) // vfmadd132ph zmm0,zmm0,zmm0
-RUAPU_INSTCODE(avx512pf, 0x62, 0xf2, 0xfd, 0x48, 0xc8, 0xc0) //vgatherpf1dps DWORD PTR [esp+zmm0*1]{k1}
+// TODO:avx512pf, vgatherpf1dps DWORD PTR [esp+zmm0*1]{k1}
 RUAPU_INSTCODE(avx512er, 0x67, 0x62, 0xf2, 0x7f, 0x48, 0x9a, 0x04, 0x24) //vexp2pd zmm0,zmm0
 RUAPU_INSTCODE(avx5124fmaps, 0x67, 0x62, 0xf2, 0x7f, 0x48, 0x52, 0x04, 0x24) //v4fmaddps zmm0,zmm0,XMMWORD PTR [esp]
 RUAPU_INSTCODE(avx5124vnniw, 0xc7, 0x45, 0xfc, 0x00, 0x00, 0x00, 0x00) //vp4dpwssd zmm0,zmm0,XMMWORD PTR [esp]
@@ -300,7 +300,7 @@ RUAPU_ISAENTRY(avx512ifma)
 RUAPU_ISAENTRY(avx512vbmi)
 RUAPU_ISAENTRY(avx512vbmi2)
 RUAPU_ISAENTRY(avx512fp16)
-RUAPU_ISAENTRY(avx512pf)
+// TODO:avx512pf
 RUAPU_ISAENTRY(avx512er)
 RUAPU_ISAENTRY(avx5124fmaps)
 RUAPU_ISAENTRY(avx5124vnniw)
