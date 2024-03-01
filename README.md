@@ -309,12 +309,10 @@ func main() {
 <table>
 <tr><td>
 
-Compile ruapu library
+Add ruapu library to your project
 
-```shell
-cd haskell
-cabal install --lib
-```
+`haskell/Ruapu.hs`, `haskell/ruapu.c` and `ruapu.h` should be copied in your
+project.
 
 </td>
 <td>
