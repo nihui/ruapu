@@ -147,8 +147,10 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #else // defined _WIN32
 
-#if defined(__i386__) || defined(__x86_64__) || __s390x__
+#if defined(__i386__) || defined(__x86_64__)
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
+#elif __s390x__
+#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".align 16\n\t.byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
 #elif __powerpc__
