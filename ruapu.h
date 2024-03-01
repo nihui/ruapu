@@ -235,7 +235,7 @@ RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
 RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 
 #elif __s390x__
-RUAPU_INSTCODE(zvector, 0xe7, 0x00, 0x02, 0x00, 0x00, 0x8f) // vfmasb v0,v0,v0,v0
+RUAPU_INSTCODE(zvector, 0xe7, 0x11, 0x12, 0x00, 0x10, 0x8f) // vfmasb v1,v1,v1,v1
 
 #elif __loongarch__
 RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
