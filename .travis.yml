@@ -1,7 +1,7 @@
 language: cpp
 
 os: linux
-dist: focal
+dist: bionic
 arch: [amd64, arm64, ppc64le, s390x]
 
 script:
