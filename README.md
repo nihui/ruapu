@@ -34,7 +34,7 @@ int main()
 
 </td></tr>
 <tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD</td></tr>
-<tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW</td></tr>
+<tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW<br/>&#9989; Intel</td></tr>
 </table>
 
 #### Best practice for using `ruapu.h` in multiple compilation units
@@ -64,6 +64,12 @@ clang main.c -o ruapu
 ```shell
 # MSVC
 cl.exe /Fe: ruapu.exe main.c
+```
+```shell
+# Intel(R) C++ Compiler Classic (ICC)
+icpc main.c -o ruapu # old version icc may failed, use icpc instead
+# Intel(R) oneAPI DPC++/C++ Compiler (ICX)
+icx main.c -o ruapu
 ```
 </td>
 <td>
