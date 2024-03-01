@@ -304,6 +304,33 @@ func main() {
 </td></tr>
 </table>
 
+### ruapu with Haskell
+
+<table>
+<tr><td>
+
+Add ruapu library to your project
+
+`haskell/Ruapu.hs`, `haskell/ruapu.c` and `ruapu.h` should be copied in your
+project.
+
+</td>
+<td>
+
+Use ruapu in Haskell
+
+```haskell
+import Ruapu
+-- Ruapu.rua :: IO [String]
+-- Ruapu.supports :: String -> IO Bool
+main = do
+    Ruapu.init
+    Ruapu.supports "mmx" >>= putStrLn . show
+    Ruapu.rua >>= foldl (\m x -> m >> putStrLn x) (return ())
+```
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
