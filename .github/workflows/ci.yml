@@ -157,5 +157,5 @@ jobs:
         platforms: linux/${{ matrix.arch }}
     - name: build-test
       run: |
-        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
+        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:stable-slim \
           /bin/bash -c "apt update && apt install -y build-essential && gcc main.c -o ruapu && ./ruapu"
