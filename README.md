@@ -264,6 +264,46 @@ end program main
 </td></tr>
 </table>
 
+### ruapu with Golang
+
+<table>
+
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd go
+go build -o ruapu-go
+```
+
+</td>
+<td>
+
+Use ruapu in Golang
+
+```go
+package main
+
+import (
+	"fmt"
+	"ruapu-go/ruapu"
+	"strconv"
+)
+
+func main() {
+	ruapu.Init()
+	avx2Status := ruapu.Supports("avx2")
+	fmt.Println("avx2:" + strconv.Itoa(avx2Status))
+	rua := ruapu.Rua()
+	fmt.Println(rua)
+}
+```
+
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
