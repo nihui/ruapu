@@ -76,6 +76,7 @@ int main()
     PRINT_ISA_SUPPORT(amx)
 
 #elif __arm__ || defined(_M_ARM)
+    PRINT_ISA_SUPPORT(half)
     PRINT_ISA_SUPPORT(edsp)
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)
