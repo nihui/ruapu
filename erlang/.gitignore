@@ -20,3 +20,4 @@ rebar3.crashdump
 doc/
 priv/
 _build/
+c_src/ruapu.h
