@@ -152,9 +152,9 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #elif __arm__ || defined(_M_ARM)
 #if __thumb__
 #ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned short ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
 #else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned short ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
 #endif
 #else
 #ifdef _MSC_VER
@@ -171,7 +171,11 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
+#if __thumb__
+#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".short " #__VA_ARGS__ : : : ); }
+#else
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
+#endif
 #elif __powerpc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
 #endif
