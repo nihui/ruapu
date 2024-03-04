@@ -369,6 +369,56 @@ fn main() {
 </td></tr>
 </table>
 
+### ruapu with C++
+
+<table>
+
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd cpp
+g++ test_ruapu.cpp -o ruapu
+```
+
+</td>
+<td>
+
+Use ruapu in C++
+
+```c++
+#include <iostream>
+#include <vector>
+
+#include "ruapu.hpp"
+
+int main()
+{
+    ruapu my_ruapu;
+
+    std::cout << "Testing support function:\n";
+    std::string isa_to_test = "AVX2";
+    bool is_supported = my_ruapu.support(isa_to_test);
+    if (is_supported) {
+        std::cout << isa_to_test << " is supported.\n";
+    } else {
+        std::cout << isa_to_test << " is not supported.\n";
+    }
+
+    std::cout << "\nListing supported ISAs:\n";
+    std::vector<std::string> supported_isas = my_ruapu.rua();
+    for (const auto& isa : supported_isas) {
+      std::cout << isa << "\n";
+    }
+}
+```
+
+</td></tr>
+</table>
+
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
