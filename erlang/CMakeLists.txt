@@ -45,7 +45,6 @@ set(SOURCE_FILES
 if(POLICY CMP0068)
     cmake_policy(SET CMP0068 NEW)
 endif()
-include_directories("${ERTS_INCLUDE_DIR}")
 
 add_library(ruapu_nif SHARED
     ${SOURCE_FILES}
@@ -63,6 +62,11 @@ set_target_properties(ruapu_nif PROPERTIES
     INSTALL_RPATH_USE_LINK_PATH TRUE
     BUILD_WITH_INSTALL_RPATH TRUE
 )
+if(EXISTS "${C_SRC}/ruapu.h")
+    target_include_directories(ruapu_nif PUBLIC "${ERTS_INCLUDE_DIR}")
+else()
+    target_include_directories(ruapu_nif PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/.." "${ERTS_INCLUDE_DIR}")
+endif()
 
 if(UNIX AND NOT APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-unused-but-set-variable -Wno-reorder")

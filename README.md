@@ -191,9 +191,10 @@ end
 
 Compile ruapu library
 
-```shell
-# from source code
-rebar3 compile
+```erlang
+% add this to deps list 
+% in your rebar.config
+{ruapu, "0.1.0"}
 ```
 </td>
 <td>
