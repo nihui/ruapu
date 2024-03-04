@@ -81,6 +81,9 @@ int main()
     PRINT_ISA_SUPPORT(neon)
     PRINT_ISA_SUPPORT(vfpv4)
     PRINT_ISA_SUPPORT(idiv)
+    PRINT_ISA_SUPPORT(asimdhp)
+    PRINT_ISA_SUPPORT(asimddp)
+    PRINT_ISA_SUPPORT(asimdfhm)
 
 #elif __mips__
     PRINT_ISA_SUPPORT(msa)
