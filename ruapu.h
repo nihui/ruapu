@@ -19,12 +19,11 @@ const char* const* ruapu_rua();
 
 #ifdef RUAPU_IMPLEMENTATION
 
-#include <setjmp.h>
-#include <string.h>
-
 #if defined _WIN32
 
 #include <windows.h>
+#include <setjmp.h>
+#include <string.h>
 
 #if WINAPI_FAMILY == WINAPI_FAMILY_APP
 // uwp does not support veh  :(
@@ -72,8 +71,10 @@ static int ruapu_detect_isa(const void* some_inst)
 }
 #endif // WINAPI_FAMILY == WINAPI_FAMILY_APP
 
-#elif defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#elif defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__
 #include <signal.h>
+#include <setjmp.h>
+#include <string.h>
 
 static int g_ruapu_sigill_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
@@ -110,7 +111,27 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
-#endif // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#elif defined __SYTERKIT__ 
+
+typedef void (*ruapu_some_inst)();
+#include <mmu.h>
+
+static int g_ruapu_sigill_caught = 0;
+
+void arm32_do_undefined_instruction(struct arm_regs_t *regs)
+{
+    g_ruapu_sigill_caught = 1;
+    regs->pc += 4;
+}
+
+static int ruapu_detect_isa(ruapu_some_inst some_inst)
+{
+    g_ruapu_sigill_caught = 0;
+    some_inst();
+    return g_ruapu_sigill_caught ? 0 : 1;
+}
+
+#endif // defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__
 
 #if defined _WIN32
 
@@ -131,9 +152,9 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #elif __arm__ || defined(_M_ARM)
 #if __thumb__
 #ifdef _MSC_VER
-#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#define RUAPU_INSTCODE(isa, ...) __pragma(section(".text")) __declspec(allocate(".text")) static unsigned short ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
 #else
-#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned int ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
+#define RUAPU_INSTCODE(isa, ...) __attribute__((section(".text"))) static unsigned short ruapu_some_##isa[] = { __VA_ARGS__, 0x4770 };
 #endif
 #else
 #ifdef _MSC_VER
@@ -150,7 +171,11 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #if defined(__i386__) || defined(__x86_64__) || __s390x__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".byte " #__VA_ARGS__ : : : ); }
 #elif __aarch64__ || __arm__ || __mips__ || __riscv || __loongarch__
+#if __thumb__
+#define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".short " #__VA_ARGS__ : : : ); }
+#else
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ : : : ); }
+#endif
 #elif __powerpc__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ : : : ); }
 #endif
@@ -183,8 +208,13 @@ RUAPU_INSTCODE(avx512ifma, 0x62, 0xf2, 0xfd, 0x48, 0xb4, 0xc0) // vpmadd52luq zm
 RUAPU_INSTCODE(avx512vbmi, 0x62, 0xf2, 0x7d, 0x48, 0x75, 0xc0) // vpermi2b zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512vbmi2, 0x62, 0xf2, 0x7d, 0x48, 0x71, 0xc0) // vpshldvd zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512fp16, 0x62, 0xf6, 0x7d, 0x48, 0x98, 0xc0) // vfmadd132ph zmm0,zmm0,zmm0
+// TODO:avx512pf, vgatherpf1dps DWORD PTR [esp+zmm0*1]{k1}
+RUAPU_INSTCODE(avx512er, 0x62, 0xf2, 0xfd, 0x48, 0xc8, 0xc0) //vexp2pd zmm0,zmm0
+RUAPU_INSTCODE(avx5124fmaps, 0x67, 0x62, 0xf2, 0x7f, 0x48, 0x9a, 0x04, 0x24) //v4fmaddps zmm0,zmm0,XMMWORD PTR [esp]
+RUAPU_INSTCODE(avx5124vnniw, 0x67, 0x62, 0xf2, 0x7f, 0x48, 0x52, 0x04, 0x24) //vp4dpwssd zmm0,zmm0,XMMWORD PTR [esp]
 RUAPU_INSTCODE(avxvnni, 0xc4, 0xe2, 0x7d, 0x52, 0xc0) // vpdpwssd ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxvnniint8, 0xc4, 0xe2, 0x7f, 0x50, 0xc0) // vpdpbssd ymm0,ymm0,ymm0
+// TODO:avxvnniint16, vpdpwusd xmm,xmm,xmm
 RUAPU_INSTCODE(avxifma, 0xc4, 0xe2, 0xfd, 0xb4, 0xc0) // vpmadd52luq ymm0,ymm0,ymm0
 
 #elif __aarch64__ || defined(_M_ARM64)
@@ -217,11 +247,13 @@ RUAPU_INSTCODE(amx, 0x00201220) // amx setup
 
 #elif __arm__ || defined(_M_ARM)
 #if __thumb__
+RUAPU_INSTCODE(half, 0xf8bd, 0x0000) // ldrh r0,[sp]
 RUAPU_INSTCODE(edsp, 0xfb20, 0x0000) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xef00, 0x0d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea0, 0x0a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0x2003, 0xfb90, 0xf0f0) // movs r0,#3 + sdiv r0,r0,r0
 #else
+RUAPU_INSTCODE(half, 0xe1dd00b0) // ldrh r0,[sp]
 RUAPU_INSTCODE(edsp, 0xe7000010) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea00a00) // vfma.f32 s0,s0,s0
@@ -295,8 +327,13 @@ RUAPU_ISAENTRY(avx512ifma)
 RUAPU_ISAENTRY(avx512vbmi)
 RUAPU_ISAENTRY(avx512vbmi2)
 RUAPU_ISAENTRY(avx512fp16)
+// TODO:avx512pf
+RUAPU_ISAENTRY(avx512er)
+RUAPU_ISAENTRY(avx5124fmaps)
+RUAPU_ISAENTRY(avx5124vnniw)
 RUAPU_ISAENTRY(avxvnni)
 RUAPU_ISAENTRY(avxvnniint8)
+// TODO:avxvnniint16
 RUAPU_ISAENTRY(avxifma)
 
 #elif __aarch64__ || defined(_M_ARM64)
@@ -327,6 +364,7 @@ RUAPU_ISAENTRY(sm4)
 RUAPU_ISAENTRY(amx)
 
 #elif __arm__ || defined(_M_ARM)
+RUAPU_ISAENTRY(half)
 RUAPU_ISAENTRY(edsp)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
@@ -395,7 +433,7 @@ static void ruapu_detect_openrisc_isa()
 
 void ruapu_init()
 {
-#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__
+#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__
     size_t j = 0;
     for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
     {

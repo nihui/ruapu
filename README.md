@@ -33,7 +33,7 @@ int main()
 ```
 
 </td></tr>
-<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD</td></tr>
+<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD<br/>&#9989; DragonflyBSD<br/>&#9989; Solaris<br/>&#9989; SyterKit</td></tr>
 <tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW</td></tr>
 </table>
 
@@ -304,10 +304,74 @@ func main() {
 </td></tr>
 </table>
 
-### ruapu with Pascal
+### ruapu with Haskell
+
+<table>
+<tr><td>
+
+Add ruapu library to your project
+
+`haskell/Ruapu.hs`, `haskell/ruapu.c` and `ruapu.h` should be copied in your
+project.
+
+</td>
+<td>
+
+Use ruapu in Haskell
+
+```haskell
+import Ruapu
+-- Ruapu.rua :: IO [String]
+-- Ruapu.supports :: String -> IO Bool
+main = do
+    Ruapu.init
+    Ruapu.supports "mmx" >>= putStrLn . show
+    Ruapu.rua >>= foldl (\m x -> m >> putStrLn x) (return ())
+```
+</td></tr>
+</table>
+
+### ruapu with Vlang
 
 <table>
 
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd vlang
+v .
+```
+
+</td>
+<td>
+
+Use ruapu in Vlang
+
+```go
+module main
+
+import ruapu
+
+fn main() {
+    ruapu.ruapu_init()
+    mut avx2_status := ruapu.ruapu_supports('avx2')
+    if avx2_status {
+        println('avx2: ' + avx2_status.str())
+    }
+
+    println(ruapu.ruapu_rua())
+}
+```
+
+</td></tr>
+</table>
+
+### ruapu with Pascal
+
+<table>
 
 <tr><td>
 
@@ -357,7 +421,6 @@ end.
 </td></tr>
 </table>
 
-
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
@@ -386,6 +449,9 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
@@ -421,6 +487,9 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
@@ -477,6 +546,9 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
@@ -513,6 +585,9 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
@@ -540,8 +615,8 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 
 |CPU|ISA|
 |:---:|---|
-|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avxvnni` `avxvnniint8` `avxifma`|
-|arm|`edsp` `neon` `vfpv4` `idiv`|
+|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxifma`|
+|arm|`half` `edsp` `neon` `vfpv4` `idiv`|
 |aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
 |mips|`msa`|
 |powerpc|`vsx`|
