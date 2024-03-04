@@ -6,10 +6,6 @@ interface
 uses
   Classes, SysUtils;
 
-procedure ruapu_init_c(); cdecl;
-function ruapu_supports_c(isa: PAnsiChar): Integer; cdecl;
-function ruapu_rua_c(): PPAnsiChar; cdecl;
-
 const
 {$IFDEF MSWINDOWS}
   ruapu_lib = 'ruapu.dll';
@@ -25,9 +21,11 @@ const
 {$ENDIF}
 {$ENDIF}
 
+procedure ruapu_init(); cdecl; external ruapu_lib name 'ruapu_init_c';
+function ruapu_supports(const isa: PAnsiChar): Integer; cdecl; external ruapu_lib name 'ruapu_supports_c';
+function ruapu_rua(): PPAnsiChar; cdecl; external ruapu_lib name 'ruapu_rua_c';
+
 implementation
-  procedure ruapu_init_c(); cdecl; external ruapu_lib;
-  function ruapu_supports_c(isa: PAnsiChar): Integer; cdecl; external ruapu_lib;
-  function ruapu_rua_c(): PPAnsiChar; cdecl; external ruapu_lib;
+
 end.
 

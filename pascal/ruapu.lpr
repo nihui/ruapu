@@ -7,13 +7,13 @@ var
   supported: PPAnsiChar;
 begin
   // initialize ruapu once
-  ruapu_init_c();
+  ruapu_init();
 
   // now, tell me if this cpu has avx2
-  has_avx2 := ruapu_supports_c('avx2');
+  has_avx2 := ruapu_supports('avx2');
 
   // loop all supported features
-  supported := ruapu_rua_c();
+  supported := ruapu_rua();
   while supported^ <> nil do
   begin
       writeln(supported^);
