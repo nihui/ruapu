@@ -252,12 +252,18 @@ RUAPU_INSTCODE(edsp, 0xfb20, 0x0000) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xef00, 0x0d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea0, 0x0a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0x2003, 0xfb90, 0xf0f0) // movs r0,#3 + sdiv r0,r0,r0
+RUAPU_INSTCODE(asimdhp, 0xef10, 0x0d00) // vadd.f16 d0,d0,d0
+RUAPU_INSTCODE(asimddp, 0xfc20, 0x0d40) // vsdot.s8 q0,q0,q0
+RUAPU_INSTCODE(asimdfhm, 0xfc20, 0x0850) // vfmal.f16 q0,d0,d0
 #else
 RUAPU_INSTCODE(half, 0xe1dd00b0) // ldrh r0,[sp]
 RUAPU_INSTCODE(edsp, 0xe7000010) // smlad r0,r0,r0,r0
 RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea00a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0xe3a00003, 0xe710f010) // movs r0,#3 + sdiv r0,r0,r0
+RUAPU_INSTCODE(asimdhp, 0xf2100d00) // vadd.f16 d0,d0,d0
+RUAPU_INSTCODE(asimddp, 0xfc200d40) // vsdot.s8 q0,q0,q0
+RUAPU_INSTCODE(asimdfhm, 0xfc200850) // vfmal.f16 q0,d0,d0
 #endif
 
 #elif __mips__
