@@ -1,7 +1,7 @@
 How to use:
 
 ```shell
-sodo apt install fpc
+sudo apt install fpc
 cmake .
 make
 fpc ruapu.lpr
