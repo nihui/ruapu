@@ -8,7 +8,7 @@ int main()
     ruapu my_ruapu;
 
     std::cout << "Testing support function:\n";
-    std::string isa_to_test = "AVX2";
+    std::string isa_to_test = "avx2";
     bool is_supported = my_ruapu.support(isa_to_test);
     if (is_supported) {
         std::cout << isa_to_test << " is supported.\n";

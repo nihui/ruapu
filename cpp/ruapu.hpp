@@ -15,9 +15,6 @@ public:
 
     bool support(std::string isa)
     {
-        std::transform(isa.begin(), isa.end(), isa.begin(), [](unsigned char c) {
-            return std::tolower(c);
-        });
         return ruapu_supports(isa.c_str()) == 1;
     }
 
