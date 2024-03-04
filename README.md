@@ -191,9 +191,10 @@ end
 
 Compile ruapu library
 
-```shell
-# from source code
-rebar3 compile
+```erlang
+% add this to deps list 
+% in your rebar.config
+{ruapu, "0.1.0"}
 ```
 </td>
 <td>
@@ -369,10 +370,60 @@ fn main() {
 </td></tr>
 </table>
 
-### ruapu with C++
+### ruapu with Pascal
 
 <table>
 
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd pascal
+sudo apt install fpc
+cmake .
+make
+fpc ruapu.lpr
+```
+
+</td>
+<td>
+
+Use ruapu in Pascal
+
+```pascal
+program ruapu;
+
+uses ruapu_pascal;
+
+var
+  has_avx2: integer;
+  supported: PPAnsiChar;
+begin
+  // initialize ruapu once
+  ruapu_init();
+
+  // now, tell me if this cpu has avx2
+  has_avx2 := ruapu_supports('avx2');
+
+  // loop all supported features
+  supported := ruapu_rua();
+  while supported^ <> nil do
+  begin
+      writeln(supported^);
+      inc(supported);
+  end;
+
+  readln();
+end.
+```
+
+</td></tr>
+</table>
+
+### ruapu with C++
+
+<table>
 
 <tr><td>
 
@@ -417,7 +468,6 @@ int main()
 
 </td></tr>
 </table>
-
 
 <details>
 <summary>Github-hosted runner result (Linux)</summary>

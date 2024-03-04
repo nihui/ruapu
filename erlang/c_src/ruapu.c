@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #define RUAPU_IMPLEMENTATION
-#include "../../ruapu.h"
+#include "ruapu.h"
 
 ERL_NIF_TERM atom(ErlNifEnv *env, const char *msg) {
   ERL_NIF_TERM a;
