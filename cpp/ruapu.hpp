@@ -9,7 +9,13 @@
 class ruapu
 {
 public:
-    ruapu() { ruapu_init(); }
+    ruapu() { 
+      static int initialised = 0;
+      if (!initialised) {
+        ruapu_init();
+        initialised = 1;
+      }
+    }
 
     ~ruapu() = default;
 
