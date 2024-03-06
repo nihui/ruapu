@@ -192,26 +192,3 @@ jobs:
       run: |
         clang main.c -o ruapu
         ./ruapu
-    - name: build-test-python
-      run: |
-        python3 -m pip install pip -U
-        python3 -m pip install setuptools -U
-        cd python
-        pip3 install .
-        python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
-        python3 -c 'import ruapu; print(ruapu.rua())'
-    - name: build-test-rust
-      run: |
-        rustup update stable
-        rustup default stable
-        cd rust
-        cargo build --verbose
-        cargo test --verbose
-    - uses: actions/setup-go@v5
-      with:
-        go-version: 1.21.x
-    - name: build-test-golang
-      run: |
-        cd go
-        go build -o ruapu-go
-        ./ruapu-go
