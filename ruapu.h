@@ -216,6 +216,10 @@ RUAPU_INSTCODE(avxvnni, 0xc4, 0xe2, 0x7d, 0x52, 0xc0) // vpdpwssd ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxvnniint8, 0xc4, 0xe2, 0x7f, 0x50, 0xc0) // vpdpbssd ymm0,ymm0,ymm0
 // TODO:avxvnniint16, vpdpwusd xmm,xmm,xmm
 RUAPU_INSTCODE(avxifma, 0xc4, 0xe2, 0xfd, 0xb4, 0xc0) // vpmadd52luq ymm0,ymm0,ymm0
+RUAPU_INSTCODE(amxfp16, 0xc4, 0xe2, 0x7b, 0x5c, 0xd1) // tdpfp16ps %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxbf16, 0xc4, 0xe2, 0x7a, 0x5c, 0xd1) // tdpbf16ps %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxint8, 0xc4, 0xe2, 0x7b, 0x5e, 0xd1) // tdpbssd %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxtile, 0xc4, 0xe2, 0x7a, 0x49, 0xc0) // tilezero %tmm0
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
@@ -335,6 +339,10 @@ RUAPU_ISAENTRY(avxvnni)
 RUAPU_ISAENTRY(avxvnniint8)
 // TODO:avxvnniint16
 RUAPU_ISAENTRY(avxifma)
+RUAPU_ISAENTRY(amxfp16)
+RUAPU_ISAENTRY(amxbf16)
+RUAPU_ISAENTRY(amxint8)
+RUAPU_ISAENTRY(amxtile)
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)

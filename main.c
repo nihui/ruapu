@@ -47,6 +47,11 @@ int main()
     PRINT_ISA_SUPPORT(avxvnni)
     PRINT_ISA_SUPPORT(avxvnniint8)
     PRINT_ISA_SUPPORT(avxifma)
+    PRINT_ISA_SUPPORT(amxfp16)
+    PRINT_ISA_SUPPORT(amxbf16)
+    PRINT_ISA_SUPPORT(amxint8)
+    PRINT_ISA_SUPPORT(amxtile)
+
 
 #elif __aarch64__ || defined(_M_ARM64)
     PRINT_ISA_SUPPORT(neon)
