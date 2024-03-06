@@ -456,6 +456,10 @@ avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -494,6 +498,10 @@ avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -553,6 +561,10 @@ avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -592,6 +604,10 @@ avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -616,7 +632,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 
 |CPU|ISA|
 |:---:|---|
-|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxifma`|
+|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxifma` `amxfp16` `amxbf16` `amxint8` `amxtile`|
 |arm|`half` `edsp` `neon` `vfpv4` `idiv`|
 |aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
 |mips|`msa`|
@@ -671,6 +687,7 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [@dreamcmi](https://github.com/dreamcmi) &emsp;_Detect more risc-v ISA_
 * [@cocoa-xu](https://github.com/cocoa-xu) &emsp;_Add FreeBSD support, python support_
 * [@YuzukiTsuru](https://github.com/YuzukiTsuru) &emsp;_Add OpenRISC support_
+* [@whyb](https://github.com/whyb) &emsp;_Detect x86 AMX_
 
 ## License
 MIT License
