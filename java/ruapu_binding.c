@@ -17,7 +17,10 @@ extern "C"
     JNIEXPORT jint JNICALL Java_ruapu_Ruapu_supports(JNIEnv *env, jclass jcls, jstring j_isa)
     {
         const char *isa = (*env)->GetStringUTFChars(env, j_isa, NULL);
-        return ruapu_supports(isa);
+        int supported = ruapu_supports(isa);
+        (*env)->ReleaseStringUTFChars(env, j_isa, isa);
+
+        return supported;
     }
 
     JNIEXPORT jobjectArray JNICALL Java_ruapu_Ruapu_rua(JNIEnv *env, jclass jcls)
