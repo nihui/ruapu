@@ -1,0 +1,43 @@
+name: release-windows
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    tags:
+      - '*'
+concurrency:
+  group: release-windows-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        job: 
+          - { arch: amd64, name: x64 }
+          - { arch: amd64_x86, name: x86 }
+          - { arch: amd64_arm64, name: arm64 }
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.job.arch }}
+    - name: build
+      run: |
+        cl.exe /Fe: ruapu-${{ matrix.job.name }}.exe main.c
+    - name: Upload artifact
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ruapu-${{ matrix.job.arch }}.exe
+        path: ruapu-${{ matrix.job.arch }}.exe
+    - name: Upload release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ruapu-${{ matrix.job.name }}.exe
