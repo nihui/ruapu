@@ -33,7 +33,7 @@ public:
 
         const char* const* supported = ruapu_rua();
         while (*supported) {
-            supported_isa_vec.push_back(std::string(*supported));
+            supported_isa_vec.push_back(*supported);
             supported++;
         }
 
