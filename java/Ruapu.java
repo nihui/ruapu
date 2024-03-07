@@ -21,14 +21,14 @@ public class Ruapu {
         if (System.getProperty("os.name").startsWith("Windows")) {
             System.load(
                     FileSystems.getDefault()
-                            .getPath("./ruapu/ruapu_binding.dll") // Dynamic link
+                            .getPath("./ruapu/ruapu_binding.dll")
                             .normalize().toAbsolutePath().toString());
 
         } else {
 
             System.load(
                     FileSystems.getDefault()
-                            .getPath("./ruapu/libruapu_binding.so") // Dynamic link
+                            .getPath("./ruapu/libruapu_binding.so")
                             .normalize().toAbsolutePath().toString());
         }
 
