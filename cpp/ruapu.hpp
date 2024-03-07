@@ -21,8 +21,9 @@ public:
 
     ~ruapu() = default;
 
-    bool support(std::string isa)
+    static bool support(const std::string& isa)
     {
+        ruapu::init();
         return ruapu_supports(isa.c_str()) == 1;
     }
 
