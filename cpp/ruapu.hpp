@@ -11,7 +11,7 @@
 class ruapu
 {
 public:
-    ruapu() { 
+    static void init() { 
       static int initialised = 0;
       if (!initialised) {
         ruapu_init();
