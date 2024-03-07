@@ -11,6 +11,9 @@
 extern "C" {
 #endif
 
+#include <stdatomic.h>
+atomic_int ruapu_initialized = 0;
+
 void ruapu_init();
 
 int ruapu_supports(const char* isa);
@@ -441,26 +444,40 @@ static void ruapu_detect_openrisc_isa()
 
 void ruapu_init()
 {
-#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__
-    size_t j = 0;
-    for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+    int not_initialized = 0;
+    int initialising = 1;
+    int initialised = 2;
+    if (atomic_load_explicit(&ruapu_initialized, memory_order_seq_cst) == not_initialized)
     {
-        int capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
-        if (capable)
+        if (atomic_compare_exchange_strong_explicit(&ruapu_initialized, &not_initialized, initialising, memory_order_seq_cst, memory_order_seq_cst))
         {
-            g_ruapu_isa_supported[j] = g_ruapu_isa_map[i].isa;
-            j++;
-        }
-    }
-    g_ruapu_isa_supported[j] = 0;
+#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__
+            size_t j = 0;
+            for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
+            {
+                int capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
+                if (capable)
+                {
+                    g_ruapu_isa_supported[j] = g_ruapu_isa_map[i].isa;
+                    j++;
+                }
+            }
+            g_ruapu_isa_supported[j] = 0;
+            atomic_store_explicit(&ruapu_initialized, initialised, memory_order_seq_cst);
 #elif defined __openrisc__
-    ruapu_detect_openrisc_isa();
+            ruapu_detect_openrisc_isa();
 #else 
-    // initialize g_ruapu_isa_map for baremetal here, default all zero
-    // there is still ruapu_some_XYZ() functions available
-    // but you have to work out your own signal handling
+            // initialize g_ruapu_isa_map for baremetal here, default all zero
+            // there is still ruapu_some_XYZ() functions available
+            // but you have to work out your own signal handling
 #warning ruapu does not support your baremetal os yet
 #endif
+        }
+        else
+        {
+            while (atomic_load_explicit(&ruapu_initialized, memory_order_seq_cst) != initialised);
+        }
+    }
 }
 
 int ruapu_supports(const char* isa)
