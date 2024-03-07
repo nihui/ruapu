@@ -28,6 +28,7 @@ public:
 
     static std::vector<std::string> rua()
     {
+        ruapu::init();
         std::vector<std::string> supported_isa_vec;
 
         const char* const* supported = ruapu_rua();
