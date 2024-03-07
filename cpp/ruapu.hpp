@@ -27,7 +27,7 @@ public:
         return ruapu_supports(isa.c_str()) == 1;
     }
 
-    std::vector<std::string> rua()
+    static std::vector<std::string> rua()
     {
         std::vector<std::string> supported_isa_vec;
 
