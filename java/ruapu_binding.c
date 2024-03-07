@@ -31,12 +31,12 @@ extern "C"
             size++;
         }
 
-        jobjectArray isa_array = (*env)->NewObjectArray(env, size, jStringcls, NULL);
+        jobjectArray isa_array = (*env)->NewObjectArray(env, (int) size, jStringcls, NULL);
 
         while (*--supported)
         {
             jstring str_isa = (*env)->NewStringUTF(env, *supported);
-            (*env)->SetObjectArrayElement(env, isa_array, --size, str_isa);
+            (*env)->SetObjectArrayElement(env, isa_array, (int) --size, str_isa);
         }
         return isa_array;
     }
