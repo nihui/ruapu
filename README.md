@@ -442,6 +442,7 @@ Use ruapu in C++
 ```c++
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "ruapu.hpp"
 
