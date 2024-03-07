@@ -24,8 +24,12 @@ public class Ruapu {
                             .getPath("./ruapu/ruapu_binding.dll")
                             .normalize().toAbsolutePath().toString());
 
+        } else if (System.getProperty("os.name").startsWith("Mac")) {
+            System.load(
+                    FileSystems.getDefault()
+                            .getPath("./ruapu/libruapu_binding.dylib")
+                            .normalize().toAbsolutePath().toString());
         } else {
-
             System.load(
                     FileSystems.getDefault()
                             .getPath("./ruapu/libruapu_binding.so")
