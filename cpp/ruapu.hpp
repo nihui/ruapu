@@ -19,7 +19,6 @@ public:
       }
     }
 
-    ~ruapu() = default;
 
     static bool support(const std::string& isa)
     {
