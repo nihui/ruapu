@@ -1,3 +1,5 @@
+#ifndef RUAPU_HPP
+#define RUAPU_HPP
 #include <algorithm>
 #include <iostream>
 #include <string>
