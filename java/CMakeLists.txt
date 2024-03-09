@@ -8,21 +8,5 @@ find_package(JNI REQUIRED)
 
 add_library(ruapu_binding SHARED ruapu_binding.c)
 target_include_directories(ruapu_binding PRIVATE ../ ${JNI_INCLUDE_DIRS})
-
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/install/ruapu/Ruapu.class
-                COMMAND javac -d ${CMAKE_CURRENT_BINARY_DIR}/install ${CMAKE_CURRENT_LIST_DIR}/Ruapu.java 
-                DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Ruapu.java)
-add_custom_target(Ruapu_class ALL SOURCES ${CMAKE_CURRENT_BINARY_DIR}/install/ruapu/Ruapu.class)
-
-if(BUILD_EXAMPLE)
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/install/Example.class
-                    COMMAND javac   -d ${CMAKE_CURRENT_BINARY_DIR}/install 
-                                    -cp ${CMAKE_CURRENT_BINARY_DIR}/install 
-                                    ${CMAKE_CURRENT_LIST_DIR}/Example.java
-                    DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Example.java)
-    add_custom_target(Example_class ALL SOURCES ${CMAKE_CURRENT_BINARY_DIR}/install/Example.class)
-    add_dependencies(Example_class Ruapu_class)
-endif()
-
 install(TARGETS ruapu_binding DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/install/ruapu)
 
