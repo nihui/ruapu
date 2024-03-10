@@ -22,6 +22,7 @@ public class Ruapu {
         } else if (System.getProperty("os.name").startsWith("Mac")) {
             suffix = ".dylib";
         } else {
+            libName = "libruapu_binding";
             suffix = ".so";
         }
         // Extract library to temporary place
@@ -34,7 +35,7 @@ public class Ruapu {
         temp.deleteOnExit();
         InputStream is = Ruapu.class.getResourceAsStream("/" + libName + suffix);
         if (is == null) {
-            throw new RuntimeException("Library " + libName + " not found in resources!");
+            throw new RuntimeException("Library " + libName + suffix + " not found in resources!");
         }
         OutputStream os = null;
         try {
