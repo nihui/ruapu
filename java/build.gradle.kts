@@ -22,13 +22,16 @@ val host: String = System.getProperty("os.name")!!
 
 tasks.register("buildJNI") {
     doLast {
-        val buildScript = when {
+        val shell = when {
+            host.startsWith("Windows") -> "powershell.exe"
+            else -> "bash"
+        }
+        val script = when {
             host.startsWith("Windows") -> "build.ps1"
-            // TODO: mac?
             else -> "build.sh"
         }
         exec {
-            commandLine("powershell.exe", "./$buildScript")
+            commandLine(shell, "./$script")
         }
     }
 }
