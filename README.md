@@ -419,9 +419,6 @@ end.
       
 ```
 
-
-
-
 </td></tr>
 </table>
 
@@ -434,13 +431,11 @@ end.
 Compile ruapu library and example
 
 ```shell
-cmake -B build -DBUILD_EXAMPLE=ON
-cmake --build build --target install
+./gradlew build
 ```
 Run example
 ```shell
-cd build/install
-java Example
+java -cp ./build/libs/ruapu-1.0-SNAPSHOT.jar ./Example.java
 ```
 
 </td>
@@ -460,7 +455,7 @@ class Example {
         System.out.println("avx: " + ruapu.supports("avx")); 
         // avx: 1
         System.out.println(Arrays.toString(ruapu.rua())); 
-        // [mmx, sse, sse2, sse3, ssse3, sse41, sse42, avx, f16c, fma, avx2]
+        // [avx2, fma, f16c, avx, sse42, sse41, ssse3, sse3, sse2, sse, mmx]
     }
 }
       
