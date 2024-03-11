@@ -26,7 +26,7 @@ extern "C"
     JNIEXPORT jobjectArray JNICALL Java_ruapu_Ruapu_rua(JNIEnv *env, jclass jcls)
     {
         const char *const *supported = ruapu_rua();
-        size_t size = 0U;
+        int size = 0U;
         jclass jStringcls = (*env)->FindClass(env, "java/lang/String");
         while (*supported)
         {
@@ -34,13 +34,13 @@ extern "C"
             size++;
         }
 
-        jobjectArray isa_array = (*env)->NewObjectArray(env, (int)size, jStringcls, NULL);
-
+        jobjectArray isa_array = (*env)->NewObjectArray(env, size, jStringcls, NULL);
+        int total_idx = 0;
         supported = ruapu_rua();
         while (*supported)
         {
             jstring str_isa = (*env)->NewStringUTF(env, *supported++);
-            (*env)->SetObjectArrayElement(env, isa_array, (int)--size, str_isa);
+            (*env)->SetObjectArrayElement(env, isa_array, total_idx++, str_isa);
         }
         return isa_array;
     }
