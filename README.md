@@ -33,7 +33,7 @@ int main()
 ```
 
 </td></tr>
-<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD</td></tr>
+<tr><td>OS</td><td>&#9989; Windows<br/>&#9989; Linux<br/>&#9989; macOS<br/>&#9989; Android<br/>&#9989; iOS<br/>&#9989; FreeBSD<br/>&#9989; NetBSD<br/>&#9989; OpenBSD<br/>&#9989; DragonflyBSD<br/>&#9989; Solaris<br/>&#9989; SyterKit</td></tr>
 <tr><td>Compiler</td><td>&#9989; GCC<br/>&#9989; Clang<br/>&#9989; MSVC<br/>&#9989; MinGW</td></tr>
 </table>
 
@@ -191,9 +191,10 @@ end
 
 Compile ruapu library
 
-```shell
-# from source code
-rebar3 compile
+```erlang
+% add this to deps list 
+% in your rebar.config
+{ruapu, "0.1.0"}
 ```
 </td>
 <td>
@@ -264,6 +265,210 @@ end program main
 </td></tr>
 </table>
 
+### ruapu with Golang
+
+<table>
+
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd go
+go build -o ruapu-go
+```
+
+</td>
+<td>
+
+Use ruapu in Golang
+
+```go
+package main
+
+import (
+	"fmt"
+	"ruapu-go/ruapu"
+	"strconv"
+)
+
+func main() {
+	ruapu.Init()
+	avx2Status := ruapu.Supports("avx2")
+	fmt.Println("avx2:" + strconv.Itoa(avx2Status))
+	rua := ruapu.Rua()
+	fmt.Println(rua)
+}
+```
+
+</td></tr>
+</table>
+
+### ruapu with Haskell
+
+<table>
+<tr><td>
+
+Add ruapu library to your project
+
+`haskell/Ruapu.hs`, `haskell/ruapu.c` and `ruapu.h` should be copied in your
+project.
+
+</td>
+<td>
+
+Use ruapu in Haskell
+
+```haskell
+import Ruapu
+-- Ruapu.rua :: IO [String]
+-- Ruapu.supports :: String -> IO Bool
+main = do
+    Ruapu.init
+    Ruapu.supports "mmx" >>= putStrLn . show
+    Ruapu.rua >>= foldl (\m x -> m >> putStrLn x) (return ())
+```
+</td></tr>
+</table>
+
+### ruapu with Vlang
+
+<table>
+
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd vlang
+v .
+```
+
+</td>
+<td>
+
+Use ruapu in Vlang
+
+```go
+module main
+
+import ruapu
+
+fn main() {
+    ruapu.ruapu_init()
+    mut avx2_status := ruapu.ruapu_supports('avx2')
+    if avx2_status {
+        println('avx2: ' + avx2_status.str())
+    }
+
+    println(ruapu.ruapu_rua())
+}
+```
+
+</td></tr>
+</table>
+
+### ruapu with Pascal
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```shell
+cd pascal
+sudo apt install fpc
+cmake .
+make
+fpc ruapu.lpr
+```
+
+</td>
+<td>
+
+Use ruapu in Pascal
+
+```pascal
+program ruapu;
+
+uses ruapu_pascal;
+
+var
+  has_avx2: integer;
+  supported: PPAnsiChar;
+begin
+  // initialize ruapu once
+  ruapu_init();
+
+  // now, tell me if this cpu has avx2
+  has_avx2 := ruapu_supports('avx2');
+
+  // loop all supported features
+  supported := ruapu_rua();
+  while supported^ <> nil do
+  begin
+      writeln(supported^);
+      inc(supported);
+  end;
+
+  readln();
+end.
+      
+```
+
+</td></tr>
+</table>
+
+### ruapu with Java
+
+<table>
+
+<tr><td>
+
+Compile ruapu library and example
+
+```shell
+./gradlew build
+```
+Run example
+```shell
+java -cp \
+    ./build/libs/ruapu-1.0-SNAPSHOT.jar \
+    ./Example.java
+```
+
+</td>
+<td>
+
+
+Use ruapu in Java
+
+```java
+import ruapu.Ruapu;
+import java.util.*;
+
+class Example {
+    public static void main(String args[]) {
+        Ruapu ruapu = new Ruapu();
+        
+        System.out.println("avx: " + ruapu.supports("avx")); 
+        // avx: 1
+        System.out.println(Arrays.toString(ruapu.rua())); 
+        // [mmx, sse, sse2, sse3, ssse3, sse41, sse42, avx, f16c, fma, avx2]
+    }
+}
+      
+```
+
+
+
+
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
@@ -292,9 +497,16 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -327,9 +539,16 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -383,9 +602,16 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -419,9 +645,16 @@ avx512ifma = 0
 avx512vbmi = 0
 avx512vbmi2 = 0
 avx512fp16 = 0
+avx512er = 0
+avx5124fmaps = 0
+avx5124vnniw = 0
 avxvnni = 0
 avxvnniint8 = 0
 avxifma = 0
+amxfp16 = 0
+amxbf16 = 0
+amxint8 = 0
+amxtile = 0
 ```
 
 </details>
@@ -446,8 +679,8 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 
 |CPU|ISA|
 |:---:|---|
-|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avxvnni` `avxvnniint8` `avxifma`|
-|arm|`edsp` `neon` `vfpv4` `idiv`|
+|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxifma` `amxfp16` `amxbf16` `amxint8` `amxtile`|
+|arm|`half` `edsp` `neon` `vfpv4` `idiv`|
 |aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
 |mips|`msa`|
 |powerpc|`vsx`|
@@ -506,6 +739,7 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [@dreamcmi](https://github.com/dreamcmi) &emsp;_Detect more risc-v ISA_
 * [@cocoa-xu](https://github.com/cocoa-xu) &emsp;_Add FreeBSD support, python support_
 * [@YuzukiTsuru](https://github.com/YuzukiTsuru) &emsp;_Add OpenRISC support_
+* [@whyb](https://github.com/whyb) &emsp;_Detect x86 AMX_
 
 ## License
 MIT License
