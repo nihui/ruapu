@@ -327,7 +327,7 @@ import Ruapu
 main = do
     Ruapu.init
     Ruapu.supports "mmx" >>= putStrLn . show
-    Ruapu.rua >>= foldl (\m x -> m >> putStrLn x) (return ())
+    Ruapu.rua >>= sequence_ . map putStrLn
 ```
 </td></tr>
 </table>
