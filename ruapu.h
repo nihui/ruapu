@@ -278,6 +278,8 @@ RUAPU_INSTCODE(lsx, 0x700b0000) //vadd.w vr0, vr0, vr0
 RUAPU_INSTCODE(lasx, 0x740b0000) //xvadd.w xr0, xr0, xr0
 
 #elif __riscv
+
+#if __riscv_xlen == 64
 RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
 RUAPU_INSTCODE(m, 0x00200513, 0x02a50533, 0x02a54533) // addi a0,x0,2 mul a0,a0,a0 div a0,a0,a0
 RUAPU_INSTCODE(a, 0x100122af, 0x185122af) // lr.w t0,(sp) + sc.w t0,t0,(sp)
@@ -290,6 +292,22 @@ RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
+#elif __riscv_xlen == 32
+RUAPU_INSTCODE(i, 0x00a50533) // add a0,a0,a0
+RUAPU_INSTCODE(m, 0x00200513, 0x02a50533, 0x02a54533) // addi a0,x0,2 mul a0,a0,a0 div a0,a0,a0
+RUAPU_INSTCODE(a, 0x100122af, 0x185122af) // lr.w t0,(sp) + sc.w t0,t0,(sp)
+RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
+RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
+RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
+RUAPU_INSTCODE(zfa, 0xf0108053) // fli.s ft0, min
+RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
+RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
+RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
+RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
+RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
+#else
+#warning "unsupported RISC-V variant"
+#endif
 
 #endif
 
@@ -392,6 +410,8 @@ RUAPU_ISAENTRY(lsx)
 RUAPU_ISAENTRY(lasx)
 
 #elif __riscv
+
+#if __riscv_xlen == 64
 RUAPU_ISAENTRY(i)
 RUAPU_ISAENTRY(m)
 RUAPU_ISAENTRY(a)
@@ -404,6 +424,22 @@ RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zmmul)
+#elif __riscv_xlen == 32
+RUAPU_ISAENTRY(i)
+RUAPU_ISAENTRY(m)
+RUAPU_ISAENTRY(a)
+RUAPU_ISAENTRY(f)
+RUAPU_ISAENTRY(d)
+RUAPU_ISAENTRY(c)
+RUAPU_ISAENTRY(zfa)
+RUAPU_ISAENTRY(zfh)
+RUAPU_ISAENTRY(zfhmin)
+RUAPU_ISAENTRY(zicsr)
+RUAPU_ISAENTRY(zifencei)
+RUAPU_ISAENTRY(zmmul)
+#else
+#warning "unsupported RISC-V variant"
+#endif
 
 #elif __openrisc__
 RUAPU_ISAENTRY(orbis32)
