@@ -43,6 +43,35 @@ int main()
 2. `ruapu.c` is **ONLY** `#define RUAPU_IMPLEMENTATION` and `#include "ruapu.h"`
 3. Other sources `#include "ruapu.h"` but **NO** `#define RUAPU_IMPLEMENTATION`
 
+## Features
+
+* Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
+_`sse2`, `avx`, `avx512f`, `neon`, etc._
+* Detect **vendor extended ISA**&emsp;&emsp;&emsp;&emsp;
+_apple `amx`, risc-v vendor ISA, etc._
+* Detect **richer ISA on Windows ARM**&emsp;&emsp;
+_`IsProcessorFeaturePresent()` returns little ISA information_
+* Detect **`x86-avx512` on macOS correctly**&emsp;
+_macOS hides it in `cpuid`_
+* Detect **new CPU's ISA on old systems**&emsp;
+_they are usually not exposed in `auxv` or `MISA`_
+* Detect **CPU hidden ISA**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+_`fma4` on zen1, ISA in hypervisor, etc._
+
+## Supported ISA _&emsp;(more is comming ... :)_
+
+|CPU|ISA|
+|:---:|---|
+|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxvnniint16` `avxifma` `amxfp16` `amxbf16` `amxint8` `amxtile`|
+|arm|`half` `edsp` `neon` `vfpv4` `idiv`|
+|aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
+|mips|`msa`|
+|powerpc|`vsx`|
+|s390x|`zvector`|
+|loongarch|`lsx` `lasx`|
+|risc-v|`i` `m` `a` `f` `d` `c` `zfa` `zfh` `zfhmin` `zicsr` `zifencei` `zmmul` |
+|openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
+
 ## Let's ruapu
 
 ### ruapu with C
@@ -658,36 +687,6 @@ amxtile = 0
 ```
 
 </details>
-
-
-## Features
-
-* Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
-_`sse2`, `avx`, `avx512f`, `neon`, etc._
-* Detect **vendor extended ISA**&emsp;&emsp;&emsp;&emsp;
-_apple `amx`, risc-v vendor ISA, etc._
-* Detect **richer ISA on Windows ARM**&emsp;&emsp;
-_`IsProcessorFeaturePresent()` returns little ISA information_
-* Detect **`x86-avx512` on macOS correctly**&emsp;
-_macOS hides it in `cpuid`_
-* Detect **new CPU's ISA on old systems**&emsp;
-_they are usually not exposed in `auxv` or `MISA`_
-* Detect **CPU hidden ISA**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-_`fma4` on zen1, ISA in hypervisor, etc._
-
-## Supported ISA _&emsp;(more is comming ... :)_
-
-|CPU|ISA|
-|:---:|---|
-|x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxvnniint16` `avxifma` `amxfp16` `amxbf16` `amxint8` `amxtile`|
-|arm|`half` `edsp` `neon` `vfpv4` `idiv`|
-|aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
-|mips|`msa`|
-|powerpc|`vsx`|
-|s390x|`zvector`|
-|loongarch|`lsx` `lasx`|
-|risc-v|`i` `m` `a` `f` `d` `c` `zfa` `zfh` `zfhmin` `zicsr` `zifencei` `zmmul` |
-|openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
 
 ## Techniques inside ruapu
 ruapu is implemented in C language to ensure the widest possible portability.
