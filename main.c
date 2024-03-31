@@ -128,6 +128,18 @@ int main()
     PRINT_ISA_SUPPORT(zicsr)
     PRINT_ISA_SUPPORT(zifencei)
 
+    PRINT_ISA_SUPPORT(xtheadba)
+    PRINT_ISA_SUPPORT(xtheadbb)
+    PRINT_ISA_SUPPORT(xtheadbs)
+    PRINT_ISA_SUPPORT(xtheadcondmov)
+    PRINT_ISA_SUPPORT(xtheadfmemidx)
+    PRINT_ISA_SUPPORT(xtheadfmv)
+    PRINT_ISA_SUPPORT(xtheadmac)
+    PRINT_ISA_SUPPORT(xtheadmemidx)
+    PRINT_ISA_SUPPORT(xtheadmempair)
+    PRINT_ISA_SUPPORT(xtheadsync)
+    PRINT_ISA_SUPPORT(xtheadvdot)
+
 #elif __openrisc__
     PRINT_ISA_SUPPORT(orbis32)
     PRINT_ISA_SUPPORT(orbis64)

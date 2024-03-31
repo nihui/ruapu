@@ -306,6 +306,18 @@ RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
 
+RUAPU_INSTCODE(xtheadba, 0x00a5150b) // th.addsl a0,a0,a0,#0
+RUAPU_INSTCODE(xtheadbb, 0x1005150b) // th.srri a0,a0,#0
+RUAPU_INSTCODE(xtheadbs, 0x8805150b) // th.tst a0,a0,#0
+RUAPU_INSTCODE(xtheadcondmov, 0x40a5150b) // th.mveqz a0,a0,a0
+RUAPU_INSTCODE(xtheadfmemidx, 0x40a1650b) // th.flrw a0,sp,a0,#0
+RUAPU_INSTCODE(xtheadfmv, 0xc005150b) // th.fmv.x.hw a0,fa0
+RUAPU_INSTCODE(xtheadmac, 0x20a5150b) // th.mula a0,a0,a0
+RUAPU_INSTCODE(xtheadmemidx, 0x1801450b) // th.lbia a0,(sp),#0,#0
+RUAPU_INSTCODE(xtheadmempair, 0xe0a1450b) // th.lwd a0,a0,(sp),#0,3
+RUAPU_INSTCODE(xtheadsync, 0x0180000b) // th.sync
+RUAPU_INSTCODE(xtheadvdot, 0x8000600b) // th.vmaqa.vv v0,v0,v0
+
 #endif
 
 #undef RUAPU_INSTCODE
@@ -434,6 +446,18 @@ RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zmmul)
+
+RUAPU_ISAENTRY(xtheadba)
+RUAPU_ISAENTRY(xtheadbb)
+RUAPU_ISAENTRY(xtheadbs)
+RUAPU_ISAENTRY(xtheadcondmov)
+RUAPU_ISAENTRY(xtheadfmemidx)
+RUAPU_ISAENTRY(xtheadfmv)
+RUAPU_ISAENTRY(xtheadmac)
+RUAPU_ISAENTRY(xtheadmemidx)
+RUAPU_ISAENTRY(xtheadmempair)
+RUAPU_ISAENTRY(xtheadsync)
+RUAPU_ISAENTRY(xtheadvdot)
 
 #elif __openrisc__
 RUAPU_ISAENTRY(orbis32)
