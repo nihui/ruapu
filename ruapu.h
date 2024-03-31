@@ -231,12 +231,17 @@ RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4h,v0.16b,v0.16b
 RUAPU_INSTCODE(asimdfhm, 0x4e20ec00) // fmlal v0.4s,v0.4h,v0.4h
 RUAPU_INSTCODE(bf16, 0x6e40ec00) // bfmmla v0.4h,v0.8h,v0.8h
 RUAPU_INSTCODE(i8mm, 0x4e80a400) // smmla v0.4h,v0.16b,v0.16b
+RUAPU_INSTCODE(frint, 0x4e21e800) // frint32z v0.4s,v0.4s
+RUAPU_INSTCODE(jscvt, 0x1e7e0000) // fjcvtzs w0,d0
+RUAPU_INSTCODE(fcma, 0x6e80c400) // fcmla v0.4s,v0.4s,v0.4s,#0
 RUAPU_INSTCODE(mte, 0xd96003e0) // ldg x0,[sp]
+RUAPU_INSTCODE(mte2, 0xd9e003e0) // ldgm x0,[sp]
 RUAPU_INSTCODE(sve, 0x65608000) // fmad z0.h,p0/m,z0.h,z0.h
 RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
 RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
+RUAPU_INSTCODE(svef64mm, 0x64e0e400) // fmmla z0.d,z0.d,z0.d
 RUAPU_INSTCODE(pmull, 0x0e20e000) // pmull v0.8h,v0.8b,v0.8b
 RUAPU_INSTCODE(crc32, 0x1ac04000) // crc32b w0,w0,w0
 RUAPU_INSTCODE(aes, 0x4e285800) // aesd v0.16b,v0.16b
@@ -246,6 +251,11 @@ RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b, v0.16b, v0.16b, v0.16b
 RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
 RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
 RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s, v0.4s
+RUAPU_INSTCODE(svepmull, 0x45006800) // pmullb z0.q,z0.d,z0.d
+RUAPU_INSTCODE(svebitperm, 0x4500b000) // bext z0.b,z0.b,z0.b
+RUAPU_INSTCODE(sveaes, 0x4522e400) // aesd z0.b,z0.b,z0.b
+RUAPU_INSTCODE(svesha3, 0x4520f400) // rax1 z0.d,z0.d,z0.d
+RUAPU_INSTCODE(svesm4, 0x4523e000) // sm4e z0.s,z0.s,z0.s
 RUAPU_INSTCODE(amx, 0x00201220) // amx setup
 
 
@@ -354,12 +364,17 @@ RUAPU_ISAENTRY(asimddp)
 RUAPU_ISAENTRY(asimdfhm)
 RUAPU_ISAENTRY(bf16)
 RUAPU_ISAENTRY(i8mm)
+RUAPU_ISAENTRY(frint)
+RUAPU_ISAENTRY(jscvt)
+RUAPU_ISAENTRY(fcma)
 RUAPU_ISAENTRY(mte)
+RUAPU_ISAENTRY(mte2)
 RUAPU_ISAENTRY(sve)
 RUAPU_ISAENTRY(sve2)
 RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
+RUAPU_ISAENTRY(svef64mm)
 RUAPU_ISAENTRY(pmull)
 RUAPU_ISAENTRY(crc32)
 RUAPU_ISAENTRY(aes)
@@ -369,6 +384,11 @@ RUAPU_ISAENTRY(sha3)
 RUAPU_ISAENTRY(sha512)
 RUAPU_ISAENTRY(sm3)
 RUAPU_ISAENTRY(sm4)
+RUAPU_ISAENTRY(svepmull)
+RUAPU_ISAENTRY(svebitperm)
+RUAPU_ISAENTRY(sveaes)
+RUAPU_ISAENTRY(svesha3)
+RUAPU_ISAENTRY(svesm4)
 RUAPU_ISAENTRY(amx)
 
 #elif __arm__ || defined(_M_ARM)
