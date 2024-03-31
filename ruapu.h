@@ -224,6 +224,7 @@ RUAPU_INSTCODE(amxtile, 0xc4, 0xe2, 0x7a, 0x49, 0xc0) // tilezero %tmm0
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(vfpv4, 0x1f000000) // fmadd s0,s0,s0,s0
+RUAPU_INSTCODE(lse, 0xf82083e0, 0xf82083e0) // swp x0,x0,[sp] + swp x0,x0,[sp]
 RUAPU_INSTCODE(cpuid, 0xd5380000) // mrs x0,midr_el1
 RUAPU_INSTCODE(asimdrdm, 0x6e808400) // sqrdmlah v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(asimdhp, 0x0e401400) // fadd v0.4h,v0.4h,v0.4h
@@ -242,6 +243,10 @@ RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
 RUAPU_INSTCODE(svef64mm, 0x64e0e400) // fmmla z0.d,z0.d,z0.d
+RUAPU_INSTCODE(sme, 0x80800000) // fmopa za0.s,p0/m,p0/m,z0.s,z0.s
+RUAPU_INSTCODE(smef16f16, 0x81800008) // fmopa za0.h,p0/m,p0/m,z0.h,z0.h
+RUAPU_INSTCODE(smef64f64, 0x80c00000) // fmopa za0.d,p0/m,p0/m,z0.d,z0.d
+RUAPU_INSTCODE(smei64i64, 0xa0c00000) // smopa za0.d,p0/m,p0/m,z0.h,z0.h
 RUAPU_INSTCODE(pmull, 0x0e20e000) // pmull v0.8h,v0.8b,v0.8b
 RUAPU_INSTCODE(crc32, 0x1ac04000) // crc32b w0,w0,w0
 RUAPU_INSTCODE(aes, 0x4e285800) // aesd v0.16b,v0.16b
@@ -357,6 +362,7 @@ RUAPU_ISAENTRY(amxtile)
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
+RUAPU_ISAENTRY(lse)
 RUAPU_ISAENTRY(cpuid)
 RUAPU_ISAENTRY(asimdrdm)
 RUAPU_ISAENTRY(asimdhp)
@@ -375,6 +381,10 @@ RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
 RUAPU_ISAENTRY(svef64mm)
+RUAPU_ISAENTRY(sme)
+RUAPU_ISAENTRY(smef16f16)
+RUAPU_ISAENTRY(smef64f64)
+RUAPU_ISAENTRY(smei64i64)
 RUAPU_ISAENTRY(pmull)
 RUAPU_ISAENTRY(crc32)
 RUAPU_ISAENTRY(aes)
