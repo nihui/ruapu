@@ -64,7 +64,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |:---:|---|
 |x86|`mmx` `sse` `sse2` `sse3` `ssse3` `sse41` `sse42` `sse4a` `xop` `avx` `f16c` `fma` `fma4` `avx2` `avx512f` `avx512bw` `avx512cd` `avx512dq` `avx512vl` `avx512vnni` `avx512bf16` `avx512ifma` `avx512vbmi` `avx512vbmi2` `avx512fp16` `avx512er` `avx5124fmaps` `avx5124vnniw` `avxvnni` `avxvnniint8` `avxvnniint16` `avxifma` `amxfp16` `amxbf16` `amxint8` `amxtile`|
 |arm|`half` `edsp` `neon` `vfpv4` `idiv`|
-|aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `mte` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `amx`|
+|aarch64|`neon` `vfpv4` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `frint` `jscvt` `fcma` `mte` `mte2` `sve` `sve2` `svebf16` `svei8mm` `svef32mm` `svef64mm` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `svepmull` `svebitperm` `sveaes` `svesha3` `svesm4` `amx`|
 |mips|`msa`|
 |powerpc|`vsx`|
 |s390x|`zvector`|
