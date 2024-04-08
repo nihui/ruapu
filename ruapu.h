@@ -281,6 +281,11 @@ RUAPU_INSTCODE(idiv, 0xe3a00003, 0xe710f010) // movs r0,#3 + sdiv r0,r0,r0
 
 #elif __mips__
 RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
+RUAPU_INSTCODE(mmi, 0x4b60000e) // pmaddhw $f0,$f0
+RUAPU_INSTCODE(sx, 0xef48001e) // __lsx_vffloor_w
+RUAPU_INSTCODE(asx, 0xec40001d) // __lasx_xfmadd_w
+RUAPU_INSTCODE(msa2, 0x78000008) // __msa2_vperm_b
+RUAPU_INSTCODE(crypto, 0x78010017) // __crypto_aes128_dec
 
 #elif __powerpc__
 RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
@@ -422,6 +427,11 @@ RUAPU_ISAENTRY(idiv)
 
 #elif __mips__
 RUAPU_ISAENTRY(msa)
+RUAPU_ISAENTRY(mmi)
+RUAPU_ISAENTRY(sx)
+RUAPU_ISAENTRY(asx)
+RUAPU_ISAENTRY(msa2)
+RUAPU_ISAENTRY(crypto)
 
 #elif __powerpc__
 RUAPU_ISAENTRY(vsx)
