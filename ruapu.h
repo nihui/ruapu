@@ -183,7 +183,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #endif // defined _WIN32
 
 #if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
-RUAPU_INSTCODE(mmx, 0x0f, 0xdb, 0xc0) // pand mm0,mm0
+RUAPU_INSTCODE(mmx, 0x0f, 0xdb, 0xc0, 0x0f, 0x77) // pand mm0,mm0 + emms
 RUAPU_INSTCODE(sse, 0x0f, 0x54, 0xc0) // andps xmm0,xmm0
 RUAPU_INSTCODE(sse2, 0x66, 0x0f, 0xfe, 0xc0) // paddd xmm0,xmm0
 RUAPU_INSTCODE(sse3, 0xf2, 0x0f, 0x7c, 0xc0) // haddps xmm0,xmm0
