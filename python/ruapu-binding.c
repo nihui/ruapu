@@ -15,24 +15,28 @@ static PyObject *ruapu_supports_py(PyObject *self, PyObject *args, PyObject *kwa
     Py_RETURN_FALSE;
 }
 
-static PyObject *get_isa_items_py(PyObject *self, PyObject *args, PyObject *kwargs)
+static PyObject *get_isa_items_py(PyObject *self, PyObject *Py_UNUSED(args))
 {
     const char* const* isa_supported = ruapu_rua();
+    const char* const* old_ptr = isa_supported;
     int total = 0;
     while(*isa_supported)
     {
         total++;
         isa_supported++;
     }
-    
-    isa_supported = ruapu_rua();
+
     PyObject* supported_isa_py = PyTuple_New(total);
-    
-    int tuple_idx = 0;
-    while(*isa_supported)
+    if(supported_isa_py==NULL)
     {
-        PyTuple_SetItem(supported_isa_py, tuple_idx++, PyUnicode_FromString(*isa_supported));
-        isa_supported++;
+        return PyErr_NoMemory();
+    }
+    
+    Py_ssize_t tuple_idx = 0;
+    while(*old_ptr)
+    {
+        PyTuple_SetItem(supported_isa_py, tuple_idx++, PyUnicode_FromString(*old_ptr));
+        old_ptr++;
     }
 
     return supported_isa_py;
@@ -40,22 +44,34 @@ static PyObject *get_isa_items_py(PyObject *self, PyObject *args, PyObject *kwar
 
 static PyMethodDef ruapu_methods[] =
 {
-    {"supports", ruapu_supports_py, METH_VARARGS | METH_KEYWORDS, "Check if the CPU supports an instruction set"},
-    {"rua", get_isa_items_py, METH_VARARGS | METH_KEYWORDS, "Get the instruction sets supported by the current CPU"},
+    {"supports", (PyCFunction)ruapu_supports_py, METH_VARARGS | METH_KEYWORDS, PyDoc_STR("Check if the CPU supports an instruction set")},
+    {"rua", (PyCFunction)get_isa_items_py, METH_NOARGS, PyDoc_STR("Get the instruction sets supported by the current CPU")},
     {NULL, NULL, 0, NULL}
 };
 
+static int
+ruapu_exec(PyObject *mod)
+{
+    ruapu_init();
+    return 0;
+}
+
+static PyModuleDef_Slot ruapu_slots[] = {
+        {Py_mod_exec, ruapu_exec},
+        {0, NULL}
+};
+/* PEP 489 – Multi-phase extension module */
 static struct PyModuleDef ruapu_module =
 {
     PyModuleDef_HEAD_INIT,
     "ruapu",
-    "ruapu module",
-    -1,
-    ruapu_methods
+    PyDoc_STR("ruapu module"),
+    0,
+    ruapu_methods,
+    ruapu_slots
 };
 
 PyMODINIT_FUNC PyInit_ruapu(void)
 {
-    ruapu_init();
-    return PyModule_Create(&ruapu_module);
+    return PyModuleDef_Init(&ruapu_module);
 }
