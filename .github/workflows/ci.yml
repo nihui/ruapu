@@ -2,16 +2,10 @@ name: ci
 on:
   push:
     branches: [master]
-    paths:
-      - '.github/workflows/ci.yml'
-      - '*.h'
-      - '*.c'
+
   pull_request:
     branches: [master]
-    paths:
-      - '.github/workflows/ci.yml'
-      - '*.h'
-      - '*.c'
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -31,6 +25,9 @@ jobs:
       run: |
         clang main.c -o ruapu-clang
         ./ruapu-clang
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
@@ -61,7 +58,6 @@ jobs:
         go build -o ruapu-go
         ./ruapu-go
 
-
   macos:
     runs-on: macos-latest
     steps:
@@ -70,6 +66,9 @@ jobs:
       run: |
         clang main.c -o ruapu
         ./ruapu
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
@@ -99,6 +98,9 @@ jobs:
       run: |
         clang main.c -o ruapu
         ./ruapu
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
@@ -137,6 +139,9 @@ jobs:
       run: |
         gcc main.c -o ruapu-mingw.exe
         ./ruapu-mingw.exe
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
