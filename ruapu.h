@@ -38,10 +38,27 @@ static int ruapu_detect_isa(const void* some_inst)
     return 0;
 }
 #else // WINAPI_FAMILY == WINAPI_FAMILY_APP
+typedef const void* ruapu_some_inst;
+#if defined (_MSC_VER) // MSVC
+static int ruapu_detect_isa(const void* some_inst)
+{
+    int g_ruapu_sigill_caught = 0;
+
+    __try
+    {
+        ((void (*)())some_inst)();
+    }
+    __except (GetExceptionCode() == EXCEPTION_ILLEGAL_INSTRUCTION ?
+        EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
+    {
+        g_ruapu_sigill_caught = 1;
+    }
+
+    return g_ruapu_sigill_caught ? 0 : 1;
+}
+#else
 static int g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
-
-typedef const void* ruapu_some_inst;
 
 static LONG CALLBACK ruapu_catch_sigill(struct _EXCEPTION_POINTERS* ExceptionInfo)
 {
@@ -69,6 +86,7 @@ static int ruapu_detect_isa(const void* some_inst)
 
     return g_ruapu_sigill_caught ? 0 : 1;
 }
+#endif
 #endif // WINAPI_FAMILY == WINAPI_FAMILY_APP
 
 #elif defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__
@@ -111,7 +129,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 
-#elif defined __SYTERKIT__ 
+#elif defined __SYTERKIT__
 
 typedef void (*ruapu_some_inst)();
 #include <mmu.h>
@@ -519,7 +537,7 @@ void ruapu_init()
     g_ruapu_isa_supported[j] = 0;
 #elif defined __openrisc__
     ruapu_detect_openrisc_isa();
-#else 
+#else
     // initialize g_ruapu_isa_map for baremetal here, default all zero
     // there is still ruapu_some_XYZ() functions available
     // but you have to work out your own signal handling
