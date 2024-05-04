@@ -28,19 +28,7 @@ typedef void (*ruapu_some_inst)();
 #include <windows.h>
 #include <setjmp.h>
 
-#if WINAPI_FAMILY == WINAPI_FAMILY_APP
-// uwp does not support veh  :(
-#if defined (_MSC_VER)
-#pragma message("warning: ruapu does not support UWP yet.")
-#else
-#warning ruapu does not support UWP yet.
-#endif
-static int ruapu_detect_isa(const void* some_inst)
-{
-    (void)some_inst;
-    return 0;
-}
-#elif defined (_MSC_VER) // MSVC
+#if defined (_MSC_VER) // MSVC
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
     int g_ruapu_sigill_caught = 0;
@@ -354,7 +342,7 @@ struct ruapu_isa_entry
     ruapu_some_inst inst;
 };
 
-#define RUAPU_ISAENTRY(isa) { #isa, (ruapu_some_inst)ruapu_some_##isa },
+#define RUAPU_ISAENTRY(isa) { #isa, (ruapu_some_inst)(void*)ruapu_some_##isa },
 
 struct ruapu_isa_entry g_ruapu_isa_map[] = {
 
