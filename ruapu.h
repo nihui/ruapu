@@ -19,11 +19,14 @@ const char* const* ruapu_rua();
 
 #ifdef RUAPU_IMPLEMENTATION
 
+#include <string.h>
+
+typedef void (*ruapu_some_inst)();
+
 #if defined _WIN32
 
 #include <windows.h>
 #include <setjmp.h>
-#include <string.h>
 
 #if WINAPI_FAMILY == WINAPI_FAMILY_APP
 // uwp does not support veh  :(
@@ -37,16 +40,14 @@ static int ruapu_detect_isa(const void* some_inst)
     (void)some_inst;
     return 0;
 }
-#else // WINAPI_FAMILY == WINAPI_FAMILY_APP
-typedef const void* ruapu_some_inst;
-#if defined (_MSC_VER) // MSVC
-static int ruapu_detect_isa(const void* some_inst)
+#elif defined (_MSC_VER) // MSVC
+static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
     int g_ruapu_sigill_caught = 0;
 
     __try
     {
-        ((void (*)())some_inst)();
+        some_inst();
     }
     __except (GetExceptionCode() == EXCEPTION_ILLEGAL_INSTRUCTION ?
         EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
@@ -71,7 +72,7 @@ static LONG CALLBACK ruapu_catch_sigill(struct _EXCEPTION_POINTERS* ExceptionInf
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
-static int ruapu_detect_isa(const void* some_inst)
+static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
     g_ruapu_sigill_caught = 0;
 
@@ -79,25 +80,21 @@ static int ruapu_detect_isa(const void* some_inst)
 
     if (setjmp(g_ruapu_jmpbuf) == 0)
     {
-        ((void (*)())some_inst)();
+        some_inst();
     }
 
     RemoveVectoredExceptionHandler(eh);
 
     return g_ruapu_sigill_caught ? 0 : 1;
 }
-#endif
 #endif // WINAPI_FAMILY == WINAPI_FAMILY_APP
 
 #elif defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__
 #include <signal.h>
 #include <setjmp.h>
-#include <string.h>
 
 static int g_ruapu_sigill_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
-
-typedef void (*ruapu_some_inst)();
 
 static void ruapu_catch_sigill(int signo, siginfo_t* si, void* data)
 {
@@ -131,7 +128,6 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #elif defined __SYTERKIT__
 
-typedef void (*ruapu_some_inst)();
 #include <mmu.h>
 
 static int g_ruapu_sigill_caught = 0;
