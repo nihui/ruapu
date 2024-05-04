@@ -7,7 +7,7 @@ Detect CPU ISA features with single-file
 
 <table>
 <tr><td>CPU</td><td>&#9989; x86, x86-64<br/>&#9989; arm, aarch64<br/>&#9989; mips<br/>&#9989; powerpc<br/>&#9989; s390x<br/>&#9989; loongarch<br/>&#9989; risc-v<br/>&#9989; openrisc</td><td rowspan=3>
-  
+
 ```c
 #define RUAPU_IMPLEMENTATION
 #include "ruapu.h"
@@ -69,7 +69,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |powerpc|`vsx`|
 |s390x|`zvector`|
 |loongarch|`lsx` `lasx`|
-|risc-v|`i` `m` `a` `f` `d` `c` `zfa` `zfh` `zfhmin` `zicsr` `zifencei` `zmmul` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvdot`|
+|risc-v|`i` `m` `a` `f` `d` `c` `zba` `zbb` `zbc` `zbs` `zbkb` `zbkc` `zbkx` `zfa` `zfh` `zfhmin` `zicsr` `zifencei` `zmmul` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvdot`|
 |openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
 
 ## Let's ruapu
@@ -100,7 +100,7 @@ cl.exe /Fe: ruapu.exe main.c
 Run ruapu in command line
 
 ```shell
-./ruapu 
+./ruapu
 mmx = 1
 sse = 1
 sse2 = 1
@@ -722,6 +722,11 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [libllm](https://github.com/ling0322/libllm) &emsp;_Efficient inference of large language models_
 
 ## Credits
+<a href="https://github.com/nihui/ruapu/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nihui/ruapu" />
+</a>
+
+### Contribution behavior
 * [@nihui](https://github.com/nihui) &emsp;_Write the initial POC code and ruapu maintainer_
 * [@kernelbin](https://github.com/kernelbin) &emsp;_Implement exception handling for Windows_
 * [@zchrissirhcz](https://github.com/zchrissirhcz) &emsp;_Detect x86 FMA4_
