@@ -306,6 +306,7 @@ RUAPU_INSTCODE(a, 0x100122af, 0x185122af) // lr.w t0,(sp) + sc.w t0,t0,(sp)
 RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
 RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
+RUAPU_INSTCODE(v, 0x00f02573) // csrr a0,vcsr
 RUAPU_INSTCODE(zba, 0x20a52533) // sh1add a0,a0,a0
 RUAPU_INSTCODE(zbb, 0x40a57533) // andn a0,a0,a0
 RUAPU_INSTCODE(zbc, 0x0aa52533) // clmulr a0,a0,a0
@@ -461,6 +462,7 @@ RUAPU_ISAENTRY(a)
 RUAPU_ISAENTRY(f)
 RUAPU_ISAENTRY(d)
 RUAPU_ISAENTRY(c)
+RUAPU_ISAENTRY(v)
 RUAPU_ISAENTRY(zba)
 RUAPU_ISAENTRY(zbb)
 RUAPU_ISAENTRY(zbc)
