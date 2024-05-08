@@ -19,6 +19,7 @@ const char* const* ruapu_rua();
 
 #ifdef RUAPU_IMPLEMENTATION
 
+#include <stdint.h>
 #include <string.h>
 
 typedef void (*ruapu_some_inst)();
@@ -334,6 +335,44 @@ RUAPU_INSTCODE(xtheadmempair, 0xe0a1450b) // th.lwd a0,a0,(sp),#0,3
 RUAPU_INSTCODE(xtheadsync, 0x0180000b) // th.sync
 RUAPU_INSTCODE(xtheadvdot, 0x8000600b) // th.vmaqa.vv v0,v0,v0
 
+// RVV 1.0 support
+static void ruapu_rvv_assert(int cond) {
+    // unimp
+    if (!cond)
+        asm volatile(".align 2\n.word 0xc0001073" : : : );
+}
+typedef intptr_t ruapu_riscv_xlen_t;
+__attribute__((naked))
+static ruapu_riscv_xlen_t ruapu_rvv_vsetvl(int vtype) {
+    // vsetvl a0, zero, a0
+    asm volatile(".word 0x80a07557\nret" : : : );
+}
+static ruapu_riscv_xlen_t ruapu_rvv_vsetvl_safe(int vtype) {
+    ruapu_riscv_xlen_t vl = ruapu_rvv_vsetvl(vtype);
+    // check vill bit
+    ruapu_rvv_assert(vl > 0);
+    return vl;
+}
+#define RUAPU_DETECT_ZVL(len) static void ruapu_some_zvl##len##b() { ruapu_rvv_assert(ruapu_rvv_vsetvl_safe(0) >= len/8); }
+RUAPU_DETECT_ZVL(32)
+RUAPU_DETECT_ZVL(64)
+RUAPU_DETECT_ZVL(128)
+RUAPU_DETECT_ZVL(256)
+RUAPU_DETECT_ZVL(512)
+RUAPU_DETECT_ZVL(1024)
+#undef RUAPU_DETECT_ZVL
+#define RUAPU_RVV_INSTCODE(isa, vtype, ...) static void ruapu_some_##isa() { ruapu_rvv_vsetvl_safe(vtype); asm volatile(".align 2\n.word " #__VA_ARGS__ : : : ); }
+
+RUAPU_RVV_INSTCODE(zvbb, 0, 0x4a862257) // vclz.v v4, v8 with SEW = 8
+RUAPU_RVV_INSTCODE(zvbc, 0, 0x32842257) // vclmul.vv v4, v8, v8 with SEW = 8
+RUAPU_RVV_INSTCODE(zvfh, 8, 0x02841257) // vfadd.vv v4, v8, v8 with SEW = 16
+RUAPU_RVV_INSTCODE(zvfhmin, 8, 0x4a8a1257) // vfncvt.f.f.v v4, v8 with SEW = 16
+RUAPU_RVV_INSTCODE(zvfbfmin, 8, 0x4a8e9257) // vfncvtbf16.f.f.w v4, v8 with SEW = 16
+RUAPU_RVV_INSTCODE(zvfbfwma, 8, 0xee855257) // vfwmaccbf16.vf v4, fa0, v8 with SEW = 16
+RUAPU_RVV_INSTCODE(zvkb, 0, 0x56860257) // vrol.vv v4, v8, v12 with SEW = 8
+RUAPU_RVV_INSTCODE(v, 24, 0x02840257) // vadd.vv v4, v8, v8 with SEW = 64
+
+#undef RUAPU_RVV_INSTCODE
 #endif
 
 #undef RUAPU_INSTCODE
@@ -461,6 +500,7 @@ RUAPU_ISAENTRY(a)
 RUAPU_ISAENTRY(f)
 RUAPU_ISAENTRY(d)
 RUAPU_ISAENTRY(c)
+RUAPU_ISAENTRY(v)
 RUAPU_ISAENTRY(zba)
 RUAPU_ISAENTRY(zbb)
 RUAPU_ISAENTRY(zbc)
@@ -476,6 +516,19 @@ RUAPU_ISAENTRY(zicond)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zmmul)
+RUAPU_ISAENTRY(zvbb)
+RUAPU_ISAENTRY(zvbc)
+RUAPU_ISAENTRY(zvfh)
+RUAPU_ISAENTRY(zvfhmin)
+RUAPU_ISAENTRY(zvfbfmin)
+RUAPU_ISAENTRY(zvfbfwma)
+RUAPU_ISAENTRY(zvkb)
+RUAPU_ISAENTRY(zvl32b)
+RUAPU_ISAENTRY(zvl64b)
+RUAPU_ISAENTRY(zvl128b)
+RUAPU_ISAENTRY(zvl256b)
+RUAPU_ISAENTRY(zvl512b)
+RUAPU_ISAENTRY(zvl1024b)
 
 RUAPU_ISAENTRY(xtheadba)
 RUAPU_ISAENTRY(xtheadbb)
