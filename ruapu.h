@@ -370,7 +370,7 @@ RUAPU_RVV_INSTCODE(zvfhmin, 8, 0x4a8a1257) // vfncvt.f.f.v v4, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvfbfmin, 8, 0x4a8e9257) // vfncvtbf16.f.f.w v4, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvfbfwma, 8, 0xee855257) // vfwmaccbf16.vf v4, fa0, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvkb, 0, 0x56860257) // vrol.vv v4, v8, v12 with SEW = 8
-RUAPU_RVV_INSTCODE(v, 24, 0x02840257) // vadd.vv v4, v8, v8 with SEW = 64
+RUAPU_RVV_INSTCODE(v, 24, 0x22842257) // vaaddu.vv v4, v8, v8 with SEW = 64
 
 #undef RUAPU_RVV_INSTCODE
 #endif
