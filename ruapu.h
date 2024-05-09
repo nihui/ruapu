@@ -342,6 +342,11 @@ static void ruapu_rvv_assert(int cond) {
         asm volatile(".align 2\n.word 0xc0001073" : : : );
 }
 typedef intptr_t ruapu_riscv_xlen_t;
+// vcsr is only defined in rvv 1.0, which doesn't exist in rvv 0.7.1 or xtheadvector.
+static void ruapu_rvv1p0_avail() {
+    // csrr a0, vcsr
+    asm volatile(".word 0x00f02573");
+}
 __attribute__((naked))
 static ruapu_riscv_xlen_t ruapu_rvv_vsetvl(int vtype) {
     // vsetvl a0, zero, a0
@@ -358,7 +363,7 @@ static ruapu_riscv_xlen_t ruapu_rvv_vsetvl_safe(int vtype) {
     ruapu_rvv_assert(vl > 0);
     return vl;
 }
-#define RUAPU_DETECT_ZVL(len) static void ruapu_some_zvl##len##b() { ruapu_rvv_assert(ruapu_rvv_vlenb() >= len/8); }
+#define RUAPU_DETECT_ZVL(len) static void ruapu_some_zvl##len##b() { ruapu_rvv1p0_avail(); ruapu_rvv_assert(ruapu_rvv_vlenb() >= len/8); }
 RUAPU_DETECT_ZVL(32)
 RUAPU_DETECT_ZVL(64)
 RUAPU_DETECT_ZVL(128)
@@ -366,7 +371,7 @@ RUAPU_DETECT_ZVL(256)
 RUAPU_DETECT_ZVL(512)
 RUAPU_DETECT_ZVL(1024)
 #undef RUAPU_DETECT_ZVL
-#define RUAPU_RVV_INSTCODE(isa, vtype, ...) static void ruapu_some_##isa() { ruapu_rvv_vsetvl_safe(vtype); asm volatile(".align 2\n.word " #__VA_ARGS__ : : : ); }
+#define RUAPU_RVV_INSTCODE(isa, vtype, ...) static void ruapu_some_##isa() { ruapu_rvv1p0_avail(); ruapu_rvv_vsetvl_safe(vtype); asm volatile(".align 2\n.word " #__VA_ARGS__ : : : ); }
 
 RUAPU_RVV_INSTCODE(zvbb, 0, 0x4a862257) // vclz.v v4, v8 with SEW = 8
 RUAPU_RVV_INSTCODE(zvbc, 0, 0x32842257) // vclmul.vv v4, v8, v8 with SEW = 8
