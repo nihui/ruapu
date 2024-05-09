@@ -347,13 +347,18 @@ static ruapu_riscv_xlen_t ruapu_rvv_vsetvl(int vtype) {
     // vsetvl a0, zero, a0
     asm volatile(".word 0x80a07557\nret" : : : );
 }
+__attribute__((naked))
+static ruapu_riscv_xlen_t ruapu_rvv_vlenb() {
+    // csrr a0, vlenb
+    asm volatile(".word 0xc2202573\nret" : : : );
+}
 static ruapu_riscv_xlen_t ruapu_rvv_vsetvl_safe(int vtype) {
     ruapu_riscv_xlen_t vl = ruapu_rvv_vsetvl(vtype);
     // check vill bit
     ruapu_rvv_assert(vl > 0);
     return vl;
 }
-#define RUAPU_DETECT_ZVL(len) static void ruapu_some_zvl##len##b() { ruapu_rvv_assert(ruapu_rvv_vsetvl_safe(0) >= len/8); }
+#define RUAPU_DETECT_ZVL(len) static void ruapu_some_zvl##len##b() { ruapu_rvv_assert(ruapu_rvv_vlenb() >= len/8); }
 RUAPU_DETECT_ZVL(32)
 RUAPU_DETECT_ZVL(64)
 RUAPU_DETECT_ZVL(128)
