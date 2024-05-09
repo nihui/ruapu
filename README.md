@@ -69,7 +69,7 @@ _`fma4` on zen1, ISA in hypervisor, etc._
 |powerpc|`vsx`|
 |s390x|`zvector`|
 |loongarch|`lsx` `lasx`|
-|risc-v|`i` `m` `a` `f` `d` `c` `v` `zba` `zbb` `zbc` `zbs` `zbkb` `zbkc` `zbkx` `zfa` `zfbfmin` `zfh` `zfhmin` `zicond` `zicsr` `zifencei` `zmmul` `zvbb` `zvbc` `zvfh` `zvfhmin` `zvfbfmin` `zvfbfwma` `zvkb` `zvl*b` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvdot`|
+|risc-v|`i` `m` `a` `f` `d` `c` `v` `zba` `zbb` `zbc` `zbs` `zbkb` `zbkc` `zbkx` `zfa` `zfbfmin` `zfh` `zfhmin` `zicond` `zicsr` `zifencei` `zmmul` `zvbb` `zvbc` `zvfh` `zvfhmin` `zvfbfmin` `zvfbfwma` `zvkb` `zvl32b` `zvl64b` `zvl128b` `zvl256b` `zvl512b` `zvl1024b` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvdot`|
 |openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
 
 ## Let's ruapu
