@@ -141,6 +141,7 @@ int main()
     PRINT_ISA_SUPPORT(zicond)
     PRINT_ISA_SUPPORT(zicsr)
     PRINT_ISA_SUPPORT(zifencei)
+    PRINT_ISA_SUPPORT(zmmul)
 
     PRINT_ISA_SUPPORT(xtheadba)
     PRINT_ISA_SUPPORT(xtheadbb)
