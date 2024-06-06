@@ -308,10 +308,10 @@ RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
 RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
 RUAPU_INSTCODE(zba, 0x20a52533) // sh1add a0,a0,a0
-RUAPU_INSTCODE(zbb, 0x40a57533) // andn a0,a0,a0
+RUAPU_INSTCODE(zbb, 0x60451513) // sext.b a0,a0,a0
 RUAPU_INSTCODE(zbc, 0x0aa52533) // clmulr a0,a0,a0
 RUAPU_INSTCODE(zbs, 0x48a51533) // bclr a0,a0,a0
-RUAPU_INSTCODE(zbkb, 0x60a51533) // rol a0,a0,a0
+RUAPU_INSTCODE(zbkb, 0x08a54533) // pack a0,a0,a0
 RUAPU_INSTCODE(zbkc, 0x0aa53533) // clmulh a0,a0,a0
 RUAPU_INSTCODE(zbkx, 0x28a52533) // xperm.n a0,a0,a0
 RUAPU_INSTCODE(zfa, 0xf0108053) // fli.s ft0, min
