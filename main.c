@@ -169,6 +169,10 @@ int main()
     PRINT_ISA_SUPPORT(xtheadsync)
     PRINT_ISA_SUPPORT(xtheadvdot)
 
+    PRINT_ISA_SUPPORT(spacemitvmadot)
+    PRINT_ISA_SUPPORT(spacemitvmadotn)
+    PRINT_ISA_SUPPORT(spacemitvfmadot)
+
 #elif __openrisc__
     PRINT_ISA_SUPPORT(orbis32)
     PRINT_ISA_SUPPORT(orbis64)
