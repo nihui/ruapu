@@ -1,0 +1,16 @@
+[dependencies]
+
+[package]
+  cjc-version = "0.51.4"
+  compile-option = ""
+  description = "ruapu"
+  link-option = ""
+  name = "ruapu_cangjie"
+  output-type = "executable"
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+
+[ffi.c]
+  ruapu = { path = "./c-src/" }

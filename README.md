@@ -498,6 +498,52 @@ class Example {
 </td></tr>
 </table>
 
+### ruapu with cangjie
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```bash
+cd cangjie
+cd c-src
+cmake .
+make
+```
+run example
+```bash
+cd cangjie
+cjpm run
+```
+or compile example
+```bash
+cd cangjie
+cjpm build
+./target/release/bin/main
+```
+
+</td>
+<td>
+Use ruapu in cangjie
+
+```swift
+import ruapu.*
+main(): Int64 {
+    ruapu_init()
+    let neon_supported = ruapu_supports("neon")
+    println("supports neon: ${neon_supported}") 
+    let d = ruapu_rua()
+    for (i in d) {
+        println(i)
+    }
+    return 0
+}
+```
+</td></tr>
+</table>
+
 <details>
 <summary>Github-hosted runner result (Linux)</summary>
 
