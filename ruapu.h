@@ -314,6 +314,7 @@ RUAPU_INSTCODE(zbs, 0x48a51533) // bclr a0,a0,a0
 RUAPU_INSTCODE(zbkb, 0x08a54533) // pack a0,a0,a0
 RUAPU_INSTCODE(zbkc, 0x0aa53533) // clmulh a0,a0,a0
 RUAPU_INSTCODE(zbkx, 0x28a52533) // xperm.n a0,a0,a0
+RUAPU_INSTCODE(zcb, 0x9d759d75) // c.not a0 c.not a0
 RUAPU_INSTCODE(zfa, 0xf0108053) // fli.s ft0, min
 RUAPU_INSTCODE(zfbfmin, 0x44807053) // fcvt.bf16.s ft0,ft0
 RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
@@ -516,6 +517,7 @@ RUAPU_ISAENTRY(zbs)
 RUAPU_ISAENTRY(zbkb)
 RUAPU_ISAENTRY(zbkc)
 RUAPU_ISAENTRY(zbkx)
+RUAPU_ISAENTRY(zcb)
 RUAPU_ISAENTRY(zfa)
 RUAPU_ISAENTRY(zfbfmin)
 RUAPU_ISAENTRY(zfh)
