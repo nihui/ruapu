@@ -112,7 +112,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     }
 
     sigaction(SIGILL, &old_sa, NULL);
-    sigaction(SIGSEGV, &old_sa, &NULL);
+    sigaction(SIGSEGV, &old_sa, NULL);
 
     return g_ruapu_sig_caught ? 0 : 1;
 }
