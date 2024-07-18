@@ -82,28 +82,29 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #include <signal.h>
 #include <setjmp.h>
 
-static int g_ruapu_sigill_caught = 0;
+static int g_ruapu_sig_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
 
-static void ruapu_catch_sigill(int signo, siginfo_t* si, void* data)
+static void ruapu_catch_sig(int signo, siginfo_t* si, void* data)
 {
     (void)signo;
     (void)si;
     (void)data;
 
-    g_ruapu_sigill_caught = 1;
+    g_ruapu_sig_caught = 1;
     siglongjmp(g_ruapu_jmpbuf, -1);
 }
 
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
-    g_ruapu_sigill_caught = 0;
+    g_ruapu_sig_caught = 0;
 
     struct sigaction sa = { 0 };
     struct sigaction old_sa;
     sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
-    sa.sa_sigaction = ruapu_catch_sigill;
+    sa.sa_sigaction = ruapu_catch_sig;
     sigaction(SIGILL, &sa, &old_sa);
+    sigaction(SIGSEGV, &sa, &old_sa);
 
     if (sigsetjmp(g_ruapu_jmpbuf, 1) == 0)
     {
@@ -111,8 +112,9 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     }
 
     sigaction(SIGILL, &old_sa, NULL);
+    sigaction(SIGSEGV, &old_sa, &NULL);
 
-    return g_ruapu_sigill_caught ? 0 : 1;
+    return g_ruapu_sig_caught ? 0 : 1;
 }
 
 #elif defined __SYTERKIT__
