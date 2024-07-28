@@ -52,6 +52,8 @@ int main()
     PRINT_ISA_SUPPORT(amxbf16)
     PRINT_ISA_SUPPORT(amxint8)
     PRINT_ISA_SUPPORT(amxtile)
+    PRINT_ISA_SUPPORT(aesni)
+    PRINT_ISA_SUPPORT(sha)
 
 #elif __aarch64__ || defined(_M_ARM64)
     PRINT_ISA_SUPPORT(neon)
