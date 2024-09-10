@@ -225,8 +225,15 @@ RUAPU_INSTCODE(amxfp16, 0xc4, 0xe2, 0x7b, 0x5c, 0xd1) // tdpfp16ps %tmm0, %tmm1,
 RUAPU_INSTCODE(amxbf16, 0xc4, 0xe2, 0x7a, 0x5c, 0xd1) // tdpbf16ps %tmm0, %tmm1, %tmm2
 RUAPU_INSTCODE(amxint8, 0xc4, 0xe2, 0x7b, 0x5e, 0xd1) // tdpbssd %tmm0, %tmm1, %tmm2
 RUAPU_INSTCODE(amxtile, 0xc4, 0xe2, 0x7a, 0x49, 0xc0) // tilezero %tmm0
+RUAPU_INSTCODE(bmi1, 0xc4, 0xe2, 0x78, 0xf2, 0xc0) // andn eax,eax,eax
+RUAPU_INSTCODE(bmi2, 0xc4, 0xe2, 0x7b, 0xf6, 0xc0) // mulx eax,eax,eax
+RUAPU_INSTCODE(gfni, 0x66, 0x0f, 0x38, 0xcf, 0xc0) // gf2p8mulb xmm0,xmm0
 RUAPU_INSTCODE(aesni, 0x66, 0x0f, 0x38, 0xdc, 0xc0) // aesenc xmm0,xmm0
+RUAPU_INSTCODE(vaes, 0xc4, 0xe2, 0x7d, 0xdc, 0xc0) // vaesenc ymm0,ymm0,ymm0
 RUAPU_INSTCODE(sha, 0x0f, 0x38, 0xc9, 0xc0) // sha1msg1 xmm0,xmm0
+RUAPU_INSTCODE(rdrand, 0x0f, 0xc7, 0xf0) // rdrand eax
+RUAPU_INSTCODE(rdseed, 0x0f, 0xc7, 0xf8) // rdseed eax
+RUAPU_INSTCODE(tsx, 0x0f, 0x01, 0xd6) // xtest
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
@@ -438,8 +445,15 @@ RUAPU_ISAENTRY(amxfp16)
 RUAPU_ISAENTRY(amxbf16)
 RUAPU_ISAENTRY(amxint8)
 RUAPU_ISAENTRY(amxtile)
+RUAPU_ISAENTRY(bmi1)
+RUAPU_ISAENTRY(bmi2)
+RUAPU_ISAENTRY(gfni)
 RUAPU_ISAENTRY(aesni)
+RUAPU_ISAENTRY(vaes)
 RUAPU_ISAENTRY(sha)
+RUAPU_ISAENTRY(rdrand)
+RUAPU_ISAENTRY(rdseed)
+RUAPU_ISAENTRY(tsx)
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)
