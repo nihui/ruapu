@@ -231,6 +231,8 @@ RUAPU_INSTCODE(gfni, 0x66, 0x0f, 0x38, 0xcf, 0xc0) // gf2p8mulb xmm0,xmm0
 RUAPU_INSTCODE(aesni, 0x66, 0x0f, 0x38, 0xdc, 0xc0) // aesenc xmm0,xmm0
 RUAPU_INSTCODE(vaes, 0xc4, 0xe2, 0x7d, 0xdc, 0xc0) // vaesenc ymm0,ymm0,ymm0
 RUAPU_INSTCODE(sha, 0x0f, 0x38, 0xc9, 0xc0) // sha1msg1 xmm0,xmm0
+RUAPU_INSTCODE(sm3, 0xc4, 0xc2, 0x10, 0xda, 0xe4) // vsm3msg1 xmm12,xmm13,xmm4
+RUAPU_INSTCODE(sm4, 0xc4, 0xe2, 0x6e, 0xda, 0xd9) // vsm4key4 ymm1,ymm2,ymm3
 RUAPU_INSTCODE(rdrand, 0x0f, 0xc7, 0xf0) // rdrand eax
 RUAPU_INSTCODE(rdseed, 0x0f, 0xc7, 0xf8) // rdseed eax
 RUAPU_INSTCODE(tsx, 0x0f, 0x01, 0xd6) // xtest
@@ -451,6 +453,8 @@ RUAPU_ISAENTRY(gfni)
 RUAPU_ISAENTRY(aesni)
 RUAPU_ISAENTRY(vaes)
 RUAPU_ISAENTRY(sha)
+RUAPU_ISAENTRY(sm3)
+RUAPU_ISAENTRY(sm4)
 RUAPU_ISAENTRY(rdrand)
 RUAPU_ISAENTRY(rdseed)
 RUAPU_ISAENTRY(tsx)
