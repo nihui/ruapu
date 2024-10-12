@@ -191,12 +191,3 @@ jobs:
       run: |
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
           /bin/bash -c "apt update && apt install -y gcc libc6-dev && gcc main.c -o ruapu && ./ruapu"
-
-  macos-flyci:
-    runs-on: flyci-macos-14-xlarge-m2
-    steps:
-    - uses: actions/checkout@v4
-    - name: build-test
-      run: |
-        clang main.c -o ruapu
-        ./ruapu
