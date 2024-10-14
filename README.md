@@ -46,17 +46,17 @@ int main()
 ## Features
 
 * Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
-_`sse2`, `avx`, `avx512f`, `neon`, etc._
+  _`sse2`, `avx`, `avx512f`, `neon`, etc._
 * Detect **vendor extended ISA**&emsp;&emsp;&emsp;&emsp;
-_apple `amx`, risc-v vendor ISA, etc._
+  _apple `amx`, risc-v vendor ISA, etc._
 * Detect **richer ISA on Windows ARM**&emsp;&emsp;
-_`IsProcessorFeaturePresent()` returns little ISA information_
+  _`IsProcessorFeaturePresent()` returns little ISA information_
 * Detect **`x86-avx512` on macOS correctly**&emsp;
-_macOS hides it in `cpuid`_
+  _macOS hides it in `cpuid`_
 * Detect **new CPU's ISA on old systems**&emsp;
-_they are usually not exposed in `auxv` or `MISA`_
+  _they are usually not exposed in `auxv` or `MISA`_
 * Detect **CPU hidden ISA**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-_`fma4` on zen1, ISA in hypervisor, etc._
+  _`fma4` on zen1, ISA in hypervisor, etc._
 
 ## Supported ISA _&emsp;(more is comming ... :)_
 
@@ -524,6 +524,27 @@ cjpm build
 ./target/release/bin/main
 ```
 
+</td>
+<td>
+Use ruapu in cangjie
+
+```swift
+import ruapu.*
+main(): Int64 {
+    ruapu_init()
+    let neon_supported = ruapu_supports("neon")
+    println("supports neon: ${neon_supported}") 
+    let d = ruapu_rua()
+    for (i in d) {
+        println(i)
+    }
+    return 0
+}
+```
+</td></tr>
+</table>
+
+
 ### ruapu with Dart
 
 <table>
@@ -536,7 +557,6 @@ Compile ruapu library
 cd dart
 bash build.sh
 ```
-
 
 </td>
 <td>
