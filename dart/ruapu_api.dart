@@ -36,7 +36,7 @@ class Ruapu {
     int index = 0;
     while (true) {
       Pointer<Utf8> strPtr = result.elementAt(index).value;
-      if (strPtr.address == 0) break; // 结束标志
+      if (strPtr.address == 0) break;
       String str = strPtr.toDartString();
       isas.add(str);
       index++;
