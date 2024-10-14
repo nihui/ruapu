@@ -16,7 +16,7 @@ class Ruapu {
 
   Ruapu(String libraryPath) : _nativeLib = DynamicLibrary.open(libraryPath);
 
-  /// 初始化
+  /// Init the ruapu environment
   void init() {
     final RuapuInit_Dart ruapu_init = _nativeLib
         .lookup<NativeFunction<RuapuInit_C>>('ruapu_init')
@@ -24,7 +24,7 @@ class Ruapu {
     ruapu_init();
   }
 
-  /// 获取支持的ISA列表
+  /// Get the ISA support list of the CPU
   List<String> getRuapuISA() {
     final RuapuRUA_Dart ruapu_rua = _nativeLib
         .lookup<NativeFunction<RuapuRUA_C>>('ruapu_rua')
@@ -45,7 +45,7 @@ class Ruapu {
     return isas;
   }
 
-  /// 检查是否支持某个ISA
+  /// Check the support status of a given isa
   bool supportsISA(String isa) {
     final Pointer<Utf8> cIsa = isa.toNativeUtf8();
 
