@@ -189,7 +189,7 @@ jobs:
     - name: build-test-dart
       run: |
         cd dart
-        bash ./build.ps1
+        .\build.ps1
 
   qemu:
     runs-on: ubuntu-latest
