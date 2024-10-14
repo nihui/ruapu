@@ -57,6 +57,10 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.sh
 
   macos:
     runs-on: macos-latest
@@ -92,6 +96,10 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.sh
 
   macos-arm64:
     runs-on: macos-14
@@ -127,6 +135,10 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.sh
 
   windows:
     runs-on: windows-latest
@@ -174,6 +186,10 @@ jobs:
         cd go
         go build -o ruapu-go.exe
         ./ruapu-go.exe
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.ps1
 
   qemu:
     runs-on: ubuntu-latest
