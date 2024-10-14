@@ -57,6 +57,7 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - uses: dart-lang/setup-dart@v1
     - name: build-test-dart
       run: |
         cd dart
@@ -96,6 +97,7 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - uses: dart-lang/setup-dart@v1
     - name: build-test-dart
       run: |
         cd dart
@@ -135,6 +137,7 @@ jobs:
         cd go
         go build -o ruapu-go
         ./ruapu-go
+    - uses: dart-lang/setup-dart@v1
     - name: build-test-dart
       run: |
         cd dart
@@ -186,6 +189,7 @@ jobs:
         cd go
         go build -o ruapu-go.exe
         ./ruapu-go.exe
+    - uses: dart-lang/setup-dart@v1
     - name: build-test-dart
       run: |
         cd dart
