@@ -1,0 +1,5 @@
+LIBRARY     ruapu
+EXPORTS
+   ruapu_rua
+   ruapu_supports
+   ruapu_init
