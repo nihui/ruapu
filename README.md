@@ -524,21 +524,53 @@ cjpm build
 ./target/release/bin/main
 ```
 
+### ruapu with Dart
+
+<table>
+
+<tr><td>
+
+Compile ruapu library
+
+```bash
+cd dart
+bash build.sh
+```
+
+
 </td>
 <td>
-Use ruapu in cangjie
+Use ruapu in dart
 
-```swift
-import ruapu.*
-main(): Int64 {
-    ruapu_init()
-    let neon_supported = ruapu_supports("neon")
-    println("supports neon: ${neon_supported}") 
-    let d = ruapu_rua()
-    for (i in d) {
-        println(i)
-    }
-    return 0
+```dart
+void main() {
+  var libraryPath =
+  path.join(Directory.current.path, 'build', 'libruapu.so');
+
+  if (Platform.isMacOS) {
+    libraryPath =
+        path.join(Directory.current.path, 'build', 'libruapu.dylib');
+  }
+
+  if (Platform.isWindows) {
+    libraryPath = path.join(
+        Directory.current.path, 'build', 'Debug', 'ruapu.dll');
+  }
+
+  Ruapu ruapu = Ruapu(libraryPath);
+
+  ruapu.init();
+
+  List<String> isas = ruapu.rua();
+  print("This CPU Support:");
+  for (String isa in isas) {
+    print(isa);
+  }
+  print("=================");
+
+  String isaToCheck = 'aes';
+  bool isSupported = ruapu.supports(isaToCheck);
+  print('Does the system support $isaToCheck? $isSupported');
 }
 ```
 </td></tr>

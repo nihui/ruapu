@@ -16,11 +16,11 @@ void main() {
         Directory.current.path, 'build', 'Debug', 'ruapu.dll');
   }
 
-  Ruapu api = Ruapu(libraryPath);
+  Ruapu ruapu = Ruapu(libraryPath);
 
-  api.init();
+  ruapu.init();
 
-  List<String> isas = api.getRuapuISA();
+  List<String> isas = ruapu.rua();
   print("This CPU Support:");
   for (String isa in isas) {
     print(isa);
@@ -28,6 +28,6 @@ void main() {
   print("=================");
 
   String isaToCheck = 'aes';
-  bool isSupported = api.supportsISA(isaToCheck);
+  bool isSupported = ruapu.supports(isaToCheck);
   print('Does the system support $isaToCheck? $isSupported');
 }

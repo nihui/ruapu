@@ -25,7 +25,7 @@ class Ruapu {
   }
 
   /// Get the ISA support list of the CPU
-  List<String> getRuapuISA() {
+  List<String> rua() {
     final RuapuRUA_Dart ruapu_rua = _nativeLib
         .lookup<NativeFunction<RuapuRUA_C>>('ruapu_rua')
         .asFunction();
@@ -46,7 +46,7 @@ class Ruapu {
   }
 
   /// Check the support status of a given isa
-  bool supportsISA(String isa) {
+  bool supports(String isa) {
     final Pointer<Utf8> cIsa = isa.toNativeUtf8();
 
     final RuapuSupports_Dart ruapu_supports = _nativeLib
