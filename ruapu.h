@@ -221,6 +221,7 @@ RUAPU_INSTCODE(avxvnni, 0xc4, 0xe2, 0x7d, 0x52, 0xc0) // vpdpwssd ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxvnniint8, 0xc4, 0xe2, 0x7f, 0x50, 0xc0) // vpdpbssd ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxvnniint16, 0xc4, 0xe2, 0x7e, 0xd2, 0xc0) // vpdpwsud ymm0,ymm0,ymm0
 RUAPU_INSTCODE(avxifma, 0xc4, 0xe2, 0xfd, 0xb4, 0xc0) // vpmadd52luq ymm0,ymm0,ymm0
+RUAPU_INSTCODE(avxneconvert, 0xc4, 0xe2, 0x7e, 0x72, 0xc0) // vcvtneps2bf16 xmm0,ymm0
 RUAPU_INSTCODE(amxfp16, 0xc4, 0xe2, 0x7b, 0x5c, 0xd1) // tdpfp16ps %tmm0, %tmm1, %tmm2
 RUAPU_INSTCODE(amxbf16, 0xc4, 0xe2, 0x7a, 0x5c, 0xd1) // tdpbf16ps %tmm0, %tmm1, %tmm2
 RUAPU_INSTCODE(amxint8, 0xc4, 0xe2, 0x7b, 0x5e, 0xd1) // tdpbssd %tmm0, %tmm1, %tmm2
@@ -445,6 +446,7 @@ RUAPU_ISAENTRY(avxvnni)
 RUAPU_ISAENTRY(avxvnniint8)
 RUAPU_ISAENTRY(avxvnniint16)
 RUAPU_ISAENTRY(avxifma)
+RUAPU_ISAENTRY(avxneconvert)
 RUAPU_ISAENTRY(amxfp16)
 RUAPU_ISAENTRY(amxbf16)
 RUAPU_ISAENTRY(amxint8)
