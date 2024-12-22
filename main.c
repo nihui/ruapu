@@ -182,6 +182,7 @@ int main()
     PRINT_ISA_SUPPORT(xtheadmemidx)
     PRINT_ISA_SUPPORT(xtheadmempair)
     PRINT_ISA_SUPPORT(xtheadsync)
+    PRINT_ISA_SUPPORT(xtheadvector)
     PRINT_ISA_SUPPORT(xtheadvdot)
 
     PRINT_ISA_SUPPORT(spacemitvmadot)
