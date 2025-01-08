@@ -224,6 +224,10 @@ jobs:
           - soc-starfive-jh7100
     steps:
     - uses: actions/checkout@v4
+    - name: info
+      run: |
+        uname -a
+        cat /proc/cpuinfo
     - name: build-test
       run: |
         gcc main.c -o ruapu
