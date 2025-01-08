@@ -211,3 +211,24 @@ jobs:
       run: |
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
           /bin/bash -c "apt update && apt install -y gcc libc6-dev && gcc main.c -o ruapu && ./ruapu"
+
+  riscv-builders:
+    name: ${{ matrix.soc }}
+    runs-on:
+      - riscv-builders
+      - ${{ matrix.soc }}
+    strategy:
+      matrix:
+        soc:
+          - soc-spacemit-k1
+          - soc-starfive-jh7100
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        gcc main.c -o ruapu
+        ./ruapu
+    - name: build-test-clang
+      run: |
+        clang main.c -o ruapu-clang
+        ./ruapu-clang
