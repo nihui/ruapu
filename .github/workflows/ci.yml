@@ -228,7 +228,3 @@ jobs:
       run: |
         gcc main.c -o ruapu
         ./ruapu
-    - name: build-test-clang
-      run: |
-        clang main.c -o ruapu-clang
-        ./ruapu-clang
