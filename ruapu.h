@@ -335,9 +335,7 @@ RUAPU_INSTCODE(zfa, 0xf0108053) // fli.s ft0, min
 RUAPU_INSTCODE(zfbfmin, 0x44807053) // fcvt.bf16.s ft0,ft0
 RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
 RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
-RUAPU_INSTCODE(zicbom, 0x0021200f) // cbo.flush (sp)
 RUAPU_INSTCODE(zicbop, 0x00116013) // prefetch.r 0(sp)
-RUAPU_INSTCODE(zicboz, 0x0041200f) // cbo.zero (sp)
 RUAPU_INSTCODE(zicond, 0x0ea55533) // czero.eqz a0,a0,a0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
@@ -556,9 +554,7 @@ RUAPU_ISAENTRY(zfa)
 RUAPU_ISAENTRY(zfbfmin)
 RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
-RUAPU_ISAENTRY(zicbom)
 RUAPU_ISAENTRY(zicbop)
-RUAPU_ISAENTRY(zicboz)
 RUAPU_ISAENTRY(zicond)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
