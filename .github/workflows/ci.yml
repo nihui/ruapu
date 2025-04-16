@@ -267,6 +267,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: arm64
     - name: build-test
       run: |
         cl.exe /Fe: ruapu.exe main.c
@@ -278,7 +280,7 @@ jobs:
         ./ruapu-mingw.exe
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
