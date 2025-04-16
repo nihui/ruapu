@@ -280,7 +280,7 @@ jobs:
         ./ruapu-mingw.exe
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.13'
     - name: build-test-python
       run: |
         python3 -m pip install pip -U
