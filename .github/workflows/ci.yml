@@ -212,6 +212,108 @@ jobs:
         docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
           /bin/bash -c "apt update && apt install -y gcc libc6-dev && gcc main.c -o ruapu && ./ruapu"
 
+  ubuntu-arm:
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        gcc main.c -o ruapu
+        ./ruapu
+    - name: build-test-clang
+      run: |
+        clang main.c -o ruapu-clang
+        ./ruapu-clang
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: build-test-python
+      run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
+        cd python
+        pip3 install .
+        python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
+    - name: build-test-rust
+      run: |
+        rustup update stable
+        rustup default stable
+        cd rust
+        cargo build --verbose
+        cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
+    - name: build-test-golang
+      run: |
+        cd go
+        go build -o ruapu-go
+        ./ruapu-go
+    - uses: dart-lang/setup-dart@v1
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.sh
+
+  windows-arm:
+    runs-on: windows-11-arm
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ilammy/msvc-dev-cmd@v1
+    - name: build-test
+      run: |
+        cl.exe /Fe: ruapu.exe main.c
+        .\ruapu.exe
+    - name: build-test-mingw
+      shell: bash
+      run: |
+        gcc main.c -o ruapu-mingw.exe
+        ./ruapu-mingw.exe
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: build-test-python
+      run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
+        cd python
+        pip3 install .
+        python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
+    - name: build-test-rust
+      run: |
+        rustup update stable
+        rustup default stable
+        cd rust
+        cargo build --verbose
+        cargo test --verbose
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: 26.2
+        rebar3-version: "3.22.1"
+    - name: build-test-erlang
+      run: |
+        cd erlang
+        rebar3 compile
+        rebar3 eunit
+    - name: build-test-golang
+      run: |
+        cd go
+        go build -o ruapu-go.exe
+        ./ruapu-go.exe
+    - uses: dart-lang/setup-dart@v1
+    - name: build-test-dart
+      run: |
+        cd dart
+        .\build.ps1
+
   riscv-builders:
     name: ${{ matrix.soc }}
     runs-on:
