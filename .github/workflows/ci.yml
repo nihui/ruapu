@@ -291,8 +291,6 @@ jobs:
         python3 -c 'import ruapu; print(ruapu.rua())'
     - name: build-test-rust
       run: |
-        rustup update stable
-        rustup default stable
         cd rust
         cargo build --verbose
         cargo test --verbose
