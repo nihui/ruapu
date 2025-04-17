@@ -1,3 +1,4 @@
+//usr/bin/env cc "$0" -o /tmp/ruapu && exec /tmp/ruapu "$@"
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2024 nihui (https://github.com/nihui)
 // Copyright (c) 2024 kernelbin (https://github.com/kernelbin)
