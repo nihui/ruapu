@@ -342,6 +342,7 @@ RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zihintpause, 0x0100000f); // pause
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
+RUAPU_INSTCODE(zpn, 0xad45057f) // kabsw a0,a0
 
 RUAPU_INSTCODE(xtheadba, 0x00a5150b) // th.addsl a0,a0,a0,#0
 RUAPU_INSTCODE(xtheadbb, 0x1005150b) // th.srri a0,a0,#0
@@ -563,6 +564,7 @@ RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zihintpause)
 RUAPU_ISAENTRY(zmmul)
+RUAPU_ISAENTRY(zpn)
 RUAPU_ISAENTRY(zvbb)
 RUAPU_ISAENTRY(zvbc)
 RUAPU_ISAENTRY(zvfh)
