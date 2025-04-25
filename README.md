@@ -69,7 +69,7 @@ int main()
 |powerpc|`vsx`|
 |s390x|`zvector`|
 |loongarch|`lsx` `lasx`|
-|risc-v|`i` `m` `a` `f` `d` `c` `p` `v` `zba` `zbb` `zbc` `zbs` `zbkb` `zbkc` `zbkx` `zcb` `zfa` `zfbfmin` `zfh` `zfhmin` `zicbop` `zicond` `zicsr` `zifencei` `zihintpause` `zmmul` `zvbb` `zvbc` `zvfh` `zvfhmin` `zvfbfmin` `zvfbfwma` `zvkb` `zvl32b` `zvl64b` `zvl128b` `zvl256b` `zvl512b` `zvl1024b` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvector` `xtheadvdot` `spacemitvmadot` `spacemitvmadotn` `spacemitvfmadot`|
+|risc-v|`i` `m` `a` `f` `d` `c` `p` `v` `zba` `zbb` `zbc` `zbs` `zbkb` `zbkc` `zbkx` `zcb` `zfa` `zfbfmin` `zfh` `zfhmin` `zicbop` `zicond` `zicsr` `zifencei` `zihintpause` `zmmul` `zpn` `zvbb` `zvbc` `zvfh` `zvfhmin` `zvfbfmin` `zvfbfwma` `zvkb` `zvl32b` `zvl64b` `zvl128b` `zvl256b` `zvl512b` `zvl1024b` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvector` `xtheadvdot` `spacemitvmadot` `spacemitvmadotn` `spacemitvfmadot`|
 |openrisc| `orbis32` `orbis64` `orfpx32` `orfpx64` `orvdx64` |
 
 ## Let's ruapu
