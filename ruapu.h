@@ -258,7 +258,7 @@ RUAPU_INSTCODE(mte, 0xd96003e0) // ldg x0,[sp]
 RUAPU_INSTCODE(mte2, 0xd9e003e0) // ldgm x0,[sp]
 RUAPU_INSTCODE(sve, 0x65608000) // fmad z0.h,p0/m,z0.h,z0.h
 RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
-RUAPU_INSTCODE(sve2p1, 0x04052000) // addqv v0.16b,p0,z0.b
+RUAPU_INSTCODE(sve2p1, 0xd503437f, 0x04052000, 0xd503427f) // smstart sm + addqv v0.16b,p0,z0.b + smstop sm
 RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
