@@ -62,6 +62,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-ruapu
+        path: ruapu
 
   macos:
     runs-on: macos-latest
@@ -102,6 +106,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: macos-ruapu
+        path: ruapu
 
   macos-arm64:
     runs-on: macos-14
@@ -142,6 +150,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: macos-arm64-ruapu
+        path: ruapu
 
   windows:
     runs-on: windows-latest
@@ -194,6 +206,10 @@ jobs:
       run: |
         cd dart
         .\build.ps1
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-ruapu
+        path: ruapu.exe
 
   qemu:
     runs-on: ubuntu-latest
@@ -261,6 +277,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-arm-ruapu
+        path: ruapu
 
   windows-arm:
     runs-on: windows-11-arm
@@ -289,6 +309,10 @@ jobs:
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
         python3 -c 'import ruapu; print(ruapu.rua())'
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-arm-ruapu
+        path: ruapu.exe
 
   riscv-builders:
     name: ${{ matrix.soc }}
