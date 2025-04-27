@@ -62,8 +62,56 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-ruapu
+        path: ruapu
 
   macos:
+    runs-on: macos-13
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-test
+      run: |
+        clang main.c -o ruapu
+        ./ruapu
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: build-test-python
+      run: |
+        python3 -m pip install pip -U
+        python3 -m pip install setuptools -U
+        cd python
+        pip3 install .
+        python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
+        python3 -c 'import ruapu; print(ruapu.rua())'
+    - name: build-test-rust
+      run: |
+        rustup update stable
+        rustup default stable
+        cd rust
+        cargo build --verbose
+        cargo test --verbose
+    - uses: actions/setup-go@v5
+      with:
+        go-version: 1.21.x
+    - name: build-test-golang
+      run: |
+        cd go
+        go build -o ruapu-go
+        ./ruapu-go
+    - uses: dart-lang/setup-dart@v1
+    - name: build-test-dart
+      run: |
+        cd dart
+        bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: macos-ruapu
+        path: ruapu
+
+  macos-arm64:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
@@ -102,46 +150,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
-
-  macos-arm64:
-    runs-on: macos-14
-    steps:
-    - uses: actions/checkout@v4
-    - name: build-test
-      run: |
-        clang main.c -o ruapu
-        ./ruapu
-    - uses: actions/setup-python@v5
+    - uses: actions/upload-artifact@v4
       with:
-        python-version: '3.10'
-    - name: build-test-python
-      run: |
-        python3 -m pip install pip -U
-        python3 -m pip install setuptools -U
-        cd python
-        pip3 install .
-        python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
-        python3 -c 'import ruapu; print(ruapu.rua())'
-    - name: build-test-rust
-      run: |
-        rustup update stable
-        rustup default stable
-        cd rust
-        cargo build --verbose
-        cargo test --verbose
-    - uses: actions/setup-go@v5
-      with:
-        go-version: 1.21.x
-    - name: build-test-golang
-      run: |
-        cd go
-        go build -o ruapu-go
-        ./ruapu-go
-    - uses: dart-lang/setup-dart@v1
-    - name: build-test-dart
-      run: |
-        cd dart
-        bash ./build.sh
+        name: macos-arm64-ruapu
+        path: ruapu
 
   windows:
     runs-on: windows-latest
@@ -194,6 +206,10 @@ jobs:
       run: |
         cd dart
         .\build.ps1
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-ruapu
+        path: ruapu.exe
 
   qemu:
     runs-on: ubuntu-latest
@@ -261,6 +277,10 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-arm-ruapu
+        path: ruapu
 
   windows-arm:
     runs-on: windows-11-arm
@@ -289,6 +309,10 @@ jobs:
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
         python3 -c 'import ruapu; print(ruapu.rua())'
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-arm-ruapu
+        path: ruapu.exe
 
   riscv-builders:
     name: ${{ matrix.soc }}
