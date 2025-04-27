@@ -68,7 +68,7 @@ jobs:
         path: ruapu
 
   macos:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v4
     - name: build-test
@@ -112,7 +112,7 @@ jobs:
         path: ruapu
 
   macos-arm64:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: build-test
