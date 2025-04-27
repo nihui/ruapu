@@ -262,10 +262,10 @@ RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
 RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
 RUAPU_INSTCODE(svef64mm, 0x64e0e400) // fmmla z0.d,z0.d,z0.d
-RUAPU_INSTCODE(sme, 0x80800000) // fmopa za0.s,p0/m,p0/m,z0.s,z0.s
-RUAPU_INSTCODE(smef16f16, 0x81800008) // fmopa za0.h,p0/m,p0/m,z0.h,z0.h
-RUAPU_INSTCODE(smef64f64, 0x80c00000) // fmopa za0.d,p0/m,p0/m,z0.d,z0.d
-RUAPU_INSTCODE(smei64i64, 0xa0c00000) // smopa za0.d,p0/m,p0/m,z0.h,z0.h
+RUAPU_INSTCODE(sme, 0xd503477f, 0x80800000, 0xd503467f) // smstart + fmopa za0.s,p0/m,p0/m,z0.s,z0.s + smstop
+RUAPU_INSTCODE(smef16f16, 0xd503477f, 0x81800008, 0xd503467f) // smstart + fmopa za0.h,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(smef64f64, 0xd503477f, 0x80c00000, 0xd503467f) // smstart + fmopa za0.d,p0/m,p0/m,z0.d,z0.d + smstop
+RUAPU_INSTCODE(smei64i64, 0xd503477f, 0xa0c00000, 0xd503467f) // smstart + smopa za0.d,p0/m,p0/m,z0.h,z0.h + smstop
 RUAPU_INSTCODE(pmull, 0x0e20e000) // pmull v0.8h,v0.8b,v0.8b
 RUAPU_INSTCODE(crc32, 0x1ac04000) // crc32b w0,w0,w0
 RUAPU_INSTCODE(aes, 0x4e285800) // aesd v0.16b,v0.16b
