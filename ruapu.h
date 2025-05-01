@@ -324,9 +324,11 @@ RUAPU_INSTCODE(a, 0x100122af, 0x185122af) // lr.w t0,(sp) + sc.w t0,t0,(sp)
 RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
 RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
+RUAPU_INSTCODE(p, 0x40a5057f) // add16 a0,a0,a0
 RUAPU_INSTCODE(zba, 0x20a52533) // sh1add a0,a0,a0
 RUAPU_INSTCODE(zbb, 0x60451513) // sext.b a0,a0,a0
 RUAPU_INSTCODE(zbc, 0x0aa52533) // clmulr a0,a0,a0
+RUAPU_INSTCODE(zbpbo, 0xf0a5057f) // minw a0,a0,a0
 RUAPU_INSTCODE(zbs, 0x48a51533) // bclr a0,a0,a0
 RUAPU_INSTCODE(zbkb, 0x08a54533) // pack a0,a0,a0
 RUAPU_INSTCODE(zbkc, 0x0aa53533) // clmulh a0,a0,a0
@@ -342,6 +344,8 @@ RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zihintpause, 0x0100000f); // pause
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
+RUAPU_INSTCODE(zpn, 0xad45057f) // kabsw a0,a0
+RUAPU_INSTCODE(zpsfoperand, 0xc0a5157f) // add64 a0,a0,a0
 
 RUAPU_INSTCODE(xtheadba, 0x00a5150b) // th.addsl a0,a0,a0,#0
 RUAPU_INSTCODE(xtheadbb, 0x1005150b) // th.srri a0,a0,#0
@@ -544,10 +548,12 @@ RUAPU_ISAENTRY(a)
 RUAPU_ISAENTRY(f)
 RUAPU_ISAENTRY(d)
 RUAPU_ISAENTRY(c)
+RUAPU_ISAENTRY(p)
 RUAPU_ISAENTRY(v)
 RUAPU_ISAENTRY(zba)
 RUAPU_ISAENTRY(zbb)
 RUAPU_ISAENTRY(zbc)
+RUAPU_ISAENTRY(zbpbo)
 RUAPU_ISAENTRY(zbs)
 RUAPU_ISAENTRY(zbkb)
 RUAPU_ISAENTRY(zbkc)
@@ -563,6 +569,8 @@ RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zihintpause)
 RUAPU_ISAENTRY(zmmul)
+RUAPU_ISAENTRY(zpn)
+RUAPU_ISAENTRY(zpsfoperand)
 RUAPU_ISAENTRY(zvbb)
 RUAPU_ISAENTRY(zvbc)
 RUAPU_ISAENTRY(zvfh)
