@@ -125,7 +125,8 @@ int main()
     PRINT_ISA_SUPPORT(msa2)
     PRINT_ISA_SUPPORT(crypto)
 
-#elif __powerpc__
+#elif __ppc__ || __powerpc__
+    PRINT_ISA_SUPPORT(altivec)
     PRINT_ISA_SUPPORT(vsx)
 
 #elif __s390x__
