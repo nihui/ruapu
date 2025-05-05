@@ -66,7 +66,7 @@ int main()
 |arm|`half` `edsp` `neon` `vfpv4` `idiv`|
 |aarch64|`neon` `vfpv4` `lse` `cpuid` `asimdrdm` `asimdhp` `asimddp` `asimdfhm` `bf16` `i8mm` `frint` `jscvt` `fcma` `mte` `mte2` `sve` `sve2` `sve2p1` `svebf16` `svei8mm` `svef32mm` `svef64mm` `sme` `smef16f16` `smef64f64` `smei64i64` `pmull` `crc32` `aes` `sha1` `sha2` `sha3` `sha512` `sm3` `sm4` `svepmull` `svebitperm` `sveaes` `svesha3` `svesm4` `amx`|
 |mips|`msa` `mmi` `sx` `asx` `msa2` `crypto`|
-|powerpc|`vsx`|
+|powerpc|`altivec` `vsx`|
 |s390x|`zvector`|
 |loongarch|`lsx` `lasx`|
 |risc-v|`i` `m` `a` `f` `d` `c` `p` `v` `zba` `zbb` `zbc` `zbpbo` `zbs` `zbkb` `zbkc` `zbkx` `zcb` `zfa` `zfbfmin` `zfh` `zfhmin` `zicbop` `zicond` `zicsr` `zifencei` `zihintpause` `zmmul` `zpn` `zpsfoperand` `zvbb` `zvbc` `zvfh` `zvfhmin` `zvfbfmin` `zvfbfwma` `zvkb` `zvl32b` `zvl64b` `zvl128b` `zvl256b` `zvl512b` `zvl1024b` `xtheadba` `xtheadbb` `xtheadbs` `xtheadcondmov` `xtheadfmemidx` `xtheadfmv` `xtheadmac` `xtheadmemidx` `xtheadmempair` `xtheadsync` `xtheadvector` `xtheadvdot` `spacemitvmadot` `spacemitvmadotn` `spacemitvfmadot`|
