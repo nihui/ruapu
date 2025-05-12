@@ -180,6 +180,11 @@ int main()
     PRINT_ISA_SUPPORT(zvl512b)
     PRINT_ISA_SUPPORT(zvl1024b)
 
+    PRINT_ISA_SUPPORT(xsfvfnrclipxfqf)
+    PRINT_ISA_SUPPORT(xsfvfwmaccqqq)
+    PRINT_ISA_SUPPORT(xsfvqmaccdod)
+    PRINT_ISA_SUPPORT(xsfvqmaccqoq)
+
     PRINT_ISA_SUPPORT(xtheadba)
     PRINT_ISA_SUPPORT(xtheadbb)
     PRINT_ISA_SUPPORT(xtheadbs)
