@@ -348,6 +348,11 @@ RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
 RUAPU_INSTCODE(zpn, 0xad45057f) // kabsw a0,a0
 RUAPU_INSTCODE(zpsfoperand, 0xc0a5157f) // add64 a0,a0,a0
 
+RUAPU_INSTCODE(xsfvfnrclipxfqf, 0x8e05505b) // sf.vfnrclip.x.f.qf v0,v0,fa0
+RUAPU_INSTCODE(xsfvfwmaccqqq, 0xf20010db) // sf.vfwmacc.4x4x4 v1,v0,v0
+RUAPU_INSTCODE(xsfvqmaccdod, 0xb60020db) // sf.vqmacc.2x8x2 v1,v0,v0
+RUAPU_INSTCODE(xsfvqmaccqoq, 0xf60020db) // sf.vqmacc.4x8x4 v1,v0,v0
+
 RUAPU_INSTCODE(xtheadba, 0x00a5150b) // th.addsl a0,a0,a0,#0
 RUAPU_INSTCODE(xtheadbb, 0x1005150b) // th.srri a0,a0,#0
 RUAPU_INSTCODE(xtheadbs, 0x8805150b) // th.tst a0,a0,#0
@@ -586,6 +591,11 @@ RUAPU_ISAENTRY(zvl128b)
 RUAPU_ISAENTRY(zvl256b)
 RUAPU_ISAENTRY(zvl512b)
 RUAPU_ISAENTRY(zvl1024b)
+
+RUAPU_ISAENTRY(xsfvfnrclipxfqf)
+RUAPU_ISAENTRY(xsfvfwmaccqqq)
+RUAPU_ISAENTRY(xsfvqmaccdod)
+RUAPU_ISAENTRY(xsfvqmaccqoq)
 
 RUAPU_ISAENTRY(xtheadba)
 RUAPU_ISAENTRY(xtheadbb)
