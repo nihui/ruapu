@@ -50,12 +50,22 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 static int g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
 
-static LONG CALLBACK ruapu_catch_sigill(struct _EXCEPTION_POINTERS* ExceptionInfo)
+static void ruapu_jump_back(void)
+{
+    longjmp(g_ruapu_jmpbuf, -1);
+}
+
+static LONG CALLBACK ruapu_catch_sigill(PEXCEPTION_POINTERS ExceptionInfo)
 {
     if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
     {
+#ifdef _WIN64
+        ExceptionInfo->ContextRecord->Rip = (DWORD_PTR)ruapu_jump_back;
+#else
+        ExceptionInfo->ContextRecord->Eip = (DWORD_PTR)ruapu_jump_back;
+#endif
         g_ruapu_sigill_caught = 1;
-        longjmp(g_ruapu_jmpbuf, -1);
+        return EXCEPTION_CONTINUE_EXECUTION;
     }
 
     return EXCEPTION_CONTINUE_SEARCH;
