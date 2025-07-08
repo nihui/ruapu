@@ -25,14 +25,12 @@ const char* const* ruapu_rua();
 typedef void (*ruapu_some_inst)();
 
 #if defined _WIN32
-
 #include <windows.h>
-#include <setjmp.h>
 
 #if defined (_MSC_VER) // MSVC
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
-    int g_ruapu_sigill_caught = 0;
+    volatile int ruapu_sigill_caught = 0;
 
     __try
     {
@@ -41,21 +39,46 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     __except (GetExceptionCode() == EXCEPTION_ILLEGAL_INSTRUCTION ?
         EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
     {
-        g_ruapu_sigill_caught = 1;
+        ruapu_sigill_caught = 1;
     }
 
-    return g_ruapu_sigill_caught ? 0 : 1;
+    return ruapu_sigill_caught ? 0 : 1;
 }
 #else
-static int g_ruapu_sigill_caught = 0;
+#include <setjmp.h>
+#include <signal.h>
+
+static volatile sig_atomic_t g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
 
-static LONG CALLBACK ruapu_catch_sigill(struct _EXCEPTION_POINTERS* ExceptionInfo)
+static void ruapu_jump_back(void)
+{
+    longjmp(g_ruapu_jmpbuf, -1);
+}
+
+static LONG CALLBACK ruapu_continue_sigill(PEXCEPTION_POINTERS ExceptionInfo)
 {
     if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
     {
+        return EXCEPTION_CONTINUE_EXECUTION;
+    }
+
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
+static LONG CALLBACK ruapu_catch_sigill(PEXCEPTION_POINTERS ExceptionInfo)
+{
+    if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
+    {
+#if defined(__x86_64__) || defined(_M_X64) // X64
+        ExceptionInfo->ContextRecord->Rip = (DWORD_PTR)ruapu_jump_back;
+#elif defined(__i386__) || defined(_M_IX86) // X86
+        ExceptionInfo->ContextRecord->Eip = (DWORD_PTR)ruapu_jump_back;
+#else // ARM
+        ExceptionInfo->ContextRecord->Pc = (DWORD_PTR)ruapu_jump_back;
+#endif
         g_ruapu_sigill_caught = 1;
-        longjmp(g_ruapu_jmpbuf, -1);
+        return EXCEPTION_CONTINUE_EXECUTION;
     }
 
     return EXCEPTION_CONTINUE_SEARCH;
@@ -66,12 +89,14 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     g_ruapu_sigill_caught = 0;
 
     PVOID eh = AddVectoredExceptionHandler(1, ruapu_catch_sigill);
+    PVOID ch = AddVectoredContinueHandler(1, ruapu_continue_sigill);
 
     if (setjmp(g_ruapu_jmpbuf) == 0)
     {
         some_inst();
     }
 
+    RemoveVectoredContinueHandler(ch);
     RemoveVectoredExceptionHandler(eh);
 
     return g_ruapu_sigill_caught ? 0 : 1;
@@ -82,7 +107,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #include <signal.h>
 #include <setjmp.h>
 
-static int g_ruapu_sig_caught = 0;
+static volatile sig_atomic_t g_ruapu_sig_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
 
 static void ruapu_catch_sig(int signo, siginfo_t* si, void* data)
@@ -121,7 +146,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #include <mmu.h>
 
-static int g_ruapu_sigill_caught = 0;
+static volatile int g_ruapu_sigill_caught = 0;
 
 void arm32_do_undefined_instruction(struct arm_regs_t *regs)
 {
