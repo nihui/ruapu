@@ -32,7 +32,7 @@ typedef void (*ruapu_some_inst)();
 #if defined (_MSC_VER) // MSVC
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
-    int g_ruapu_sigill_caught = 0;
+    volatile int g_ruapu_sigill_caught = 0;
 
     __try
     {
@@ -69,10 +69,14 @@ static LONG CALLBACK ruapu_catch_sigill(PEXCEPTION_POINTERS ExceptionInfo)
 {
     if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
     {
-#ifdef _WIN64
+#if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
+#ifdef _WIN64 // X64
         ExceptionInfo->ContextRecord->Rip = (DWORD_PTR)ruapu_jump_back;
-#else
+#else // X86
         ExceptionInfo->ContextRecord->Eip = (DWORD_PTR)ruapu_jump_back;
+#endif
+#else //ARM
+        ExceptionInfo->ContextRecord->Pc = (DWORD_PTR)ruapu_jump_back;
 #endif
         g_ruapu_sigill_caught = 1;
         return EXCEPTION_CONTINUE_EXECUTION;
@@ -143,7 +147,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 #include <mmu.h>
 
-static int g_ruapu_sigill_caught = 0;
+static volatile int g_ruapu_sigill_caught = 0;
 
 void arm32_do_undefined_instruction(struct arm_regs_t *regs)
 {
