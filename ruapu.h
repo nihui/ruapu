@@ -25,9 +25,7 @@ const char* const* ruapu_rua();
 typedef void (*ruapu_some_inst)();
 
 #if defined _WIN32
-
 #include <windows.h>
-#include <setjmp.h>
 
 #if defined (_MSC_VER) // MSVC
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
@@ -47,7 +45,10 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 #else
-static volatile int g_ruapu_sigill_caught = 0;
+#include <setjmp.h>
+#include <signal.h>
+
+static volatile sig_atomic_t g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
 
 static void ruapu_jump_back(void)
@@ -108,7 +109,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #include <signal.h>
 #include <setjmp.h>
 
-static int g_ruapu_sig_caught = 0;
+static volatile sig_atomic_t g_ruapu_sig_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
 
 static void ruapu_catch_sig(int signo, siginfo_t* si, void* data)
