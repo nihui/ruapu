@@ -47,12 +47,22 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     return g_ruapu_sigill_caught ? 0 : 1;
 }
 #else
-static int g_ruapu_sigill_caught = 0;
+static volatile int g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
 
 static void ruapu_jump_back(void)
 {
     longjmp(g_ruapu_jmpbuf, -1);
+}
+
+static LONG CALLBACK ruapu_continue_sigill(PEXCEPTION_POINTERS ExceptionInfo)
+{
+    if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
+    {
+        return EXCEPTION_CONTINUE_EXECUTION;
+    }
+
+    return EXCEPTION_CONTINUE_SEARCH;
 }
 
 static LONG CALLBACK ruapu_catch_sigill(PEXCEPTION_POINTERS ExceptionInfo)
@@ -76,12 +86,14 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     g_ruapu_sigill_caught = 0;
 
     PVOID eh = AddVectoredExceptionHandler(1, ruapu_catch_sigill);
+    PVOID ch = AddVectoredContinueHandler(1, ruapu_continue_sigill);
 
     if (setjmp(g_ruapu_jmpbuf) == 0)
     {
         some_inst();
     }
 
+    RemoveVectoredContinueHandler(ch);
     RemoveVectoredExceptionHandler(eh);
 
     return g_ruapu_sigill_caught ? 0 : 1;
