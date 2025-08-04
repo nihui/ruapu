@@ -109,6 +109,8 @@ int main()
     PRINT_ISA_SUPPORT(svesha3)
     PRINT_ISA_SUPPORT(svesm4)
     PRINT_ISA_SUPPORT(amx)
+    PRINT_ISA_SUPPORT(paca)
+    PRINT_ISA_SUPPORT(pacg)
 
 #elif __arm__ || defined(_M_ARM)
     PRINT_ISA_SUPPORT(half)
