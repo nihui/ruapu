@@ -307,6 +307,8 @@ RUAPU_INSTCODE(sveaes, 0x4522e400) // aesd z0.b,z0.b,z0.b
 RUAPU_INSTCODE(svesha3, 0x4520f400) // rax1 z0.d,z0.d,z0.d
 RUAPU_INSTCODE(svesm4, 0x4523e000) // sm4e z0.s,z0.s,z0.s
 RUAPU_INSTCODE(amx, 0x00201220) // amx setup
+RUAPU_INSTCODE(paca, 0xdac10020) // pacia x0, x1
+RUAPU_INSTCODE(pacg, 0x9ac23020) // pacga x0, x1, x2
 
 
 #elif __arm__ || defined(_M_ARM)
@@ -546,6 +548,8 @@ RUAPU_ISAENTRY(sveaes)
 RUAPU_ISAENTRY(svesha3)
 RUAPU_ISAENTRY(svesm4)
 RUAPU_ISAENTRY(amx)
+RUAPU_ISAENTRY(paca)
+RUAPU_ISAENTRY(pacg)
 
 #elif __arm__ || defined(_M_ARM)
 RUAPU_ISAENTRY(half)
