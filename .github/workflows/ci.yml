@@ -16,7 +16,7 @@ jobs:
   ubuntu:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: build-test
       run: |
         gcc main.c -o ruapu
@@ -70,7 +70,7 @@ jobs:
   macos:
     runs-on: macos-13
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: build-test
       run: |
         clang main.c -o ruapu
@@ -114,7 +114,7 @@ jobs:
   macos-arm64:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: build-test
       run: |
         clang main.c -o ruapu
@@ -158,7 +158,7 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: ilammy/msvc-dev-cmd@v1
     - name: build-test
       run: |
@@ -218,7 +218,7 @@ jobs:
       matrix:
         arch: [ arm, arm64, mips64le, ppc64le, riscv64, s390x ]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: setup-qemu
       uses: docker/setup-qemu-action@v3
       with:
@@ -231,7 +231,7 @@ jobs:
   ubuntu-arm:
     runs-on: ubuntu-24.04-arm
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: build-test
       run: |
         gcc main.c -o ruapu
@@ -285,7 +285,7 @@ jobs:
   windows-arm:
     runs-on: windows-11-arm
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: arm64
@@ -325,7 +325,7 @@ jobs:
           - soc-spacemit-k1
           - soc-starfive-jh7100
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: info
       run: |
         uname -a
