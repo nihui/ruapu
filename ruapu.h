@@ -391,7 +391,7 @@ RUAPU_INSTCODE(xtheadmemidx, 0x1801450b) // th.lbia a0,(sp),#0,#0
 RUAPU_INSTCODE(xtheadmempair, 0xe0a1450b) // th.lwd a0,a0,(sp),#0,3
 RUAPU_INSTCODE(xtheadsync, 0x0180000b) // th.sync
 RUAPU_INSTCODE(xtheadvector, 0x32052557) // th.vext.x.v a0,v0,a0
-RUAPU_INSTCODE(xtheadvdot, 0x8200600b) // th.vmaqa.vv v0,v0,v0
+RUAPU_INSTCODE(xtheadvdot, 0x09757057, 0x8200600b) // vsetvli zero,a0,e32,mf2,tu,ma th.vmaqa.vv v0,v0,v0
 
 RUAPU_INSTCODE(spacemitvmadot, 0xe200312b) // vmadot v2,v0,v0
 RUAPU_INSTCODE(spacemitvmadotn, 0xe600b12b) // vmadot3 v2,v0,v1 //vmadot2 vmadot1
