@@ -93,7 +93,7 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
-    - uses: actions/setup-go@v5
+    - uses: actions/setup-go@v6
       with:
         go-version: 1.21.x
     - name: build-test-golang
@@ -137,7 +137,7 @@ jobs:
         cd rust
         cargo build --verbose
         cargo test --verbose
-    - uses: actions/setup-go@v5
+    - uses: actions/setup-go@v6
       with:
         go-version: 1.21.x
     - name: build-test-golang
