@@ -329,7 +329,7 @@ jobs:
     - name: info
       run: |
         uname -a
-        cat /proc/cpuinfo
+        head -n 30 /proc/cpuinfo
     - name: build-test
       run: |
         gcc main.c -o ruapu
