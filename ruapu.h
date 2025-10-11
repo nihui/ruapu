@@ -393,9 +393,15 @@ RUAPU_INSTCODE(xtheadsync, 0x0180000b) // th.sync
 RUAPU_INSTCODE(xtheadvector, 0x32052557) // th.vext.x.v a0,v0,a0
 RUAPU_INSTCODE(xtheadvdot, 0x09757057, 0x8200600b) // vsetvli zero,a0,e32,mf2,tu,ma th.vmaqa.vv v0,v0,v0
 
-RUAPU_INSTCODE(spacemitvmadot, 0xe200312b) // vmadot v2,v0,v0
-RUAPU_INSTCODE(spacemitvmadotn, 0xe600b12b) // vmadot3 v2,v0,v1 //vmadot2 vmadot1
-RUAPU_INSTCODE(spacemitvfmadot, 0xea00012b) // vfmadot v2,v0,v0
+RUAPU_INSTCODE(xsmtvmadoti8, 0x0802f057, 0xe200312b) // vmadot v2,v0,v0,i8
+RUAPU_INSTCODE(xsmtvmadoti4, 0xc200312b) // vmadot v2,v0,v0,i4
+RUAPU_INSTCODE(xsmtvmadotni8, 0xe600b12b) // vmadot3 v2,v0,v1,i8 //vmadot2 vmadot1
+RUAPU_INSTCODE(xsmtvfmadotf32, 0xea00012b) // vfmadot v2,v0,v0
+RUAPU_INSTCODE(xsmtvfwmadotf16, 0x9e00412b) // vfwmadot v2,v0,v0,f16
+RUAPU_INSTCODE(xsmtvmadothpi8, 0xf000012b) // vmadot.hp v2,v0,v0,i8
+RUAPU_INSTCODE(xsmtvmadothpi4, 0xd000012b) // vmadot.hp v2,v0,v0,i4
+RUAPU_INSTCODE(xsmtvpack, 0x6600212b) // vpack.vv v2,v0,v0,2
+RUAPU_INSTCODE(xsmtvnspack, 0x6200612b) // vnspack.vv v2,v0,v0,2
 
 // RVV 1.0 support
 // unimp (csrrw x0, cycle, x0)
@@ -639,9 +645,15 @@ RUAPU_ISAENTRY(xtheadsync)
 RUAPU_ISAENTRY(xtheadvector)
 RUAPU_ISAENTRY(xtheadvdot)
 
-RUAPU_ISAENTRY(spacemitvmadot)
-RUAPU_ISAENTRY(spacemitvmadotn)
-RUAPU_ISAENTRY(spacemitvfmadot)
+RUAPU_ISAENTRY(xsmtvmadoti8)
+RUAPU_ISAENTRY(xsmtvmadoti4)
+RUAPU_ISAENTRY(xsmtvmadotni8)
+RUAPU_ISAENTRY(xsmtvfmadotf32)
+RUAPU_ISAENTRY(xsmtvfwmadotf16)
+RUAPU_ISAENTRY(xsmtvmadothpi8)
+RUAPU_ISAENTRY(xsmtvmadothpi4)
+RUAPU_ISAENTRY(xsmtvpack)
+RUAPU_ISAENTRY(xsmtvnspack)
 
 #elif __openrisc__
 RUAPU_ISAENTRY(orbis32)
