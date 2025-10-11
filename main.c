@@ -200,9 +200,15 @@ int main()
     PRINT_ISA_SUPPORT(xtheadvector)
     PRINT_ISA_SUPPORT(xtheadvdot)
 
-    PRINT_ISA_SUPPORT(spacemitvmadot)
-    PRINT_ISA_SUPPORT(spacemitvmadotn)
-    PRINT_ISA_SUPPORT(spacemitvfmadot)
+    PRINT_ISA_SUPPORT(xsmtvmadoti8)
+    PRINT_ISA_SUPPORT(xsmtvmadoti4)
+    PRINT_ISA_SUPPORT(xsmtvmadotni8)
+    PRINT_ISA_SUPPORT(xsmtvfmadotf32)
+    PRINT_ISA_SUPPORT(xsmtvfwmadotf16)
+    PRINT_ISA_SUPPORT(xsmtvmadothpi8)
+    PRINT_ISA_SUPPORT(xsmtvmadothpi4)
+    PRINT_ISA_SUPPORT(xsmtvpack)
+    PRINT_ISA_SUPPORT(xsmtvnspack)
 
 #elif __openrisc__
     PRINT_ISA_SUPPORT(orbis32)
