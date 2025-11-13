@@ -217,6 +217,19 @@ jobs:
       fail-fast: false
       matrix:
         arch: [ arm, arm64, mips64le, ppc64le, riscv64, s390x ]
+        include:
+        - docker_image: debian:unstable-slim
+          arch: arm
+        - docker_image: debian:unstable-slim
+          arch: arm64
+        - docker_image: debian:unstable-slim
+          arch: ppc64le
+        - docker_image: debian:unstable-slim
+          arch: riscv64
+        - docker_image: debian:unstable-slim
+          arch: s390x
+        - docker_image: debian:oldstable-slim
+          arch: mips64le
     steps:
     - uses: actions/checkout@v5
     - name: setup-qemu
@@ -225,7 +238,7 @@ jobs:
         platforms: linux/${{ matrix.arch }}
     - name: build-test
       run: |
-        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} debian:unstable-slim \
+        docker run -u root --rm -v $(pwd):/${{ github.workspace }} -w ${{ github.workspace }} --platform linux/${{ matrix.arch }} ${{ matrix.docker_image }} \
           /bin/bash -c "apt update && apt install -y gcc libc6-dev && gcc main.c -o ruapu && ./ruapu"
 
   ubuntu-arm:
