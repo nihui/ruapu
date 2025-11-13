@@ -25,9 +25,15 @@ const char* const* ruapu_rua();
 typedef void (*ruapu_some_inst)();
 
 #if defined _WIN32
-#include <windows.h>
+
+#define RUAPU_STATUS_ILLEGAL_INSTRUCTION 0xC000001DL
+#define RUAPU_EXCEPTION_EXECUTE_HANDLER 1
+#define RUAPU_EXCEPTION_CONTINUE_SEARCH 0
+#define RUAPU_EXCEPTION_CONTINUE_EXECUTION (-1)
 
 #if defined (_MSC_VER) // MSVC
+unsigned long __cdecl _exception_code(void);
+
 static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
     volatile int ruapu_sigill_caught = 0;
@@ -36,8 +42,8 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     {
         some_inst();
     }
-    __except (GetExceptionCode() == EXCEPTION_ILLEGAL_INSTRUCTION ?
-        EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
+    __except (_exception_code() == RUAPU_STATUS_ILLEGAL_INSTRUCTION ?
+        RUAPU_EXCEPTION_EXECUTE_HANDLER : RUAPU_EXCEPTION_CONTINUE_SEARCH)
     {
         ruapu_sigill_caught = 1;
     }
@@ -47,6 +53,9 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #else
 #include <setjmp.h>
 #include <signal.h>
+
+#include <IntSafe.h>
+#include <winnt.h>
 
 static volatile sig_atomic_t g_ruapu_sigill_caught = 0;
 static jmp_buf g_ruapu_jmpbuf;
