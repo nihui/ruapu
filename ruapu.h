@@ -247,6 +247,10 @@ RUAPU_INSTCODE(avx512ifma, 0x62, 0xf2, 0xfd, 0x48, 0xb4, 0xc0) // vpmadd52luq zm
 RUAPU_INSTCODE(avx512vbmi, 0x62, 0xf2, 0x7d, 0x48, 0x75, 0xc0) // vpermi2b zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512vbmi2, 0x62, 0xf2, 0x7d, 0x48, 0x71, 0xc0) // vpshldvd zmm0,zmm0,zmm0
 RUAPU_INSTCODE(avx512fp16, 0x62, 0xf6, 0x7d, 0x48, 0x98, 0xc0) // vfmadd132ph zmm0,zmm0,zmm0
+RUAPU_INSTCODE(avx512bitalg, 0x62, 0xf2, 0x7d, 0x48, 0x54, 0xc0) // vpopcntb zmm0,zmm0
+RUAPU_INSTCODE(avx512vpopcntdq, 0x62, 0xf2, 0x7d, 0x48, 0x55, 0xc0) // vpopcntd zmm0,zmm0
+RUAPU_INSTCODE(avx512vp2intersect, 0x62, 0xf2, 0x7f, 0x48, 0x68, 0xc8) // vp2intersectd k1,zmm0,zmm0
+RUAPU_INSTCODE(vpclmulqdq, 0x62, 0xf3, 0x7d, 0x48, 0x44, 0xc0, 0x00) // vpclmullqlqdq zmm0,zmm0,zmm0
 // TODO:avx512pf, vgatherpf1dps DWORD PTR [esp+zmm0*1]{k1}
 RUAPU_INSTCODE(avx512er, 0x62, 0xf2, 0xfd, 0x48, 0xc8, 0xc0) //vexp2pd zmm0,zmm0
 RUAPU_INSTCODE(avx5124fmaps, 0x67, 0x62, 0xf2, 0x7f, 0x48, 0x9a, 0x04, 0x24) //v4fmaddps zmm0,zmm0,XMMWORD PTR [esp]
@@ -273,6 +277,11 @@ RUAPU_INSTCODE(sm4, 0xc4, 0xe2, 0x7e, 0xda, 0xc0) // vsm4key4 ymm0,ymm0,ymm0
 RUAPU_INSTCODE(rdrand, 0x0f, 0xc7, 0xf0) // rdrand eax
 RUAPU_INSTCODE(rdseed, 0x0f, 0xc7, 0xf8) // rdseed eax
 RUAPU_INSTCODE(tsx, 0x0f, 0x01, 0xd6) // xtest
+RUAPU_INSTCODE(adx, 0x66, 0x0f, 0x38, 0xf6, 0xc0) // adcx eax,eax
+RUAPU_INSTCODE(lzcnt, 0xf3, 0x0f, 0xbd, 0xc0) // lzcnt eax,eax
+RUAPU_INSTCODE(tbm, 0x8f, 0xe9, 0x78, 0x01, 0xc8) // blcfill eax,eax
+RUAPU_INSTCODE(clzero, 0x48, 0x8d, 0x04, 0x24, 0x0f, 0x01, 0xfc) // lea rax,[rsp] + clzero
+RUAPU_INSTCODE(rdpru, 0x0f, 0x01, 0xfd) // rdpru
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
@@ -494,6 +503,10 @@ RUAPU_ISAENTRY(avx512ifma)
 RUAPU_ISAENTRY(avx512vbmi)
 RUAPU_ISAENTRY(avx512vbmi2)
 RUAPU_ISAENTRY(avx512fp16)
+RUAPU_ISAENTRY(avx512bitalg)
+RUAPU_ISAENTRY(avx512vpopcntdq)
+RUAPU_ISAENTRY(avx512vp2intersect)
+RUAPU_ISAENTRY(vpclmulqdq)
 // TODO:avx512pf
 RUAPU_ISAENTRY(avx512er)
 RUAPU_ISAENTRY(avx5124fmaps)
@@ -520,6 +533,11 @@ RUAPU_ISAENTRY(sm4)
 RUAPU_ISAENTRY(rdrand)
 RUAPU_ISAENTRY(rdseed)
 RUAPU_ISAENTRY(tsx)
+RUAPU_ISAENTRY(adx)
+RUAPU_ISAENTRY(lzcnt)
+RUAPU_ISAENTRY(tbm)
+RUAPU_ISAENTRY(clzero)
+RUAPU_ISAENTRY(rdpru)
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)
