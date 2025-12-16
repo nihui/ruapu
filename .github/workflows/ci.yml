@@ -62,7 +62,7 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: ubuntu-ruapu
         path: ruapu
@@ -106,7 +106,7 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: macos-ruapu
         path: ruapu
@@ -150,7 +150,7 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: macos-arm64-ruapu
         path: ruapu
@@ -206,7 +206,7 @@ jobs:
       run: |
         cd dart
         .\build.ps1
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: windows-ruapu
         path: ruapu.exe
@@ -290,7 +290,7 @@ jobs:
       run: |
         cd dart
         bash ./build.sh
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: ubuntu-arm-ruapu
         path: ruapu
@@ -322,7 +322,7 @@ jobs:
         pip3 install .
         python3 -c 'import ruapu; print(ruapu.supports("neon")); print(ruapu.supports(isa="avx"))'
         python3 -c 'import ruapu; print(ruapu.rua())'
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: windows-arm-ruapu
         path: ruapu.exe
