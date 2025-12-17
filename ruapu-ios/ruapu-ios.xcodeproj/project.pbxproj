@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D08511AD2BDF35520079FE54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511AC2BDF35520079FE54 /* AppDelegate.m */; };
+		D08511B02BDF35520079FE54 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511AF2BDF35520079FE54 /* SceneDelegate.m */; };
+		D08511B32BDF35520079FE54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511B22BDF35520079FE54 /* ViewController.m */; };
+		D08511B62BDF35520079FE54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D08511B52BDF35520079FE54 /* Base */; };
+		D08511B82BDF35530079FE54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08511B72BDF35530079FE54 /* Assets.xcassets */; };
+		D08511BB2BDF35530079FE54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D08511BA2BDF35530079FE54 /* Base */; };
+		D08511BE2BDF35530079FE54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511BD2BDF35530079FE54 /* main.m */; };
+		D08511C82BDF35530079FE54 /* ruapu_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511C72BDF35530079FE54 /* ruapu_iosTests.m */; };
+		D08511D22BDF35530079FE54 /* ruapu_iosUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511D12BDF35530079FE54 /* ruapu_iosUITests.m */; };
+		D08511D42BDF35530079FE54 /* ruapu_iosUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D08511D32BDF35530079FE54 /* ruapu_iosUITestsLaunchTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D08511C42BDF35530079FE54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D08511A02BDF35520079FE54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D08511A72BDF35520079FE54;
+			remoteInfo = "ruapu-ios";
+		};
+		D08511CE2BDF35530079FE54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D08511A02BDF35520079FE54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D08511A72BDF35520079FE54;
+			remoteInfo = "ruapu-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D08511A82BDF35520079FE54 /* ruapu-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ruapu-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D08511AB2BDF35520079FE54 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D08511AC2BDF35520079FE54 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D08511AE2BDF35520079FE54 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		D08511AF2BDF35520079FE54 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		D08511B12BDF35520079FE54 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D08511B22BDF35520079FE54 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D08511B52BDF35520079FE54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D08511B72BDF35530079FE54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D08511BA2BDF35530079FE54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D08511BC2BDF35530079FE54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D08511BD2BDF35530079FE54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D08511C32BDF35530079FE54 /* ruapu-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ruapu-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D08511C72BDF35530079FE54 /* ruapu_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ruapu_iosTests.m; sourceTree = "<group>"; };
+		D08511CD2BDF35530079FE54 /* ruapu-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ruapu-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D08511D12BDF35530079FE54 /* ruapu_iosUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ruapu_iosUITests.m; sourceTree = "<group>"; };
+		D08511D32BDF35530079FE54 /* ruapu_iosUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ruapu_iosUITestsLaunchTests.m; sourceTree = "<group>"; };
+		D08511E02BDF35A40079FE54 /* ruapu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ruapu.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D08511A52BDF35520079FE54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511C02BDF35530079FE54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511CA2BDF35530079FE54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D085119F2BDF35520079FE54 = {
+			isa = PBXGroup;
+			children = (
+				D08511AA2BDF35520079FE54 /* ruapu-ios */,
+				D08511C62BDF35530079FE54 /* ruapu-iosTests */,
+				D08511D02BDF35530079FE54 /* ruapu-iosUITests */,
+				D08511A92BDF35520079FE54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D08511A92BDF35520079FE54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D08511A82BDF35520079FE54 /* ruapu-ios.app */,
+				D08511C32BDF35530079FE54 /* ruapu-iosTests.xctest */,
+				D08511CD2BDF35530079FE54 /* ruapu-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D08511AA2BDF35520079FE54 /* ruapu-ios */ = {
+			isa = PBXGroup;
+			children = (
+				D08511AB2BDF35520079FE54 /* AppDelegate.h */,
+				D08511AC2BDF35520079FE54 /* AppDelegate.m */,
+				D08511AE2BDF35520079FE54 /* SceneDelegate.h */,
+				D08511AF2BDF35520079FE54 /* SceneDelegate.m */,
+				D08511E02BDF35A40079FE54 /* ruapu.h */,
+				D08511B12BDF35520079FE54 /* ViewController.h */,
+				D08511B22BDF35520079FE54 /* ViewController.m */,
+				D08511B42BDF35520079FE54 /* Main.storyboard */,
+				D08511B72BDF35530079FE54 /* Assets.xcassets */,
+				D08511B92BDF35530079FE54 /* LaunchScreen.storyboard */,
+				D08511BC2BDF35530079FE54 /* Info.plist */,
+				D08511BD2BDF35530079FE54 /* main.m */,
+			);
+			path = "ruapu-ios";
+			sourceTree = "<group>";
+		};
+		D08511C62BDF35530079FE54 /* ruapu-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				D08511C72BDF35530079FE54 /* ruapu_iosTests.m */,
+			);
+			path = "ruapu-iosTests";
+			sourceTree = "<group>";
+		};
+		D08511D02BDF35530079FE54 /* ruapu-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D08511D12BDF35530079FE54 /* ruapu_iosUITests.m */,
+				D08511D32BDF35530079FE54 /* ruapu_iosUITestsLaunchTests.m */,
+			);
+			path = "ruapu-iosUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D08511A72BDF35520079FE54 /* ruapu-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D08511D72BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-ios" */;
+			buildPhases = (
+				D08511A42BDF35520079FE54 /* Sources */,
+				D08511A52BDF35520079FE54 /* Frameworks */,
+				D08511A62BDF35520079FE54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ruapu-ios";
+			productName = "ruapu-ios";
+			productReference = D08511A82BDF35520079FE54 /* ruapu-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D08511C22BDF35530079FE54 /* ruapu-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D08511DA2BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-iosTests" */;
+			buildPhases = (
+				D08511BF2BDF35530079FE54 /* Sources */,
+				D08511C02BDF35530079FE54 /* Frameworks */,
+				D08511C12BDF35530079FE54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D08511C52BDF35530079FE54 /* PBXTargetDependency */,
+			);
+			name = "ruapu-iosTests";
+			productName = "ruapu-iosTests";
+			productReference = D08511C32BDF35530079FE54 /* ruapu-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D08511CC2BDF35530079FE54 /* ruapu-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D08511DD2BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-iosUITests" */;
+			buildPhases = (
+				D08511C92BDF35530079FE54 /* Sources */,
+				D08511CA2BDF35530079FE54 /* Frameworks */,
+				D08511CB2BDF35530079FE54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D08511CF2BDF35530079FE54 /* PBXTargetDependency */,
+			);
+			name = "ruapu-iosUITests";
+			productName = "ruapu-iosUITests";
+			productReference = D08511CD2BDF35530079FE54 /* ruapu-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D08511A02BDF35520079FE54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					D08511A72BDF35520079FE54 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					D08511C22BDF35530079FE54 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = D08511A72BDF35520079FE54;
+					};
+					D08511CC2BDF35530079FE54 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = D08511A72BDF35520079FE54;
+					};
+				};
+			};
+			buildConfigurationList = D08511A32BDF35520079FE54 /* Build configuration list for PBXProject "ruapu-ios" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D085119F2BDF35520079FE54;
+			productRefGroup = D08511A92BDF35520079FE54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D08511A72BDF35520079FE54 /* ruapu-ios */,
+				D08511C22BDF35530079FE54 /* ruapu-iosTests */,
+				D08511CC2BDF35530079FE54 /* ruapu-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D08511A62BDF35520079FE54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08511B82BDF35530079FE54 /* Assets.xcassets in Resources */,
+				D08511BB2BDF35530079FE54 /* Base in Resources */,
+				D08511B62BDF35520079FE54 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511C12BDF35530079FE54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511CB2BDF35530079FE54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D08511A42BDF35520079FE54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08511B32BDF35520079FE54 /* ViewController.m in Sources */,
+				D08511AD2BDF35520079FE54 /* AppDelegate.m in Sources */,
+				D08511BE2BDF35530079FE54 /* main.m in Sources */,
+				D08511B02BDF35520079FE54 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511BF2BDF35530079FE54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08511C82BDF35530079FE54 /* ruapu_iosTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D08511C92BDF35530079FE54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08511D42BDF35530079FE54 /* ruapu_iosUITestsLaunchTests.m in Sources */,
+				D08511D22BDF35530079FE54 /* ruapu_iosUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D08511C52BDF35530079FE54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D08511A72BDF35520079FE54 /* ruapu-ios */;
+			targetProxy = D08511C42BDF35530079FE54 /* PBXContainerItemProxy */;
+		};
+		D08511CF2BDF35530079FE54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D08511A72BDF35520079FE54 /* ruapu-ios */;
+			targetProxy = D08511CE2BDF35530079FE54 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D08511B42BDF35520079FE54 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D08511B52BDF35520079FE54 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D08511B92BDF35530079FE54 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D08511BA2BDF35530079FE54 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D08511D52BDF35530079FE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D08511D62BDF35530079FE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D08511D82BDF35530079FE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ruapu-ios/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D08511D92BDF35530079FE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ruapu-ios/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D08511DB2BDF35530079FE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ruapu-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ruapu-ios";
+			};
+			name = Debug;
+		};
+		D08511DC2BDF35530079FE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ruapu-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ruapu-ios";
+			};
+			name = Release;
+		};
+		D08511DE2BDF35530079FE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ruapu-ios";
+			};
+			name = Debug;
+		};
+		D08511DF2BDF35530079FE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A525GA3USA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mizu-bai.ruapu-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ruapu-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D08511A32BDF35520079FE54 /* Build configuration list for PBXProject "ruapu-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D08511D52BDF35530079FE54 /* Debug */,
+				D08511D62BDF35530079FE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D08511D72BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D08511D82BDF35530079FE54 /* Debug */,
+				D08511D92BDF35530079FE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D08511DA2BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D08511DB2BDF35530079FE54 /* Debug */,
+				D08511DC2BDF35530079FE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D08511DD2BDF35530079FE54 /* Build configuration list for PBXNativeTarget "ruapu-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D08511DE2BDF35530079FE54 /* Debug */,
+				D08511DF2BDF35530079FE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D08511A02BDF35520079FE54 /* Project object */;
+}
