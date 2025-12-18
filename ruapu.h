@@ -376,10 +376,12 @@ RUAPU_INSTCODE(zfbfmin, 0x44807053) // fcvt.bf16.s ft0,ft0
 RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
 RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
 RUAPU_INSTCODE(zicbop, 0x00116013) // prefetch.r 0(sp)
+RUAPU_INSTCODE(zicntr, 0xc0002573) // rdcycle a0
 RUAPU_INSTCODE(zicond, 0x0ea55533) // czero.eqz a0,a0,a0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
 RUAPU_INSTCODE(zihintpause, 0x0100000f); // pause
+RUAPU_INSTCODE(zihpm, 0xc0302573) // csrr a0, hpmcounter3
 RUAPU_INSTCODE(zmmul, 0x02a50533) // mul a0,a0,a0
 RUAPU_INSTCODE(zpn, 0xad45057f) // kabsw a0,a0
 RUAPU_INSTCODE(zpsfoperand, 0xc0a5157f) // add64 a0,a0,a0
@@ -615,10 +617,12 @@ RUAPU_ISAENTRY(zfbfmin)
 RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicbop)
+RUAPU_ISAENTRY(zicntr)
 RUAPU_ISAENTRY(zicond)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
 RUAPU_ISAENTRY(zihintpause)
+RUAPU_ISAENTRY(zihpm)
 RUAPU_ISAENTRY(zmmul)
 RUAPU_ISAENTRY(zpn)
 RUAPU_ISAENTRY(zpsfoperand)
