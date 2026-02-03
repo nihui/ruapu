@@ -230,6 +230,7 @@ RUAPU_INSTCODE(ssse3, 0x66, 0x0f, 0x38, 0x06, 0xc0) // phsubd xmm0,xmm0
 RUAPU_INSTCODE(sse41, 0x66, 0x0f, 0x38, 0x3d, 0xc0) // pmaxsd xmm0,xmm0
 RUAPU_INSTCODE(sse42, 0x66, 0x0f, 0x38, 0x37, 0xc0) // pcmpgtq xmm0,xmm0
 RUAPU_INSTCODE(sse4a, 0x66, 0x0f, 0x79, 0xc0) // extrq xmm0,xmm0
+RUAPU_INSTCODE(popcnt, 0xf3, 0x0f, 0xb8, 0xc0) // popcnt eax,eax
 RUAPU_INSTCODE(xop, 0x8f, 0xe8, 0x78, 0xb6, 0xc0, 0x00)  // vpmadcswd xmm0,xmm0,xmm0,xmm0
 RUAPU_INSTCODE(avx, 0xc5, 0xfc, 0x54, 0xc0) // vandps ymm0,ymm0,ymm0
 RUAPU_INSTCODE(f16c, 0xc4, 0xe2, 0x7d, 0x13, 0xc0) // vcvtph2ps ymm0,xmm0
@@ -477,6 +478,7 @@ RUAPU_ISAENTRY(ssse3)
 RUAPU_ISAENTRY(sse41)
 RUAPU_ISAENTRY(sse42)
 RUAPU_ISAENTRY(sse4a)
+RUAPU_ISAENTRY(popcnt)
 RUAPU_ISAENTRY(xop)
 RUAPU_ISAENTRY(avx)
 RUAPU_ISAENTRY(f16c)
