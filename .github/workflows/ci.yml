@@ -233,7 +233,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: setup-qemu
-      uses: docker/setup-qemu-action@v3
+      uses: docker/setup-qemu-action@v4
       with:
         platforms: linux/${{ matrix.arch }}
     - name: build-test
