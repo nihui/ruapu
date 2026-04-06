@@ -832,11 +832,28 @@ ruapu determines whether the CPU supports certain instruction sets by trying to 
 * [@strongtz](https://github.com/strongtz) &emsp;_Detect more aarch64 ISA_
 * [@monkeyking](https://github.com/monkeyking) &emsp;_Detect apple arm64 AMX_
 * [@junchao-loongson](https://github.com/junchao-loongson) &emsp;_Add loongarch support_
-* [@ziyao233](https://github.com/ziyao233) &emsp;_Detect more risc-v ISA_
+* [@ziyao233](https://github.com/ziyao233) &emsp;_Detect more risc-v ISA, add Lua and Haskell binding_
 * [@dreamcmi](https://github.com/dreamcmi) &emsp;_Detect more risc-v ISA_
 * [@cocoa-xu](https://github.com/cocoa-xu) &emsp;_Add FreeBSD support, python support_
 * [@YuzukiTsuru](https://github.com/YuzukiTsuru) &emsp;_Add OpenRISC support_
 * [@whyb](https://github.com/whyb) &emsp;_Detect more x86 AMX*, SHA*, AVX512*, SM*_
+* [@Yoh-Z](https://github.com/Yoh-Z) &emsp;_Enhance python API_
+* [@mizu-bai](https://github.com/mizu-bai) &emsp;_Add Fortran binding_
+* [@scarsty](https://github.com/scarsty) &emsp;_Add Pascal binding_
+* [@LJoson](https://github.com/LJoson) &emsp;_Add contributor image_
+* [@Deepdive543443](https://github.com/Deepdive543443) &emsp;_Add Java binding_
+* [@synodriver](https://github.com/synodriver) &emsp;_Improve python binding_
+* [@dtcxzyw](https://github.com/dtcxzyw) &emsp;_Detect more risc-v ISA_
+* [@TianZerL](https://github.com/TianZerL) &emsp;_Fix Windows DLL crashes, UWP support_
+* [@cyyself](https://github.com/cyyself) &emsp;_Detect risc-v zmmul_
+* [@AlexHJH](https://github.com/AlexHJH) &emsp;_Detect risc-v spacemit vmadot_
+* [@eastonman](https://github.com/eastonman) &emsp;_Detect risc-v zcb_
+* [@Apachiww](https://github.com/Apachiww) &emsp;_Detect x86 aes-ni, sha, bmi, gfni, vaes, rdrand, rdseed, tsx_
+* [@clingfei](https://github.com/clingfei) &emsp;_Detect arm64 paca and pacg_
+* [@bakacai](https://github.com/bakacai) &emsp;_Add Cangjie binding_
+* [@windowsair](https://github.com/windowsair) &emsp;_Remove windows.h dependency_
+* [@alex-spacemit](https://github.com/alex-spacemit) &emsp;_Detect risc-v xsmt ime2_
+* [@Integral-Tech](https://github.com/Integral-Tech) &emsp;_Detect x86 popcnt_
 
 ## License
 MIT License
