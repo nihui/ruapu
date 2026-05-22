@@ -363,6 +363,7 @@ RUAPU_INSTCODE(f, 0x10a57553) // fmul.s fa0,fa0,fa0
 RUAPU_INSTCODE(d, 0x12a57553) // fmul.d fa0,fa0,fa0
 RUAPU_INSTCODE(c, 0x0001952a) // add a0,a0,a0 + nop
 RUAPU_INSTCODE(p, 0x40a5057f) // add16 a0,a0,a0
+RUAPU_INSTCODE(zawrs, 0x01d00073) // wrs.sto
 RUAPU_INSTCODE(zba, 0x20a52533) // sh1add a0,a0,a0
 RUAPU_INSTCODE(zbb, 0x60451513) // sext.b a0,a0,a0
 RUAPU_INSTCODE(zbc, 0x0aa52533) // clmulr a0,a0,a0
@@ -377,6 +378,7 @@ RUAPU_INSTCODE(zfbfmin, 0x44807053) // fcvt.bf16.s ft0,ft0
 RUAPU_INSTCODE(zfh, 0x04007053); // fadd.hs ft0, ft0, ft0
 RUAPU_INSTCODE(zfhmin, 0xe4000553) // fmv.x.h a0, ft0
 RUAPU_INSTCODE(zicbop, 0x00116013) // prefetch.r 0(sp)
+RUAPU_INSTCODE(zicbom, 0x0011200f) // cbo.clean (sp)
 RUAPU_INSTCODE(zicond, 0x0ea55533) // czero.eqz a0,a0,a0
 RUAPU_INSTCODE(zicsr, 0xc0102573); // csrr a0, time
 RUAPU_INSTCODE(zifencei, 0x0000100f); // fence.i
@@ -450,6 +452,12 @@ RUAPU_RVV_INSTCODE(zvfhmin, 8, 0x4a8a1257) // vfncvt.f.f.v v4, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvfbfmin, 8, 0x4a8e9257) // vfncvtbf16.f.f.w v4, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvfbfwma, 8, 0xee855257) // vfwmaccbf16.vf v4, fa0, v8 with SEW = 16
 RUAPU_RVV_INSTCODE(zvkb, 0, 0x56860257) // vrol.vv v4, v8, v12 with SEW = 8
+RUAPU_RVV_INSTCODE(zvkg, 16, 0xb2842277) // vghsh.vv v4, v8, v8 with SEW = 32
+RUAPU_RVV_INSTCODE(zvkned, 16, 0xa281a277) // vaesef.vv v4, v8, v8 with SEW = 32
+RUAPU_RVV_INSTCODE(zvknha, 16, 0xbe842277) // vsha2cl.vv v4, v8, v8 with SEW = 32
+RUAPU_RVV_INSTCODE(zvknhb, 24, 0xbe842277) // vsha2cl.vv v4, v8, v8 with SEW = 64
+RUAPU_RVV_INSTCODE(zvksed, 16, 0xae80a277) // vsm3c.vi v4, v8, 1 with SEW = 32
+RUAPU_RVV_INSTCODE(zvksh, 16, 0x8680a277) // vsm4k.vi v4, v8, 1 with SEW = 32
 RUAPU_RVV_INSTCODE(v, 24, 0x22842257) // vaaddu.vv v4, v8, v8 with SEW = 64
 
 #undef RUAPU_RVV_INSTCODE
@@ -603,6 +611,7 @@ RUAPU_ISAENTRY(d)
 RUAPU_ISAENTRY(c)
 RUAPU_ISAENTRY(p)
 RUAPU_ISAENTRY(v)
+RUAPU_ISAENTRY(zawrs)
 RUAPU_ISAENTRY(zba)
 RUAPU_ISAENTRY(zbb)
 RUAPU_ISAENTRY(zbc)
@@ -617,6 +626,7 @@ RUAPU_ISAENTRY(zfbfmin)
 RUAPU_ISAENTRY(zfh)
 RUAPU_ISAENTRY(zfhmin)
 RUAPU_ISAENTRY(zicbop)
+RUAPU_ISAENTRY(zicbom)
 RUAPU_ISAENTRY(zicond)
 RUAPU_ISAENTRY(zicsr)
 RUAPU_ISAENTRY(zifencei)
@@ -631,6 +641,12 @@ RUAPU_ISAENTRY(zvfhmin)
 RUAPU_ISAENTRY(zvfbfmin)
 RUAPU_ISAENTRY(zvfbfwma)
 RUAPU_ISAENTRY(zvkb)
+RUAPU_ISAENTRY(zvkg)
+RUAPU_ISAENTRY(zvkned)
+RUAPU_ISAENTRY(zvknha)
+RUAPU_ISAENTRY(zvknhb)
+RUAPU_ISAENTRY(zvksed)
+RUAPU_ISAENTRY(zvksh)
 RUAPU_ISAENTRY(zvl32b)
 RUAPU_ISAENTRY(zvl64b)
 RUAPU_ISAENTRY(zvl128b)
