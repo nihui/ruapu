@@ -456,8 +456,8 @@ RUAPU_RVV_INSTCODE(zvkg, 16, 0xb2842277) // vghsh.vv v4, v8, v8 with SEW = 32
 RUAPU_RVV_INSTCODE(zvkned, 16, 0xa281a277) // vaesef.vv v4, v8, v8 with SEW = 32
 RUAPU_RVV_INSTCODE(zvknha, 16, 0xbe842277) // vsha2cl.vv v4, v8, v8 with SEW = 32
 RUAPU_RVV_INSTCODE(zvknhb, 24, 0xbe842277) // vsha2cl.vv v4, v8, v8 with SEW = 64
-RUAPU_RVV_INSTCODE(zvksed, 16, 0xae80a277) // vsm3c.vi v4, v8, 1 with SEW = 32
-RUAPU_RVV_INSTCODE(zvksh, 16, 0x8680a277) // vsm4k.vi v4, v8, 1 with SEW = 32
+RUAPU_RVV_INSTCODE(zvksed, 16, 0x8680a277) // vsm4k.vi v4, v8, 1 with SEW = 32
+RUAPU_RVV_INSTCODE(zvksh, 16, 0xae80a277) // vsm3c.vi v4, v8, 1 with SEW = 32
 RUAPU_RVV_INSTCODE(v, 24, 0x22842257) // vaaddu.vv v4, v8, v8 with SEW = 64
 
 #undef RUAPU_RVV_INSTCODE
