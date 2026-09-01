@@ -341,5 +341,5 @@ jobs:
         ./ruapu
     - name: build-test-clang
       run: |
-        clang main.c -o ruapu-clang
+        clang-18 main.c -o ruapu-clang
         ./ruapu-clang
