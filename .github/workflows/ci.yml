@@ -68,7 +68,7 @@ jobs:
         path: ruapu
 
   macos:
-    runs-on: macos-13
+    runs-on: macos-15-intel
     steps:
     - uses: actions/checkout@v6
     - name: build-test
@@ -228,7 +228,7 @@ jobs:
           arch: riscv64
         - docker_image: debian:unstable-slim
           arch: s390x
-        - docker_image: debian:oldstable-slim
+        - docker_image: mips64le/debian:12-slim
           arch: mips64le
     steps:
     - uses: actions/checkout@v6
