@@ -338,6 +338,9 @@ RUAPU_INSTCODE(idiv, 0xe3a00003, 0xe710f010) // movs r0,#3 + sdiv r0,r0,r0
 
 #elif __mips__
 RUAPU_INSTCODE(msa, 0x7900001b) // fmadd.w $w0,$w0,$w0
+RUAPU_INSTCODE(mxu, 0x70100027) // s32and xr0,xr0,xr0
+RUAPU_INSTCODE(mxu2, 0x4ac00038) // andv $vr0,$vr0,$vr0
+RUAPU_INSTCODE(mxu3, 0x4a600002) // andv $vr0,$vr0,$vr0
 RUAPU_INSTCODE(mmi, 0x4b60000e) // pmaddhw $f0,$f0
 RUAPU_INSTCODE(sx, 0xef48001e) // __lsx_vffloor_w
 RUAPU_INSTCODE(asx, 0xec40001d) // __lasx_xfmadd_w
@@ -585,6 +588,9 @@ RUAPU_ISAENTRY(idiv)
 
 #elif __mips__
 RUAPU_ISAENTRY(msa)
+RUAPU_ISAENTRY(mxu)
+RUAPU_ISAENTRY(mxu2)
+RUAPU_ISAENTRY(mxu3)
 RUAPU_ISAENTRY(mmi)
 RUAPU_ISAENTRY(sx)
 RUAPU_ISAENTRY(asx)
