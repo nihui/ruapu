@@ -122,6 +122,9 @@ int main()
 
 #elif __mips__
     PRINT_ISA_SUPPORT(msa)
+    PRINT_ISA_SUPPORT(mxu)
+    PRINT_ISA_SUPPORT(mxu2)
+    PRINT_ISA_SUPPORT(mxu3)
     PRINT_ISA_SUPPORT(mmi)
     PRINT_ISA_SUPPORT(sx)
     PRINT_ISA_SUPPORT(asx)
