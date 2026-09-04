@@ -133,6 +133,21 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 {
     g_ruapu_sig_caught = 0;
 
+    // Some probe instructions do not fault as a clean SIGILL but raise a SIGSEGV
+    // with a corrupted stack pointer . The kernel can only deliver such a
+    // signal on an alternate stack, and the handler below sets SA_ONSTACK, so make
+    // sure an alternate signal stack is installed. Leave an app-provided one alone.
+    stack_t old_ss;
+    if (sigaltstack(NULL, &old_ss) == 0 && (old_ss.ss_flags & SS_DISABLE))
+    {
+        static char ruapu_altstack[65536];
+        stack_t ss;
+        ss.ss_sp = ruapu_altstack;
+        ss.ss_size = sizeof(ruapu_altstack);
+        ss.ss_flags = 0;
+        sigaltstack(&ss, NULL);
+    }
+
     struct sigaction sa = { 0 };
     struct sigaction old_sa;
     sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
