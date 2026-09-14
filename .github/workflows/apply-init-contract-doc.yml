@@ -1,0 +1,33 @@
+name: apply init contract documentation
+on:
+  push:
+    branches: [docs/single-threaded-init-contract]
+permissions:
+  contents: write
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: docs/single-threaded-init-contract
+      - name: Update README
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('README.md')
+          s = p.read_text()
+          anchor = '''#### Best practice for using `ruapu.h` in multiple compilation units\n\n1. Create one `ruapu.c` for your project\n2. `ruapu.c` is **ONLY** `#define RUAPU_IMPLEMENTATION` and `#include "ruapu.h"`\n3. Other sources `#include "ruapu.h"` but **NO** `#define RUAPU_IMPLEMENTATION`\n'''
+          add = '''\n#### Threading requirements\n\n`ruapu_init()` must be called exactly once during single-threaded program startup, before creating additional threads. Concurrent calls to `ruapu_init()`, or calling it after other threads have started, are unsupported.\n\nAfter `ruapu_init()` has completed, `ruapu_supports()` and `ruapu_rua()` only read the initialized feature list and may be called from multiple threads.\n'''
+          if anchor not in s:
+              raise SystemExit('README anchor not found')
+          p.write_text(s.replace(anchor, anchor + add, 1))
+          PY
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md
+          git rm .github/workflows/apply-init-contract-doc.yml
+          git commit -m 'docs: require single-threaded ruapu_init'
+          git push origin HEAD:docs/single-threaded-init-contract
