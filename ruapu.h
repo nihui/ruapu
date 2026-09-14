@@ -118,14 +118,40 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 
 static volatile sig_atomic_t g_ruapu_sig_caught = 0;
 static sigjmp_buf g_ruapu_jmpbuf;
+static volatile sig_atomic_t g_ruapu_probe_active = 0;
+static struct sigaction g_ruapu_old_sigill_sa;
+static struct sigaction g_ruapu_old_sigsegv_sa;
+
+static void ruapu_chain_sig(int signo, siginfo_t* si, void* data)
+{
+    struct sigaction* old_sa = signo == SIGILL ? &g_ruapu_old_sigill_sa : &g_ruapu_old_sigsegv_sa;
+
+    if (old_sa->sa_handler == SIG_IGN)
+        return;
+
+    if (old_sa->sa_handler == SIG_DFL)
+    {
+        sigaction(signo, old_sa, NULL);
+        raise(signo);
+        return;
+    }
+
+    if (old_sa->sa_flags & SA_SIGINFO)
+        old_sa->sa_sigaction(signo, si, data);
+    else
+        old_sa->sa_handler(signo);
+}
 
 static void ruapu_catch_sig(int signo, siginfo_t* si, void* data)
 {
-    (void)signo;
-    (void)si;
-    (void)data;
+    if (!g_ruapu_probe_active)
+    {
+        ruapu_chain_sig(signo, si, data);
+        return;
+    }
 
     g_ruapu_sig_caught = 1;
+    g_ruapu_probe_active = 0;
     siglongjmp(g_ruapu_jmpbuf, -1);
 }
 
@@ -134,20 +160,20 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     g_ruapu_sig_caught = 0;
 
     struct sigaction sa = { 0 };
-    struct sigaction old_sigill_sa;
-    struct sigaction old_sigsegv_sa;
     sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
     sa.sa_sigaction = ruapu_catch_sig;
-    sigaction(SIGILL, &sa, &old_sigill_sa);
-    sigaction(SIGSEGV, &sa, &old_sigsegv_sa);
+    sigaction(SIGILL, &sa, &g_ruapu_old_sigill_sa);
+    sigaction(SIGSEGV, &sa, &g_ruapu_old_sigsegv_sa);
 
     if (sigsetjmp(g_ruapu_jmpbuf, 1) == 0)
     {
+        g_ruapu_probe_active = 1;
         some_inst();
+        g_ruapu_probe_active = 0;
     }
 
-    sigaction(SIGILL, &old_sigill_sa, NULL);
-    sigaction(SIGSEGV, &old_sigsegv_sa, NULL);
+    sigaction(SIGILL, &g_ruapu_old_sigill_sa, NULL);
+    sigaction(SIGSEGV, &g_ruapu_old_sigsegv_sa, NULL);
 
     return g_ruapu_sig_caught ? 0 : 1;
 }
