@@ -1,0 +1,27 @@
+name: update-pr137-readme
+
+on:
+  push:
+    branches: [riscv-zicntr-zihpm]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: riscv-zicntr-zihpm
+      - name: Update README
+        shell: bash
+        run: |
+          sed -i 's/`zicbop` `zicbom` `zicond`/`zicbop` `zicbom` `zicntr` `zicond`/' README.md
+          sed -i 's/`zihintpause` `zmmul`/`zihintpause` `zihpm` `zmmul`/' README.md
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md
+          git rm .github/workflows/update-pr137-readme.yml
+          git commit -m 'docs: add zicntr and zihpm to supported ISA list'
+          git push origin HEAD:riscv-zicntr-zihpm
