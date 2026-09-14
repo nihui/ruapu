@@ -1,0 +1,67 @@
+name: apply sigaction restore fix
+
+on:
+  push:
+    branches: [fix/sigaction-restore]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/sigaction-restore
+      - name: Apply fix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('ruapu.h')
+          s = p.read_text()
+          old = '''    struct sigaction sa = { 0 };
+              struct sigaction old_sa;
+              sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
+              sa.sa_sigaction = ruapu_catch_sig;
+              sigaction(SIGILL, &sa, &old_sa);
+              sigaction(SIGSEGV, &sa, &old_sa);
+
+              if (sigsetjmp(g_ruapu_jmpbuf, 1) == 0)
+              {
+                  some_inst();
+              }
+
+              sigaction(SIGILL, &old_sa, NULL);
+              sigaction(SIGSEGV, &old_sa, NULL);
+          '''
+          new = '''    struct sigaction sa = { 0 };
+              struct sigaction old_sigill_sa;
+              struct sigaction old_sigsegv_sa;
+              sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
+              sa.sa_sigaction = ruapu_catch_sig;
+              sigaction(SIGILL, &sa, &old_sigill_sa);
+              sigaction(SIGSEGV, &sa, &old_sigsegv_sa);
+
+              if (sigsetjmp(g_ruapu_jmpbuf, 1) == 0)
+              {
+                  some_inst();
+              }
+
+              sigaction(SIGILL, &old_sigill_sa, NULL);
+              sigaction(SIGSEGV, &old_sigsegv_sa, NULL);
+          '''
+          if old not in s:
+              raise SystemExit('target block not found')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          gcc main.c -o /tmp/ruapu
+          /tmp/ruapu >/dev/null 2>&1
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ruapu.h
+          git commit -m 'unix: restore signal handlers separately'
+          git push origin HEAD:fix/sigaction-restore
