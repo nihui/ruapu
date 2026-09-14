@@ -1,6 +1,7 @@
 name: update-amx-syscall-wrapper
 
-on: push
+on:
+  push:
 
 permissions:
   contents: write
