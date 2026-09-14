@@ -2,6 +2,8 @@ name: update-amx-syscall-wrapper
 
 on:
   push:
+    branches:
+      - fix/amx-os-enable
 
 permissions:
   contents: write
