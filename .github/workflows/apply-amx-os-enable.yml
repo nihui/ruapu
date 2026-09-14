@@ -1,0 +1,91 @@
+name: apply AMX OS enable fix
+
+on:
+  push:
+    branches: [fix/amx-os-enable]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/amx-os-enable
+      - name: Apply fix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('ruapu.h')
+          s = p.read_text()
+
+          anchor = '''typedef void (*ruapu_some_inst)();\n'''
+          add = r'''
+
+#if defined _WIN32 && (defined(__x86_64__) || defined(_M_X64))
+#include <windows.h>
+#endif
+
+static void ruapu_prepare_isa()
+{
+#if defined __linux__ && defined __x86_64__ && !defined __ILP32__
+    long ret;
+    asm volatile("syscall"
+                 : "=a"(ret)
+                 : "0"(158L), "D"(0x1023L), "S"(18L)
+                 : "rcx", "r11", "memory");
+    (void)ret;
+#elif defined _WIN32 && (defined(__x86_64__) || defined(_M_X64))
+    typedef BOOL (WINAPI *ruapu_enable_process_optional_xstate_features)(DWORD64);
+
+    HMODULE kernel32 = GetModuleHandleA("kernel32.dll");
+    if (!kernel32)
+        return;
+
+    ruapu_enable_process_optional_xstate_features enable_process_optional_xstate_features =
+        (ruapu_enable_process_optional_xstate_features)GetProcAddress(kernel32, "EnableProcessOptionalXStateFeatures");
+    if (enable_process_optional_xstate_features)
+        enable_process_optional_xstate_features((1ull << 17) | (1ull << 18));
+#endif
+}
+'''
+          if anchor not in s:
+              raise SystemExit('typedef anchor not found')
+          s = s.replace(anchor, anchor + add, 1)
+
+          old = '''RUAPU_INSTCODE(amxfp16, 0xc4, 0xe2, 0x7b, 0x5c, 0xd1) // tdpfp16ps %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxbf16, 0xc4, 0xe2, 0x7a, 0x5c, 0xd1) // tdpbf16ps %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxint8, 0xc4, 0xe2, 0x7b, 0x5e, 0xd1) // tdpbssd %tmm0, %tmm1, %tmm2
+RUAPU_INSTCODE(amxtile, 0xc4, 0xe2, 0x7a, 0x49, 0xc0) // tilezero %tmm0
+'''
+          cfg = '0x01, ' + ', '.join(['0x00']*15) + ', 0x40, 0x00, 0x40, 0x00, 0x40, 0x00, ' + ', '.join(['0x00']*26) + ', 0x10, 0x10, 0x10, ' + ', '.join(['0x00']*13)
+          prefix = '0xc4, 0xe2, 0x78, 0x49, 0x05, 0x0c, 0x00, 0x00, 0x00'
+          suffix = '0xc4, 0xe2, 0x78, 0x49, 0xc0, 0xeb, 0x40'
+          new = f'''RUAPU_INSTCODE(amxfp16, {prefix}, 0xc4, 0xe2, 0x7b, 0x5c, 0xd1, {suffix}, {cfg}) // ldtilecfg + tdpfp16ps + tilerelease
+RUAPU_INSTCODE(amxbf16, {prefix}, 0xc4, 0xe2, 0x7a, 0x5c, 0xd1, {suffix}, {cfg}) // ldtilecfg + tdpbf16ps + tilerelease
+RUAPU_INSTCODE(amxint8, {prefix}, 0xc4, 0xe2, 0x7b, 0x5e, 0xd1, {suffix}, {cfg}) // ldtilecfg + tdpbssd + tilerelease
+RUAPU_INSTCODE(amxtile, 0xc4, 0xe2, 0x78, 0x49, 0xc0) // tilerelease
+'''
+          if old not in s:
+              raise SystemExit('AMX opcode block not found')
+          s = s.replace(old, new, 1)
+
+          old_init = '''void ruapu_init()\n{\n#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__\n'''
+          new_init = '''void ruapu_init()\n{\n    ruapu_prepare_isa();\n\n#if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__\n'''
+          if old_init not in s:
+              raise SystemExit('ruapu_init anchor not found')
+          s = s.replace(old_init, new_init, 1)
+          p.write_text(s)
+          PY
+          gcc main.c -o /tmp/ruapu
+          /tmp/ruapu >/dev/null 2>&1
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ruapu.h
+          git rm .github/workflows/apply-amx-os-enable.yml
+          git commit -m 'x86: enable and configure AMX before probing'
+          git push origin HEAD:fix/amx-os-enable
