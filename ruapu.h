@@ -116,8 +116,8 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #include <signal.h>
 #include <setjmp.h>
 
-static volatile sig_atomic_t g_ruapu_sig_caught = 0;
-static sigjmp_buf g_ruapu_jmpbuf;
+static __thread volatile sig_atomic_t g_ruapu_sig_caught = 0;
+static __thread sigjmp_buf g_ruapu_jmpbuf;
 
 static void ruapu_catch_sig(int signo, siginfo_t* si, void* data)
 {
