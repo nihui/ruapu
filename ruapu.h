@@ -134,19 +134,20 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
     g_ruapu_sig_caught = 0;
 
     struct sigaction sa = { 0 };
-    struct sigaction old_sa;
+    struct sigaction old_sigill_sa;
+    struct sigaction old_sigsegv_sa;
     sa.sa_flags = SA_ONSTACK | SA_RESTART | SA_SIGINFO;
     sa.sa_sigaction = ruapu_catch_sig;
-    sigaction(SIGILL, &sa, &old_sa);
-    sigaction(SIGSEGV, &sa, &old_sa);
+    sigaction(SIGILL, &sa, &old_sigill_sa);
+    sigaction(SIGSEGV, &sa, &old_sigsegv_sa);
 
     if (sigsetjmp(g_ruapu_jmpbuf, 1) == 0)
     {
         some_inst();
     }
 
-    sigaction(SIGILL, &old_sa, NULL);
-    sigaction(SIGSEGV, &old_sa, NULL);
+    sigaction(SIGILL, &old_sigill_sa, NULL);
+    sigaction(SIGSEGV, &old_sigsegv_sa, NULL);
 
     return g_ruapu_sig_caught ? 0 : 1;
 }
