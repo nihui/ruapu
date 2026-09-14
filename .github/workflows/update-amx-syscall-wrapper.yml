@@ -1,0 +1,47 @@
+name: update-amx-syscall-wrapper
+
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/amx-os-enable
+      - shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('ruapu.h')
+          s = p.read_text()
+          old = '''#if defined __linux__ && defined __x86_64__ && !defined __ILP32__
+    long ret;
+    asm volatile("syscall"
+                 : "=a"(ret)
+                 : "0"(158L), "D"(0x1023L), "S"(18L)
+                 : "rcx", "r11", "memory");
+    (void)ret;
+'''
+          new = '''#if defined __linux__ && defined __x86_64__ && !defined __ILP32__
+    extern long syscall(long, ...);
+
+    // arch_prctl(ARCH_REQ_XCOMP_PERM, XFEATURE_XTILEDATA)
+    syscall(158, 0x1023, 18);
+'''
+          if old not in s:
+              raise SystemExit('AMX inline asm block not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s)
+          PY
+          gcc main.c -o /tmp/ruapu
+          /tmp/ruapu >/dev/null 2>&1
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ruapu.h
+          git rm .github/workflows/update-amx-syscall-wrapper.yml
+          git commit -m 'x86: avoid inline asm for AMX permission request'
+          git push origin HEAD:fix/amx-os-enable
