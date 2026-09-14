@@ -1,0 +1,45 @@
+name: refresh-pr137
+
+on:
+  push:
+    branches:
+      - riscv-zicntr-zihpm
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: riscv-zicntr-zihpm
+      - name: Apply zicntr and zihpm changes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('main.c')
+          s = p.read_text()
+          s = s.replace('    PRINT_ISA_SUPPORT(zicbop)\n    PRINT_ISA_SUPPORT(zicbom)\n', '    PRINT_ISA_SUPPORT(zicbop)\n    PRINT_ISA_SUPPORT(zicbom)\n    PRINT_ISA_SUPPORT(zicntr)\n', 1)
+          s = s.replace('    PRINT_ISA_SUPPORT(zihintpause)\n    PRINT_ISA_SUPPORT(zmmul)\n', '    PRINT_ISA_SUPPORT(zihintpause)\n    PRINT_ISA_SUPPORT(zihpm)\n    PRINT_ISA_SUPPORT(zmmul)\n', 1)
+          p.write_text(s)
+
+          p = Path('ruapu.h')
+          s = p.read_text()
+          s = s.replace('RUAPU_INSTCODE(zicbop, 0x00116013) // prefetch.r 0(sp)\nRUAPU_INSTCODE(zicbom', 'RUAPU_INSTCODE(zicbop, 0x00116013) // prefetch.r 0(sp)\nRUAPU_INSTCODE(zicntr, 0xc0002573) // rdcycle a0\nRUAPU_INSTCODE(zicbom', 1)
+          s = s.replace('RUAPU_INSTCODE(zihintpause, 0x0100000f); // pause\nRUAPU_INSTCODE(zmmul', 'RUAPU_INSTCODE(zihintpause, 0x0100000f); // pause\nRUAPU_INSTCODE(zihpm, 0xc0302573) // csrr a0, hpmcounter3\nRUAPU_INSTCODE(zmmul', 1)
+          s = s.replace('RUAPU_ISAENTRY(zicbop)\nRUAPU_ISAENTRY(zicbom)\n', 'RUAPU_ISAENTRY(zicbop)\nRUAPU_ISAENTRY(zicbom)\nRUAPU_ISAENTRY(zicntr)\n', 1)
+          s = s.replace('RUAPU_ISAENTRY(zihintpause)\nRUAPU_ISAENTRY(zmmul)\n', 'RUAPU_ISAENTRY(zihintpause)\nRUAPU_ISAENTRY(zihpm)\nRUAPU_ISAENTRY(zmmul)\n', 1)
+          p.write_text(s)
+          PY
+          gcc main.c -o /tmp/ruapu
+          /tmp/ruapu >/dev/null 2>&1
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add main.c ruapu.h
+          git rm .github/workflows/refresh-pr137.yml
+          git commit -m 'riscv: add zicntr and zihpm detection'
+          git push origin HEAD:riscv-zicntr-zihpm
