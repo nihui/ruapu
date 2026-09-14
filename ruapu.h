@@ -31,12 +31,10 @@ typedef void (*ruapu_some_inst)();
 static void ruapu_prepare_isa()
 {
 #if defined __linux__ && defined __x86_64__ && !defined __ILP32__
-    long ret;
-    asm volatile("syscall"
-                 : "=a"(ret)
-                 : "0"(158L), "D"(0x1023L), "S"(18L)
-                 : "rcx", "r11", "memory");
-    (void)ret;
+    extern long syscall(long, ...);
+
+    // arch_prctl(ARCH_REQ_XCOMP_PERM, XFEATURE_XTILEDATA)
+    syscall(158, 0x1023, 18);
 #elif defined _WIN32 && (defined(__x86_64__) || defined(_M_X64))
     typedef BOOL (WINAPI *ruapu_enable_process_optional_xstate_features)(DWORD64);
 
