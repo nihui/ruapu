@@ -43,6 +43,12 @@ int main()
 2. `ruapu.c` is **ONLY** `#define RUAPU_IMPLEMENTATION` and `#include "ruapu.h"`
 3. Other sources `#include "ruapu.h"` but **NO** `#define RUAPU_IMPLEMENTATION`
 
+#### Threading requirements
+
+`ruapu_init()` must be called exactly once during single-threaded program startup, before creating additional threads. Concurrent calls to `ruapu_init()`, or calling it after other threads have started, are unsupported.
+
+After `ruapu_init()` has completed, `ruapu_supports()` and `ruapu_rua()` only read the initialized feature list and may be called from multiple threads.
+
 ## Features
 
 * Detect **CPU ISA with single-file**&emsp;&emsp;&emsp;
