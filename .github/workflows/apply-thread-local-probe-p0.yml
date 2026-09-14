@@ -1,0 +1,38 @@
+name: apply thread local probe state fix
+
+on:
+  push:
+    branches: [fix/thread-local-probe-state-p0]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fix/thread-local-probe-state-p0
+      - name: Apply fix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('ruapu.h')
+          s = p.read_text()
+          old = '''static volatile sig_atomic_t g_ruapu_sig_caught = 0;\nstatic sigjmp_buf g_ruapu_jmpbuf;\n'''
+          new = '''static __thread volatile sig_atomic_t g_ruapu_sig_caught = 0;\nstatic __thread sigjmp_buf g_ruapu_jmpbuf;\n'''
+          if old not in s:
+              raise SystemExit('target block not found')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          gcc main.c -o /tmp/ruapu
+          /tmp/ruapu >/dev/null 2>&1
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ruapu.h
+          git rm .github/workflows/apply-thread-local-probe-p0.yml
+          git commit -m 'unix: make probe state thread-local'
+          git push origin HEAD:fix/thread-local-probe-state-p0
