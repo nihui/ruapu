@@ -367,69 +367,157 @@ RUAPU_INSTCODE(apx, 0xd5, 0x40, 0x8d, 0x00) // lea r16d,[rax]
 
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_INSTCODE(neon, 0x4e20d400) // fadd v0.4s,v0.4s,v0.4s
+RUAPU_INSTCODE(fp, 0x1e2e1000) // fmov s0,#1.0
+RUAPU_INSTCODE(fphp, 0x1ee02800) // fadd h0,h0,h0
 RUAPU_INSTCODE(vfpv4, 0x1f000000) // fmadd s0,s0,s0,s0
+
 RUAPU_INSTCODE(lse, 0xf82083e0, 0xf82083e0) // swp x0,x0,[sp] + swp x0,x0,[sp]
+RUAPU_INSTCODE(lrcpc, 0xb8bfc3e0) // ldapr w0,[sp]
+RUAPU_INSTCODE(ilrcpc, 0x994083e0) // ldapur w0,[sp,#8]
+RUAPU_INSTCODE(lrcpc3, 0x99411be0) // ldiapp w0,w1,[sp]
+RUAPU_INSTCODE(lse128, 0x192183e0, 0x192183e0) // swpp x0,x1,[sp] twice to restore memory
+RUAPU_INSTCODE(lsfe, 0x794003e1, 0x910003e0, 0x7c20801f, 0x790003e1) // ldrh w1,[sp] + mov x0,sp + stfadd h0,[x0] + strh w1,[sp]
+
 RUAPU_INSTCODE(cpuid, 0xd5380000) // mrs x0,midr_el1
+RUAPU_INSTCODE(flagm, 0xd500401f) // cfinv
+RUAPU_INSTCODE(flagm2, 0xd500405f) // axflag
+RUAPU_INSTCODE(rng, 0xd53b2400) // mrs x0,rndr
+RUAPU_INSTCODE(fpmr, 0xd53b4440) // mrs x0,fpmr
+RUAPU_INSTCODE(gcs, 0xd53b2520) // mrs x0,gcspr_el0
+RUAPU_INSTCODE(poe, 0xd53ba280) // mrs x0,por_el0
+RUAPU_INSTCODE(cssc, 0xdac01c00) // cnt x0,x0
+RUAPU_INSTCODE(cmpbr, 0x74c00040, 0x00000000) // cbeq w0,w0,+8 + udf #0
+RUAPU_INSTCODE(hbc, 0x54000030) // bc.eq +4
+RUAPU_INSTCODE(fprcvt, 0x1efa0000) // fcvtas s0,h0
+
 RUAPU_INSTCODE(asimdrdm, 0x6e808400) // sqrdmlah v0.4s,v0.4s,v0.4s
 RUAPU_INSTCODE(asimdhp, 0x0e401400) // fadd v0.4h,v0.4h,v0.4h
-RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4h,v0.16b,v0.16b
+RUAPU_INSTCODE(asimddp, 0x4e809400) // sdot v0.4s,v0.16b,v0.16b
 RUAPU_INSTCODE(asimdfhm, 0x4e20ec00) // fmlal v0.4s,v0.4h,v0.4h
-RUAPU_INSTCODE(bf16, 0x6e40ec00) // bfmmla v0.4h,v0.8h,v0.8h
-RUAPU_INSTCODE(i8mm, 0x4e80a400) // smmla v0.4h,v0.16b,v0.16b
+RUAPU_INSTCODE(bf16, 0x6e40ec00) // bfmmla v0.4s,v0.8h,v0.8h
+RUAPU_INSTCODE(i8mm, 0x4e80a400) // smmla v0.4s,v0.16b,v0.16b
 RUAPU_INSTCODE(frint, 0x4e21e800) // frint32z v0.4s,v0.4s
 RUAPU_INSTCODE(jscvt, 0x1e7e0000) // fjcvtzs w0,d0
 RUAPU_INSTCODE(fcma, 0x6e80c400) // fcmla v0.4s,v0.4s,v0.4s,#0
+RUAPU_INSTCODE(faminmax, 0x2ec01c00) // famin v0.4h,v0.4h,v0.4h
+RUAPU_INSTCODE(lut, 0x4e801000) // luti2 v0.16b,{v0.16b},v0[0]
+RUAPU_INSTCODE(f8cvt, 0x2ec03c00) // fscale v0.4h,v0.4h,v0.4h
+RUAPU_INSTCODE(f8fma, 0x0ec0fc00) // fmlalb v0.8h,v0.16b,v0.16b
+RUAPU_INSTCODE(f8dp4, 0x0e00fc00) // fdot v0.2s,v0.2s,v0.2s
+RUAPU_INSTCODE(f8dp2, 0x0e40fc00) // fdot v0.4h,v0.4h,v0.4h
+RUAPU_INSTCODE(f8mm8, 0x6e80ec00) // fmmla v0.4s,v0.16b,v0.16b
+RUAPU_INSTCODE(f8mm4, 0x6e00ec00) // fmmla v0.4h,v0.16b,v0.16b
+RUAPU_INSTCODE(f16mm, 0x4ec0ec00) // fmmla v0.8h,v0.8h,v0.8h
+RUAPU_INSTCODE(f16f32dot, 0x0f409000) // fdot v0.2s,v0.4h,v0.2h[0]
+RUAPU_INSTCODE(f16f32mm, 0x4e40ec00) // fmmla v0.4s,v0.8h,v0.8h
+
+RUAPU_INSTCODE(mops, 0x910003e0, 0x910003e1, 0xaa1f03e2, 0x1d010440) // mov x0,sp + mov x1,sp + mov x2,xzr + cpyp [x0]!,[x1]!,x2!
+
 RUAPU_INSTCODE(mte, 0xd96003e0) // ldg x0,[sp]
 RUAPU_INSTCODE(mte2, 0xd9e003e0) // ldgm x0,[sp]
-RUAPU_INSTCODE(sve, 0x65608000) // fmad z0.h,p0/m,z0.h,z0.h
-RUAPU_INSTCODE(sve2, 0x44405000) // smlslb z0.h,z0.b,z0.b
-RUAPU_INSTCODE(sve2p1, 0xd503437f, 0x04052000, 0xd503427f) // smstart sm + addqv v0.16b,p0,z0.b + smstop sm
-RUAPU_INSTCODE(svebf16, 0x6460e400) // bfmmla z0.s,z0.h,z0.h
-RUAPU_INSTCODE(svei8mm, 0x45009800) // smmla z0.s,z0.b,z0.b
+
+RUAPU_INSTCODE(sve, 0x04bf5000) // rdvl x0,#0
+RUAPU_INSTCODE(sve2, 0x4408a000) // sqabs z0.b,p0/m,z0.b
+RUAPU_INSTCODE(sve2p1, 0x2518e400, 0xc400a000) // pfalse p0.b + ld1q {z0.q},p0/z,[z0.d,x0]
+RUAPU_INSTCODE(sve2p2, 0x04cea000) // not z0.d,p0/z,z0.d
+RUAPU_INSTCODE(sve2p3, 0x04207800) // addqp z0.b,z0.b,z0.b
+RUAPU_INSTCODE(svebf16, 0x658aa000) // bfcvt z0.h,p0/m,z0.s
+RUAPU_INSTCODE(svei8mm, 0x44a01800) // usdot z0.s,z0.b,z0.b[0]
 RUAPU_INSTCODE(svef32mm, 0x64a0e400) // fmmla z0.s,z0.s,z0.s
 RUAPU_INSTCODE(svef64mm, 0x64e0e400) // fmmla z0.d,z0.d,z0.d
-RUAPU_INSTCODE(sme, 0xd503477f, 0x80800000, 0xd503467f) // smstart + fmopa za0.s,p0/m,p0/m,z0.s,z0.s + smstop
-RUAPU_INSTCODE(smef16f16, 0xd503477f, 0x81800008, 0xd503467f) // smstart + fmopa za0.h,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(svef16mm, 0x6420e400) // fmmla z0.s,z0.h,z0.h
+RUAPU_INSTCODE(sveeltperm, 0x05218000) // compact z0.b,p0,z0.b
+RUAPU_INSTCODE(sveaes2, 0x4522ec00) // aesd {z0.b-z1.b},{z0.b-z1.b},z0.q
+RUAPU_INSTCODE(svebfscale, 0x65098000) // bfscale z0.h,p0/m,z0.h,z0.h
+RUAPU_INSTCODE(sveb16b16, 0x65000000) // bfadd z0.h,z0.h,z0.h
+RUAPU_INSTCODE(sveb16mm, 0x64e0e000) // bfmmla z0.h,z0.h,z0.h
+RUAPU_INSTCODE(svelut6, 0x4560ac00) // luti6 z0.h,{z0.h-z1.h},z0[0]
+RUAPU_INSTCODE(svepmull, 0x45006800) // pmullb z0.q,z0.d,z0.d
+RUAPU_INSTCODE(svebitperm, 0x4500b400) // bdep z0.b,z0.b,z0.b
+RUAPU_INSTCODE(sveaes, 0x4522e400) // aesd z0.b,z0.b,z0.b
+RUAPU_INSTCODE(svesha3, 0x04203800) // eor3 z0.d,z0.d,z0.d,z0.d
+RUAPU_INSTCODE(svesm4, 0x4523e000) // sm4e z0.s,z0.s,z0.s
+
+RUAPU_INSTCODE(sme, 0x04bf5800) // rdsvl x0,#0
+RUAPU_INSTCODE(smei16i64, 0xd503477f, 0xa0c00000, 0xd503467f) // smstart + smopa za0.d,p0/m,p0/m,z0.h,z0.h + smstop
 RUAPU_INSTCODE(smef64f64, 0xd503477f, 0x80c00000, 0xd503467f) // smstart + fmopa za0.d,p0/m,p0/m,z0.d,z0.d + smstop
-RUAPU_INSTCODE(smei64i64, 0xd503477f, 0xa0c00000, 0xd503467f) // smstart + smopa za0.d,p0/m,p0/m,z0.h,z0.h + smstop
-RUAPU_INSTCODE(pmull, 0x0e20e000) // pmull v0.8h,v0.8b,v0.8b
+RUAPU_INSTCODE(smei8i32, 0xd503477f, 0xa0800000, 0xd503467f) // smstart + smopa za0.s,p0/m,p0/m,z0.b,z0.b + smstop
+RUAPU_INSTCODE(smef16f32, 0xd503477f, 0x81a00000, 0xd503467f) // smstart + fmopa za0.s,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(smeb16f32, 0xd503477f, 0x81800000, 0xd503467f) // smstart + bfmopa za0.s,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(smef32f32, 0xd503477f, 0x80800000, 0xd503467f) // smstart + fmopa za0.s,p0/m,p0/m,z0.s,z0.s + smstop
+RUAPU_INSTCODE(smefa64, 0xd503437f, 0x4e205800, 0xd503427f) // smstart sm + cnt v0.16b,v0.16b + smstop sm
+RUAPU_INSTCODE(sme2, 0xd503457f, 0xc0480001, 0xd503467f) // smstart za + zero zt0 + smstop
+RUAPU_INSTCODE(sme2p1, 0xd503437f, 0xc120c000, 0xd503467f) // smstart sm + bfclamp + smstop
+RUAPU_INSTCODE(sme2p2, 0xd503437f, 0x04c1a000, 0xd503467f) // smstart sm + uxtb z0.d,p0/z,z0.d + smstop
+RUAPU_INSTCODE(sme2p3, 0xd503437f, 0x04207800, 0xd503467f) // smstart sm + addqp z0.b,z0.b,z0.b + smstop
+RUAPU_INSTCODE(smei16i32, 0xd503477f, 0xa0800008, 0xd503467f) // smstart + smopa za0.s,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(smebi32i32, 0xd503477f, 0x80800008, 0xd503467f) // smstart + bmopa za0.s,p0/m,p0/m,z0.s,z0.s + smstop
+RUAPU_INSTCODE(smeb16b16, 0xd503477f, 0xc1e41c00, 0xd503467f) // smstart + bfadd za.h[w8,0],{z0.h-z1.h} + smstop
+RUAPU_INSTCODE(smef16f16, 0xd503477f, 0x81800008, 0xd503467f) // smstart + fmopa za0.h,p0/m,p0/m,z0.h,z0.h + smstop
+RUAPU_INSTCODE(smeaes, 0xd503437f, 0x4522e400, 0xd503467f) // smstart sm + aesd z0.b,z0.b,z0.b + smstop
+RUAPU_INSTCODE(smesbitperm, 0xd503437f, 0x4500b400, 0xd503467f) // smstart sm + bdep z0.b,z0.b,z0.b + smstop
+RUAPU_INSTCODE(smef8f16, 0xd503477f, 0xc1a01020, 0xd503467f) // smstart + fdot za.h[w8,0],{z0.b-z1.b},{z0.b-z1.b} + smstop
+RUAPU_INSTCODE(smef8f32, 0xd503477f, 0xc1500038, 0xd503467f) // smstart + fdot za.s[w8,0],{z0.b-z1.b},z0.b[0] + smstop
+RUAPU_INSTCODE(smelut6, 0xd503477f, 0xc08a0000, 0xd503467f) // smstart + luti6 + smstop
+RUAPU_INSTCODE(smelutv2, 0xd503477f, 0xc08b0000, 0xd503467f) // smstart + luti4 + smstop
+RUAPU_INSTCODE(smesf8fma, 0xd503477f, 0x64205000, 0xd503467f) // smstart + fmlalb z0.h,z0.b,z0.b + smstop
+RUAPU_INSTCODE(smesf8dp2, 0xd503477f, 0x64204400, 0xd503467f) // smstart + fdot z0.h,z0.b,z0.b[0] + smstop
+RUAPU_INSTCODE(smesf8dp4, 0xd503477f, 0x64604400, 0xd503467f) // smstart + fdot z0.s,z0.b,z0.b[0] + smstop
+RUAPU_INSTCODE(smesfexpa, 0xd503477f, 0x04e0b800, 0xd503467f) // smstart + fexpa z0.d,z0.d + smstop
+RUAPU_INSTCODE(smesmop4, 0xd503477f, 0x80108000, 0xd503467f) // smstart + smop4a + smstop
+RUAPU_INSTCODE(smestmop, 0xd503477f, 0x80408008, 0xd503467f) // smstart + stmopa + smstop
+
+RUAPU_INSTCODE(pmull, 0x0ee0e000) // pmull v0.1q,v0.1d,v0.1d
 RUAPU_INSTCODE(crc32, 0x1ac04000) // crc32b w0,w0,w0
 RUAPU_INSTCODE(aes, 0x4e285800) // aesd v0.16b,v0.16b
 RUAPU_INSTCODE(sha1, 0x5e280800) // sha1h s0,s0
 RUAPU_INSTCODE(sha2, 0x5e004000) // sha256h q0,q0,v0.4s
-RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b, v0.16b, v0.16b, v0.16b
-RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0, q0, v0.2d
-RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s, v0.4s, v0.4s
-RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s, v0.4s
-RUAPU_INSTCODE(svepmull, 0x45006800) // pmullb z0.q,z0.d,z0.d
-RUAPU_INSTCODE(svebitperm, 0x4500b000) // bext z0.b,z0.b,z0.b
-RUAPU_INSTCODE(sveaes, 0x4522e400) // aesd z0.b,z0.b,z0.b
-RUAPU_INSTCODE(svesha3, 0x4520f400) // rax1 z0.d,z0.d,z0.d
-RUAPU_INSTCODE(svesm4, 0x4523e000) // sm4e z0.s,z0.s,z0.s
+RUAPU_INSTCODE(sha3, 0xce000000) // eor3 v0.16b,v0.16b,v0.16b,v0.16b
+RUAPU_INSTCODE(sha512, 0xce608000) // sha512h q0,q0,v0.2d
+RUAPU_INSTCODE(sm3, 0xce60c000) // sm3partw1 v0.4s,v0.4s,v0.4s
+RUAPU_INSTCODE(sm4, 0xcec08400) // sm4e v0.4s,v0.4s
 RUAPU_INSTCODE(amx, 0x00201220) // amx setup
-RUAPU_INSTCODE(paca, 0xdac10020) // pacia x0, x1
-RUAPU_INSTCODE(pacg, 0x9ac23020) // pacga x0, x1, x2
-
+RUAPU_INSTCODE(paca, 0xdac10020) // pacia x0,x1
+RUAPU_INSTCODE(pacg, 0x9ac23020) // pacga x0,x1,x2
 
 #elif __arm__ || defined(_M_ARM)
 #if __thumb__
 RUAPU_INSTCODE(half, 0xf8bd, 0x0000) // ldrh r0,[sp]
 RUAPU_INSTCODE(edsp, 0xfb20, 0x0000) // smlad r0,r0,r0,r0
+RUAPU_INSTCODE(vfp, 0xee30, 0x0a00) // vadd.f32 s0,s0,s0
+RUAPU_INSTCODE(fphp, 0xee30, 0x0900) // vadd.f16 s0,s0,s0
 RUAPU_INSTCODE(neon, 0xef00, 0x0d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea0, 0x0a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0x2003, 0xfb90, 0xf0f0) // movs r0,#3 + sdiv r0,r0,r0
 RUAPU_INSTCODE(asimdhp, 0xef10, 0x0d00) // vadd.f16 d0,d0,d0
 RUAPU_INSTCODE(asimddp, 0xfc20, 0x0d40) // vsdot.s8 q0,q0,q0
 RUAPU_INSTCODE(asimdfhm, 0xfc20, 0x0850) // vfmal.f16 q0,d0,d0
+RUAPU_INSTCODE(asimdbf16, 0xfc00, 0x0d40) // vdot.bf16 q0,q0,q0
+RUAPU_INSTCODE(i8mm, 0xfc20, 0x0c40) // vsmmla.s8 q0,q0,q0
+RUAPU_INSTCODE(aes, 0xffb0, 0x0300) // aese.8 q0,q0
+RUAPU_INSTCODE(pmull, 0xefa0, 0x0e00) // vmull.p64 q0,d0,d0
+RUAPU_INSTCODE(sha1, 0xffb9, 0x02c0) // sha1h.32 q0,q0
+RUAPU_INSTCODE(sha2, 0xff00, 0x0c40) // sha256h.32 q0,q0,q0
+RUAPU_INSTCODE(crc32, 0xfac0, 0xf0a0) // crc32w r0,r0,r0
 #else
 RUAPU_INSTCODE(half, 0xe1dd00b0) // ldrh r0,[sp]
 RUAPU_INSTCODE(edsp, 0xe7000010) // smlad r0,r0,r0,r0
+RUAPU_INSTCODE(vfp, 0xee300a00) // vadd.f32 s0,s0,s0
+RUAPU_INSTCODE(fphp, 0xee300900) // vadd.f16 s0,s0,s0
 RUAPU_INSTCODE(neon, 0xf2000d40) // vadd.f32 q0,q0,q0
 RUAPU_INSTCODE(vfpv4, 0xeea00a00) // vfma.f32 s0,s0,s0
 RUAPU_INSTCODE(idiv, 0xe3a00003, 0xe710f010) // movs r0,#3 + sdiv r0,r0,r0
 RUAPU_INSTCODE(asimdhp, 0xf2100d00) // vadd.f16 d0,d0,d0
 RUAPU_INSTCODE(asimddp, 0xfc200d40) // vsdot.s8 q0,q0,q0
 RUAPU_INSTCODE(asimdfhm, 0xfc200850) // vfmal.f16 q0,d0,d0
+RUAPU_INSTCODE(asimdbf16, 0xfc000d40) // vdot.bf16 q0,q0,q0
+RUAPU_INSTCODE(i8mm, 0xfc200c40) // vsmmla.s8 q0,q0,q0
+RUAPU_INSTCODE(iwmmxt, 0xeddd0100) // wldrd wr0,[sp]
+RUAPU_INSTCODE(aes, 0xf3b00300) // aese.8 q0,q0
+RUAPU_INSTCODE(pmull, 0xf2a00e00) // vmull.p64 q0,d0,d0
+RUAPU_INSTCODE(sha1, 0xf3b902c0) // sha1h.32 q0,q0
+RUAPU_INSTCODE(sha2, 0xf3000c40) // sha256h.32 q0,q0,q0
+RUAPU_INSTCODE(crc32, 0xe1400040) // crc32w r0,r0,r0
 #endif
 
 #elif __mips__
@@ -694,9 +782,26 @@ RUAPU_ISAENTRY(apx)
 #endif
 #elif __aarch64__ || defined(_M_ARM64)
 RUAPU_ISAENTRY(neon)
+RUAPU_ISAENTRY(fp)
+RUAPU_ISAENTRY(fphp)
 RUAPU_ISAENTRY(vfpv4)
 RUAPU_ISAENTRY(lse)
+RUAPU_ISAENTRY(lrcpc)
+RUAPU_ISAENTRY(ilrcpc)
+RUAPU_ISAENTRY(lrcpc3)
+RUAPU_ISAENTRY(lse128)
+RUAPU_ISAENTRY(lsfe)
 RUAPU_ISAENTRY(cpuid)
+RUAPU_ISAENTRY(flagm)
+RUAPU_ISAENTRY(flagm2)
+RUAPU_ISAENTRY(rng)
+RUAPU_ISAENTRY(fpmr)
+RUAPU_ISAENTRY(gcs)
+RUAPU_ISAENTRY(poe)
+RUAPU_ISAENTRY(cssc)
+RUAPU_ISAENTRY(cmpbr)
+RUAPU_ISAENTRY(hbc)
+RUAPU_ISAENTRY(fprcvt)
 RUAPU_ISAENTRY(asimdrdm)
 RUAPU_ISAENTRY(asimdhp)
 RUAPU_ISAENTRY(asimddp)
@@ -706,19 +811,69 @@ RUAPU_ISAENTRY(i8mm)
 RUAPU_ISAENTRY(frint)
 RUAPU_ISAENTRY(jscvt)
 RUAPU_ISAENTRY(fcma)
+RUAPU_ISAENTRY(faminmax)
+RUAPU_ISAENTRY(lut)
+RUAPU_ISAENTRY(f8cvt)
+RUAPU_ISAENTRY(f8fma)
+RUAPU_ISAENTRY(f8dp4)
+RUAPU_ISAENTRY(f8dp2)
+RUAPU_ISAENTRY(f8mm8)
+RUAPU_ISAENTRY(f8mm4)
+RUAPU_ISAENTRY(f16mm)
+RUAPU_ISAENTRY(f16f32dot)
+RUAPU_ISAENTRY(f16f32mm)
+RUAPU_ISAENTRY(mops)
 RUAPU_ISAENTRY(mte)
 RUAPU_ISAENTRY(mte2)
 RUAPU_ISAENTRY(sve)
 RUAPU_ISAENTRY(sve2)
 RUAPU_ISAENTRY(sve2p1)
+RUAPU_ISAENTRY(sve2p2)
+RUAPU_ISAENTRY(sve2p3)
 RUAPU_ISAENTRY(svebf16)
 RUAPU_ISAENTRY(svei8mm)
 RUAPU_ISAENTRY(svef32mm)
 RUAPU_ISAENTRY(svef64mm)
+RUAPU_ISAENTRY(svef16mm)
+RUAPU_ISAENTRY(sveeltperm)
+RUAPU_ISAENTRY(sveaes2)
+RUAPU_ISAENTRY(svebfscale)
+RUAPU_ISAENTRY(sveb16b16)
+RUAPU_ISAENTRY(sveb16mm)
+RUAPU_ISAENTRY(svelut6)
+RUAPU_ISAENTRY(svepmull)
+RUAPU_ISAENTRY(svebitperm)
+RUAPU_ISAENTRY(sveaes)
+RUAPU_ISAENTRY(svesha3)
+RUAPU_ISAENTRY(svesm4)
 RUAPU_ISAENTRY(sme)
-RUAPU_ISAENTRY(smef16f16)
+RUAPU_ISAENTRY(smei16i64)
 RUAPU_ISAENTRY(smef64f64)
-RUAPU_ISAENTRY(smei64i64)
+RUAPU_ISAENTRY(smei8i32)
+RUAPU_ISAENTRY(smef16f32)
+RUAPU_ISAENTRY(smeb16f32)
+RUAPU_ISAENTRY(smef32f32)
+RUAPU_ISAENTRY(smefa64)
+RUAPU_ISAENTRY(sme2)
+RUAPU_ISAENTRY(sme2p1)
+RUAPU_ISAENTRY(sme2p2)
+RUAPU_ISAENTRY(sme2p3)
+RUAPU_ISAENTRY(smei16i32)
+RUAPU_ISAENTRY(smebi32i32)
+RUAPU_ISAENTRY(smeb16b16)
+RUAPU_ISAENTRY(smef16f16)
+RUAPU_ISAENTRY(smeaes)
+RUAPU_ISAENTRY(smesbitperm)
+RUAPU_ISAENTRY(smef8f16)
+RUAPU_ISAENTRY(smef8f32)
+RUAPU_ISAENTRY(smelut6)
+RUAPU_ISAENTRY(smelutv2)
+RUAPU_ISAENTRY(smesf8fma)
+RUAPU_ISAENTRY(smesf8dp2)
+RUAPU_ISAENTRY(smesf8dp4)
+RUAPU_ISAENTRY(smesfexpa)
+RUAPU_ISAENTRY(smesmop4)
+RUAPU_ISAENTRY(smestmop)
 RUAPU_ISAENTRY(pmull)
 RUAPU_ISAENTRY(crc32)
 RUAPU_ISAENTRY(aes)
@@ -728,25 +883,30 @@ RUAPU_ISAENTRY(sha3)
 RUAPU_ISAENTRY(sha512)
 RUAPU_ISAENTRY(sm3)
 RUAPU_ISAENTRY(sm4)
-RUAPU_ISAENTRY(svepmull)
-RUAPU_ISAENTRY(svebitperm)
-RUAPU_ISAENTRY(sveaes)
-RUAPU_ISAENTRY(svesha3)
-RUAPU_ISAENTRY(svesm4)
 RUAPU_ISAENTRY(amx)
 RUAPU_ISAENTRY(paca)
 RUAPU_ISAENTRY(pacg)
-
 #elif __arm__ || defined(_M_ARM)
 RUAPU_ISAENTRY(half)
 RUAPU_ISAENTRY(edsp)
+RUAPU_ISAENTRY(vfp)
+RUAPU_ISAENTRY(fphp)
 RUAPU_ISAENTRY(neon)
 RUAPU_ISAENTRY(vfpv4)
 RUAPU_ISAENTRY(idiv)
 RUAPU_ISAENTRY(asimdhp)
 RUAPU_ISAENTRY(asimddp)
 RUAPU_ISAENTRY(asimdfhm)
-
+RUAPU_ISAENTRY(asimdbf16)
+RUAPU_ISAENTRY(i8mm)
+#if !__thumb__
+RUAPU_ISAENTRY(iwmmxt)
+#endif
+RUAPU_ISAENTRY(aes)
+RUAPU_ISAENTRY(pmull)
+RUAPU_ISAENTRY(sha1)
+RUAPU_ISAENTRY(sha2)
+RUAPU_ISAENTRY(crc32)
 #elif __mips__
 RUAPU_ISAENTRY(msa)
 RUAPU_ISAENTRY(mxu)
