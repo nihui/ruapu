@@ -267,7 +267,7 @@ static int ruapu_detect_isa(ruapu_some_inst some_inst)
 #else
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".word " #__VA_ARGS__ ); }
 #endif
-#elif __ppc__ || __powerpc__
+#elif __ppc__ || __powerpc__ || __POWERPC__
 #define RUAPU_INSTCODE(isa, ...) static void ruapu_some_##isa() { asm volatile(".long " #__VA_ARGS__ ); }
 #endif
 
@@ -443,7 +443,7 @@ RUAPU_INSTCODE(asx, 0xec40001d) // __lasx_xfmadd_w
 RUAPU_INSTCODE(msa2, 0x78000008) // __msa2_vperm_b
 RUAPU_INSTCODE(crypto, 0x78010017) // __crypto_aes128_dec
 
-#elif __ppc__ || __powerpc__
+#elif __ppc__ || __powerpc__ || __POWERPC__
 RUAPU_INSTCODE(altivec, 0x10421040) // vadduhm v2,v2,v2
 RUAPU_INSTCODE(vsx, 0x104210c0) // vaddudm v2,v2,v2
 
@@ -758,7 +758,7 @@ RUAPU_ISAENTRY(asx)
 RUAPU_ISAENTRY(msa2)
 RUAPU_ISAENTRY(crypto)
 
-#elif __ppc__ || __powerpc__
+#elif __ppc__ || __powerpc__ || __POWERPC__
 RUAPU_ISAENTRY(altivec)
 RUAPU_ISAENTRY(vsx)
 
