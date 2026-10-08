@@ -435,7 +435,8 @@ RUAPU_INSTCODE(svelut6, 0x4560ac00) // luti6 z0.h,{z0.h-z1.h},z0[0]
 RUAPU_INSTCODE(svepmull, 0x45006800) // pmullb z0.q,z0.d,z0.d
 RUAPU_INSTCODE(svebitperm, 0x4500b400) // bdep z0.b,z0.b,z0.b
 RUAPU_INSTCODE(sveaes, 0x4522e400) // aesd z0.b,z0.b,z0.b
-RUAPU_INSTCODE(svesha3, 0x04203800) // eor3 z0.d,z0.d,z0.d,z0.d
+// eor3 only requires sve2, use an instruction specific to sve sha3
+RUAPU_INSTCODE(svesha3, 0x4520f400) // rax1 z0.d,z0.d,z0.d
 RUAPU_INSTCODE(svesm4, 0x4523e000) // sm4e z0.s,z0.s,z0.s
 
 RUAPU_INSTCODE(sme, 0x04bf5800) // rdsvl x0,#0
@@ -447,7 +448,8 @@ RUAPU_INSTCODE(smeb16f32, 0xd503477f, 0x81800000, 0xd503467f) // smstart + bfmop
 RUAPU_INSTCODE(smef32f32, 0xd503477f, 0x80800000, 0xd503467f) // smstart + fmopa za0.s,p0/m,p0/m,z0.s,z0.s + smstop
 RUAPU_INSTCODE(smefa64, 0xd503437f, 0x4e205800, 0xd503427f) // smstart sm + cnt v0.16b,v0.16b + smstop sm
 RUAPU_INSTCODE(sme2, 0xd503457f, 0xc0480001, 0xd503467f) // smstart za + zero zt0 + smstop
-RUAPU_INSTCODE(sme2p1, 0xd503437f, 0xc120c000, 0xd503467f) // smstart sm + bfclamp + smstop
+// movaz requires sme2p1 without optional bf16 extensions
+RUAPU_INSTCODE(sme2p1, 0xd503477f, 0xc0020200, 0xd503467f) // smstart + movaz z0.b,za0h.b[w12,0] + smstop
 RUAPU_INSTCODE(sme2p2, 0xd503437f, 0x04c1a000, 0xd503467f) // smstart sm + uxtb z0.d,p0/z,z0.d + smstop
 RUAPU_INSTCODE(sme2p3, 0xd503437f, 0x04207800, 0xd503467f) // smstart sm + addqp z0.b,z0.b,z0.b + smstop
 RUAPU_INSTCODE(smei16i32, 0xd503477f, 0xa0800008, 0xd503467f) // smstart + smopa za0.s,p0/m,p0/m,z0.h,z0.h + smstop
@@ -512,7 +514,8 @@ RUAPU_INSTCODE(asimddp, 0xfc200d40) // vsdot.s8 q0,q0,q0
 RUAPU_INSTCODE(asimdfhm, 0xfc200850) // vfmal.f16 q0,d0,d0
 RUAPU_INSTCODE(asimdbf16, 0xfc000d40) // vdot.bf16 q0,q0,q0
 RUAPU_INSTCODE(i8mm, 0xfc200c40) // vsmmla.s8 q0,q0,q0
-RUAPU_INSTCODE(iwmmxt, 0xeddd0100) // wldrd wr0,[sp]
+// wor uses cp0 so an emulated fpa load cannot pass this probe
+RUAPU_INSTCODE(iwmmxt, 0xeddd0100, 0xee000000) // wldrd wr0,[sp] + wor wr0,wr0,wr0
 RUAPU_INSTCODE(aes, 0xf3b00300) // aese.8 q0,q0
 RUAPU_INSTCODE(pmull, 0xf2a00e00) // vmull.p64 q0,d0,d0
 RUAPU_INSTCODE(sha1, 0xf3b902c0) // sha1h.32 q0,q0
@@ -848,6 +851,7 @@ RUAPU_ISAENTRY(svesha3)
 RUAPU_ISAENTRY(svesm4)
 RUAPU_ISAENTRY(sme)
 RUAPU_ISAENTRY(smei16i64)
+{ "smei64i64", (ruapu_some_inst)(void*)ruapu_some_smei16i64 }, // compatibility alias
 RUAPU_ISAENTRY(smef64f64)
 RUAPU_ISAENTRY(smei8i32)
 RUAPU_ISAENTRY(smef16f32)
@@ -1078,9 +1082,13 @@ void ruapu_init()
 
 #if defined _WIN32 || defined __ANDROID__ || defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __NetBSD__ || defined __OpenBSD__ || defined __DragonFly__ || defined __sun__ || defined __SYTERKIT__
     size_t j = 0;
+    int capable = 0;
     for (size_t i = 0; i < sizeof(g_ruapu_isa_map) / sizeof(g_ruapu_isa_map[0]); i++)
     {
-        int capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
+        // reuse the probe result for adjacent aliases
+        if (i == 0 || g_ruapu_isa_map[i].inst != g_ruapu_isa_map[i - 1].inst)
+            capable = ruapu_detect_isa(g_ruapu_isa_map[i].inst);
+
         if (capable)
         {
             g_ruapu_isa_supported[j] = g_ruapu_isa_map[i].isa;
